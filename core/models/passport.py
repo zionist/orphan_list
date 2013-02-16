@@ -91,4 +91,3 @@ class Passport(models.Model):
 
     # search
     search = SphinxSearch()
-

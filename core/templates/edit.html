@@ -15,19 +15,10 @@
       </li>
     </ul>
 
-  <table class="table table-bordered table-striped table-hover">
-        <tbody>
-            <tr>
-                <th>Название</th>
-                <th>Значение</th>
-            </tr>
-            {% for field in passport_fields %}
-                <tr>
-                    <td>{{ field.name }}  </td>
-                    <td>{{ field.value }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-  </table>
+    <form action="{{form.object.pk}}" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit" />
+    </form>
+
   <button class="btn btn-primary" type="button">Редактировать</button>
 {% endblock %}

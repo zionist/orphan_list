@@ -45,30 +45,27 @@ class PassportDetailView(DetailView):
         return context
 
 
-class PassportFormView(FormView):
+class PassportUpdateView(UpdateView):
     def __init__(self):
-        super(PassportView, self).__init__()
-    template_name = 'view.html'
-    form_class = PassportForm
+        super(PassportUpdateView, self).__init__()
+    template_name = 'edit.html'
     model = Passport
-    success_url = "/thanks/"
 
     def dispatch(self, request, *args, **kwargs):
-       print request.__dict__
-       return super(PassportView, self).dispatch(request, *args, **kwargs)
+       return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
 
     def form_is_valid(self, form):
         print form.__dict__
         print form.save()
-        return super(PassportView, self).form_valid(form)
+        return super(PassportUpdateView, self).form_valid(form)
 
-    def get_absolute_url(self):
-        return reverse('view', kwargs={'index': self.pk})
+    def get_success_url(self):
+        return reverse('edit', kwargs={'pk': self.object.pk})
 
-    def get_object(self, queryset=None):
-        print "# object"
-        obj = Passport.objects.get(id=self.kwargs['index'])
+    def get_object(self):
+        object = super(PassportUpdateView, self).get_object()
+        return object
 
     def get_context_data(self, **kwargs):
-        context = super(FormView, self).get_context_data(**kwargs)
+        context = super(PassportUpdateView, self).get_context_data(**kwargs)
         return context
