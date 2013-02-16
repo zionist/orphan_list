@@ -1,6 +1,6 @@
 {% extends "base.html" %} 
 
-{% block title %}<h1>{{ title }}</h1>{% endblock %}
+{# block title %}<h1>{{ title }}</h1>{% endblock #}
 
 {% block content %}
     <div class="row">
@@ -10,23 +10,30 @@
                 <a href="/">Главная</a> <span class="divider">/</span>
               </li>
               <li>
-                <a href="../../../">Список учреждений</a> <span class="divider">/</span>
-              </li>
-              <li>
-                <a href="../">Просмотр</a> <span class="divider">/</span>
+                <a href="../../../">Список лиц</a> <span class="divider">/</span>
               </li>
               <li class="active">
                 <a href="#">Редактирование</a>
               </li>
             </ul>
+
+      <table class="table table-bordered table-striped table-hover">
+            <tbody>
+                <tr>
+                    <th>Название</th>
+                    <th>Значение</th>
+                </tr>
+                {% for help_text, value in passport_fields.items %}
+                    <tr>
+                        <td>{{ help_text }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+      </table>
+      <button class="btn btn-primary" type="button">Редактировать</button>
+
             
-            <form action="." method="post" class="form-horizontal">
-                {% csrf_token %}
-                {{ form }}
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                </div>
-            </form>
         </div>
     </div>
 {% endblock %}

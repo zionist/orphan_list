@@ -23,9 +23,9 @@ class Passport(models.Model):
     surname = models.CharField("Фамилия", help_text="Фамилия",
         max_length=255)
     birthday = models.DateField("Дата рождения", help_text="Дата рождения",
-        blank=True)
+        blank=True, null=True)
     date_of_list = models.DateField("Дата включения в список",
-        help_text="Дата включения в список", blank=True)
+        help_text="Дата включения в список", blank=True, null=True)
     registration_type = models.CharField("Тип регистрации",
         choices=REGISTRATION_CHOICES,
         help_text="Тип регистрации по месту жительства", max_length=1024,
@@ -85,9 +85,9 @@ class Passport(models.Model):
         blank=True)
     date_of_service_expired = models.DateField("Дата окончания учебы, службы", 
             help_text="Дата окончание учебы (службы, пребывания в местах "
-            "лишения свободы)", blank=True)
+            "лишения свободы)", blank=True, null=True)
     annotation = models.TextField("Примечания", help_text="Примечания", 
-             blank=True, null=True)
+             blank=True)
 
     # search
     search = SphinxSearch()
