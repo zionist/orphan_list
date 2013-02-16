@@ -20,5 +20,18 @@
         <input type="submit" value="Submit" />
     </form>
 
-  <button class="btn btn-primary" type="button">Редактировать</button>
+    <div class="form-actions">
+        <div class="row">
+            <div class="span1">
+                <a href="{% url view pk=1 %}">
+                    <button class="btn btn-info" type="button">Просмотреть</button>
+                </a>
+            </div>
+            <div class="span1 offset9">
+                <a href="{% url delete pk=1 %}">
+                    <button class="btn btn-danger" type="button">Удалить</button>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

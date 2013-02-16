@@ -1,0 +1,54 @@
+{% extends "base.html" %} 
+
+{% block title %} <title> {{ title }} </title>{% endblock %}
+
+{% block content %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="/">Главная</a> <span class="divider">/</span>
+      </li>
+      <li>
+        <a href="../../../">Список лиц</a> <span class="divider">/</span>
+      </li>
+      <li class="active">
+        <a href="#">Редактирование</a>
+      </li>
+    </ul>
+
+  <table class="table table-bordered table-condensed table-hover">
+        <tbody>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата рождения</th>
+                <th>Дата включения в список</th>
+                <th>Тип регистрации</th>
+                <th>Адрес проживания</th>
+                <th>Причина отсутсвия регистрации</th>
+            </tr>
+            {% for passport in passport_list %}
+                <tr>
+                    <td>{{ passport.name }} {{passport.surname }} {{passport.patronymic }}  </td>
+                    {% if passport.birthday %}
+                        <td>{{  passport.birthday }} </td>
+                    {% else %}
+                        <td> </td>
+                    {% endif %}
+
+                    {% if passport.date_of_list %}
+                        <td>{{  passport.birthday }} </td>
+                    {% else %}
+                        <td> </td>
+                    {% endif %}
+
+                    <td>{{ passport.registration_type }}  </td>
+                    <td>{{ passport.reqistration_address }}  </td>
+                    <td>{{ passport.no_reqistration_reason }}  </td>
+
+
+
+                </tr>
+            {% endfor %}
+        </tbody>
+  </table>
+  <button class="btn btn-primary" type="button">Редактировать</button>
+{% endblock %}

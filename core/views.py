@@ -1,7 +1,7 @@
 from django.views.generic.edit import (CreateView,
         UpdateView, DeleteView)
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
 from core.forms.passport import PassportForm
 from core.models import Passport
@@ -48,7 +48,7 @@ class PassportDetailView(DetailView):
 class PassportUpdateView(UpdateView):
     def __init__(self):
         super(PassportUpdateView, self).__init__()
-    template_name = 'edit.html'
+    template_name = 'update.html'
     model = Passport
 
     def dispatch(self, request, *args, **kwargs):
@@ -60,7 +60,7 @@ class PassportUpdateView(UpdateView):
         return super(PassportUpdateView, self).form_valid(form)
 
     def get_success_url(self):
-        return reverse('edit', kwargs={'pk': self.object.pk})
+        return reverse('update', kwargs={'pk': self.object.pk})
 
     def get_object(self):
         object = super(PassportUpdateView, self).get_object()
@@ -68,4 +68,34 @@ class PassportUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(PassportUpdateView, self).get_context_data(**kwargs)
+        return context
+
+
+class PassportDeleteView(DeleteView):
+    model = Passport
+    template_name="delete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PassportDeleteView, self).get_context_data(**kwargs)
+        context["title"] = self.object.__unicode__
+        return context
+
+    def get_success_url(self):
+        return reverse('list')
+
+
+class PassportListView(ListView):
+    model=Passport
+    template_name="list.html"
+
+
+    def get_queryset(self):
+        query = super(PassportListView, self).get_queryset()
+        return query
+
+
+    def get_context_data(self, **kwargs):
+        context = super(PassportListView, self).get_context_data(**kwargs)
+        context["title"] = "List"
+
         return context

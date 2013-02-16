@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+
+{% block title %} <title> {{ title }} </title>{% endblock %}
+
+{% block content %}
+    <ul class="breadcrumb">
+      <li>
+        <a href="/">Главная</a> <span class="divider">/</span>
+      </li>
+      <li>
+        <a href="../../../">Список лиц</a> <span class="divider">/</span>
+      </li>
+      <li class="active">
+        <a href="#">Редактирование</a>
+      </li>
+    </ul>
+
+    <h2> Потвердите удаление для "{{ title }}" </h2>
+
+    <form action="{% url delete pk=object.pk %}" method="post">{% csrf_token %}
+        <input type="submit" class="btn btn-primary" value="Подтвердить" />
+    </form>
+
+{% endblock %}
