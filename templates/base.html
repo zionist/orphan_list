@@ -1,0 +1,96 @@
+{% load bootstrap_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Список детей сирот</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style>
+
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/static/favicon.ico">
+    
+    <link href="/static/main.css" rel="stylesheet">
+    
+    <!-- header styles -->
+    <link rel="stylesheet" href="/static/style.css" type="text/css"/>
+
+    <!--django-bootstrap2 styles-->
+    {% bootstrap_css %}
+
+  </head>
+
+  <body>
+
+    <!--header paste start -->
+    <div id="header">
+        <div id="girls">
+        </div>
+        <div id="guys">
+        </div>
+    </div>
+   <div id="label_holder">
+        <div id="header_label"></div>
+   </div>
+    
+    <!--header paste end -->
+
+    <div class="container">
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                <a class="close">×</a>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    
+    {% block title %}{% endblock %}
+    
+    {% block content %}{% endblock %}
+
+      <footer class="footer">
+        <p>Администрация Краснодарского края</p>
+        <p>Уполномоченный орган по организации отдыха и оздоровления детей</p>
+        <p>Министерство социального развития и семейной политики Краснодарского края <a href="http://www.sznkuban.ru/">www.sznkuban.ru</a></p>
+      </footer>
+
+    </div>
+    <script src="/static/bootstrap/js/jquery.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-alert.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-modal.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tab.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-button.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+    <script src="/static/main.js"></script>
+    {% block js %}{% endblock %}
+
+  </body>
+</html>
+

@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% load bootstrap_tags %}
+
+{% block title %}<h1>{{ title }}</h1>{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="span12">
+            <ul class="breadcrumb">
+              <li>
+                <a href="/">Главная</a> <span class="divider">/</span>
+              </li>
+              <li>
+                <a href="../../../">Список учреждений</a> <span class="divider">/</span>
+              </li>
+              <li>
+                <a href="../">Просмотр</a> <span class="divider">/</span>
+              </li>
+              <li class="active">
+                <a href="#">Редактирование</a>
+              </li>
+            </ul>
+            
+            <form action="." method="post" class="form-horizontal">
+                {% csrf_token %}
+                {{ form|as_bootstrap }}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

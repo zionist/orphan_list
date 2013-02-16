@@ -1,0 +1,12 @@
+# virtual eviropment
+env/*
+
+# files
+*.pyc
+*.db
+
+# pycharm
+.idea/*
+
+# django static
+static/*
