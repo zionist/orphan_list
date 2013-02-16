@@ -7,6 +7,12 @@ from core.forms.passport import PassportForm
 from core.models import Passport
 from django.conf import settings
 
+# context interface class
+class ContextField():
+    def __init__(self, name, value):
+        self.name = name
+        self.value = value
+
 
 class PassportDetailView(DetailView):
     def __init__(self):
@@ -23,7 +29,7 @@ class PassportDetailView(DetailView):
         context = super(PassportDetailView, self).get_context_data(**kwargs)
         #dynamicly generate context from model fields
         # pass help text from models to context
-        fields = dict()
+        fields = []
         for field in self.object._meta.fields:
             if field.name == "id":
                 continue
@@ -31,10 +37,13 @@ class PassportDetailView(DetailView):
                     self.object._meta.\
                     get_field_by_name(field.name)[0].help_text
             value = field.value_from_object(self.object) or ""
-            fields.update({help_text: value})
+            fields.append(ContextField(help_text, value))
         context["passport_fields"] = fields
-        print fields
+
+        # title
+        context["title"] = self.object.__unicode__
         return context
+
 
 class PassportFormView(FormView):
     def __init__(self):
