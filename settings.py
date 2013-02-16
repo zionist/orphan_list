@@ -71,7 +71,8 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    path("tools/bootstrap"),
+    path("tools/"),
+    path("core/static"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -111,7 +112,7 @@ ROOT_URLCONF = 'orphan_list.urls'
 WSGI_APPLICATION = 'orphan_list.wsgi.application'
 
 TEMPLATE_DIRS = (
-    path("templates/"),
+    path("core/templates/"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.

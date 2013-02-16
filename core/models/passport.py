@@ -12,7 +12,7 @@ from orphan_list.common.constants import REGISTRATION_CHOICES, \
 class Passport(models.Model):
     class Meta:
         app_label = "core"
-        verbose_name = "Паспорта"
+        verbose_name = "Passport"
 
     def __unicode__(self):
         return "%s %s %s" % (self.name, self.patronymic, self.surname)
@@ -83,6 +83,11 @@ class Passport(models.Model):
         "лишения свободы", blank=True)
     other = models.TextField("Указать иное", help_text="Указать иное",
         blank=True)
+    date_of_service_expired = models.DateField("Дата окончания учебы, службы", 
+            help_text="Дата окончание учебы (службы, пребывания в местах "
+            "лишения свободы)", blank=True)
+    annotation = models.TextField("Примечания", help_text="Примечания", 
+             blank=True, null=True)
 
     # search
     search = SphinxSearch()

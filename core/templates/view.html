@@ -1,5 +1,4 @@
 {% extends "base.html" %} 
-{% load bootstrap_tags %}
 
 {% block title %}<h1>{{ title }}</h1>{% endblock %}
 
@@ -23,7 +22,7 @@
             
             <form action="." method="post" class="form-horizontal">
                 {% csrf_token %}
-                {{ form|as_bootstrap }}
+                {{ form }}
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </div>
