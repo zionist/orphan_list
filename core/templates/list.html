@@ -2,16 +2,28 @@
 
 {% block title %} <title> {{ title }} </title>{% endblock %}
 
+{% block navbar %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Список детей сирот</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li class="active"><a href="/core/list/">Главная</a></li>
+              <li><a href="{% url create %}">Создать</a></li>
+              <!--<li><a href="#contact">Логин</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
 {% block content %}
     <ul class="breadcrumb">
       <li>
-        <a href="/">Главная</a> <span class="divider">/</span>
-      </li>
-      <li>
-        <a href="../../../">Список лиц</a> <span class="divider">/</span>
-      </li>
-      <li class="active">
-        <a href="#">Редактирование</a>
+        <a href="/core/list">Список лиц</a> 
       </li>
     </ul>
 
@@ -26,7 +38,7 @@
                 <th>Причина отсутсвия регистрации</th>
             </tr>
             {% for passport in passport_list %}
-                <tr>
+                <tr onclick="location.href = '{% url view pk=passport.pk %}';">
                     <td>{{ passport.name }} {{passport.surname }} {{passport.patronymic }}  </td>
                     {% if passport.birthday %}
                         <td>{{  passport.birthday }} </td>
@@ -50,5 +62,4 @@
             {% endfor %}
         </tbody>
   </table>
-  <button class="btn btn-primary" type="button">Редактировать</button>
 {% endblock %}

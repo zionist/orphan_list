@@ -55,7 +55,6 @@ class PassportUpdateView(UpdateView):
        return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
 
     def form_is_valid(self, form):
-        print form.__dict__
         print form.save()
         return super(PassportUpdateView, self).form_valid(form)
 
@@ -82,6 +81,18 @@ class PassportDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('list')
+
+
+class PassportCreateView(CreateView):
+    model = Passport
+    template_name="create.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PassportCreateView, self).get_context_data(**kwargs)
+        return context
+
+    def get_success_url(self):
+        return reverse('update', kwargs={'pk': self.object.pk})
 
 
 class PassportListView(ListView):

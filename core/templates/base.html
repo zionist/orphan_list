@@ -24,21 +24,9 @@
 
   </head>
 
-  <body>
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="#">Список детей сирот</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Главная</a></li>
-              <li><a href="#contact">Логин</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
+  <body class="active">
+    {% block navbar %}
+    {% endblock %}
 
 
     <div class="container">
@@ -47,9 +35,6 @@
         {% endblock %}
 
         {% block footer %} 
-            <footer class="navbar">
-            <p>Администрация Краснодарского края</p>
-            </footer>
         {% endblock %}
 
     </div>

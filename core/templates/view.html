@@ -2,20 +2,34 @@
 
 {% block title %} <title> {{ title }} </title>{% endblock %}
 
+{% block navbar %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Список детей сирот</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li><a href="/core/list/">Главная</a></li>
+              <li><a href="{% url create %}">Создать</a></li>
+              <!--<li><a href="#contact">Логин</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
 {% block content %}
     <ul class="breadcrumb">
       <li>
-        <a href="/">Главная</a> <span class="divider">/</span>
-      </li>
-      <li>
-        <a href="../../../">Список лиц</a> <span class="divider">/</span>
+      <a href="{% url list %}">Список лиц</a> <span class="divider">/</span>
       </li>
       <li class="active">
-        <a href="#">Редактирование</a>
+        <a>Просмотр</a>
       </li>
     </ul>
 
-  <table class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped table-hover">
         <tbody>
             <tr>
                 <th>Название</th>
@@ -28,6 +42,20 @@
                 </tr>
             {% endfor %}
         </tbody>
-  </table>
-  <button class="btn btn-primary" type="button">Редактировать</button>
+    </table>
+
+    <div class="form-actions">
+        <div class="row">
+            <div class="span1">
+                <a href="{% url update pk=object.pk %}">
+                    <button class="btn btn-info" type="button">Редактировать</button>
+                </a>
+            </div>
+            <div class="span1 offset9">
+                <a href="{% url delete pk=object.pk %}">
+                    <button class="btn btn-danger" type="button">Удалить</button>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

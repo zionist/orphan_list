@@ -2,6 +2,23 @@
 
 {% block title %} <title> {{ title }} </title>{% endblock %}
 
+{% block navbar %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="brand" href="#">Список детей сирот</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li><a href="/core/list/">Главная</a></li>
+              <li><a href="{% url create %}">Создать</a></li>
+              <!--<li><a href="#contact">Логин</a></li> -->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
 {% block content %}
     <ul class="breadcrumb">
       <li>
@@ -15,7 +32,7 @@
       </li>
     </ul>
 
-    <h2> Потвердите удаление для "{{ title }}" </h2>
+    <h3> Потвердите удаление для "{{ title }}" </h3>
 
     <form action="{% url delete pk=object.pk %}" method="post">{% csrf_token %}
         <input type="submit" class="btn btn-primary" value="Подтвердить" />
