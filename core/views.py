@@ -13,12 +13,6 @@ class ContextField():
         self.name = name
         self.value = value
 
-class ContextBoottrapPassportForm():
-    def __init__(self, errors, visible_fields, hidden_fields):
-        self.errors = errors
-        self.visible_fields = visible_fields
-        self.hidden_fields = hidden_fields
-
 
 class PassportDetailView(DetailView):
     def __init__(self):
@@ -57,24 +51,8 @@ class PassportUpdateView(UpdateView):
     template_name = 'update.html'
     model = Passport
 
-    def dispatch(self, request, *args, **kwargs):
-       return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
-
-    #def form_is_valid(self, form):
-    #    form.save()
-    #    return super(PassportUpdateView, self).form_valid(form)
-
     def get_success_url(self):
         return reverse('update', kwargs={'pk': self.object.pk})
-
-    def get_object(self):
-        object = super(PassportUpdateView, self).get_object()
-        return object
-
-    def get_context_data(self, **kwargs):
-        context = super(PassportUpdateView, self).get_context_data(**kwargs)
-        print context
-        return context
 
 
 class PassportDeleteView(DeleteView):
@@ -94,10 +72,6 @@ class PassportCreateView(CreateView):
     model = Passport
     template_name="create.html"
 
-    def get_context_data(self, **kwargs):
-        context = super(PassportCreateView, self).get_context_data(**kwargs)
-        return context
-
     def get_success_url(self):
         return reverse('update', kwargs={'pk': self.object.pk})
 
@@ -116,10 +90,6 @@ class PassportListView(ListView):
     model=Passport
     template_name="list.html"
 
-
-    def get_queryset(self):
-        query = super(PassportListView, self).get_queryset()
-        return query
 
     def get_context_data(self, **kwargs):
         context = super(PassportListView, self).get_context_data(**kwargs)
