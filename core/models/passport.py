@@ -27,7 +27,7 @@ class Passport(models.Model):
     date_of_list = models.DateField("Дата включения в список",
         help_text="Дата включения в список", blank=True, null=True)
     registration_type = models.CharField("Тип регистрации",
-        choices=REGISTRATION_CHOICES, validators=[],
+        choices=REGISTRATION_CHOICES,
         help_text="Тип регистрации по месту жительства", max_length=1024,
         blank=True)
     reqistration_address = models.TextField("Адрес проживания",
