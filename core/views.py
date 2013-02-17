@@ -7,11 +7,17 @@ from core.forms.passport import PassportForm
 from core.models import Passport
 from django.conf import settings
 
-# context interface class
+# context interface classes
 class ContextField():
     def __init__(self, name, value):
         self.name = name
         self.value = value
+
+class ContextBoottrapPassportForm():
+    def __init__(self, errors, visible_fields, hidden_fields):
+        self.errors = errors
+        self.visible_fields = visible_fields
+        self.hidden_fields = hidden_fields
 
 
 class PassportDetailView(DetailView):
@@ -54,9 +60,9 @@ class PassportUpdateView(UpdateView):
     def dispatch(self, request, *args, **kwargs):
        return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
 
-    def form_is_valid(self, form):
-        print form.save()
-        return super(PassportUpdateView, self).form_valid(form)
+    #def form_is_valid(self, form):
+    #    form.save()
+    #    return super(PassportUpdateView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('update', kwargs={'pk': self.object.pk})
@@ -67,6 +73,7 @@ class PassportUpdateView(UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(PassportUpdateView, self).get_context_data(**kwargs)
+        print context
         return context
 
 
@@ -94,6 +101,16 @@ class PassportCreateView(CreateView):
     def get_success_url(self):
         return reverse('update', kwargs={'pk': self.object.pk})
 
+    def form_valid(self, form):
+        print '# valid'
+        form.save()
+        return super(PassportCreateView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        print '# invalid'
+        print form.errors
+        return super(PassportCreateView, self).form_invalid(form)
+
 
 class PassportListView(ListView):
     model=Passport
@@ -104,9 +121,7 @@ class PassportListView(ListView):
         query = super(PassportListView, self).get_queryset()
         return query
 
-
     def get_context_data(self, **kwargs):
         context = super(PassportListView, self).get_context_data(**kwargs)
         context["title"] = "List"
-
         return context

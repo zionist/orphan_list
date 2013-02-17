@@ -6,7 +6,7 @@ from django.utils.encoding import force_unicode
 
 from orphan_list.common.constants import REGISTRATION_CHOICES, \
     FAMILY_STATUSES_CHOICES, PROVISION_OF_EMPLOYMENT_CHOICES, \
-    EDUCATION_TYPE_CHOICES
+    EDUCATION_TYPE_CHOICES, BOOLEAN_CHOICES
 
 
 class Passport(models.Model):
@@ -27,7 +27,7 @@ class Passport(models.Model):
     date_of_list = models.DateField("Дата включения в список",
         help_text="Дата включения в список", blank=True, null=True)
     registration_type = models.CharField("Тип регистрации",
-        choices=REGISTRATION_CHOICES,
+        choices=REGISTRATION_CHOICES, validators=[],
         help_text="Тип регистрации по месту жительства", max_length=1024,
         blank=True)
     reqistration_address = models.TextField("Адрес проживания",
@@ -40,6 +40,7 @@ class Passport(models.Model):
         у родтсвенников и прочие)""", blank=True)
     fact_live_address_outside_mo = models.TextField("Фактически проживает "
         "за пределами МО / адрес", help_text="Фактически проживает за "
+
                                              "предлами МО", blank=True)
     place_of_first_find = models.TextField("Место первичного выявления / "
                                            "статус", help_text="""Место
@@ -50,10 +51,11 @@ class Passport(models.Model):
         max_length=1024, blank=True)
     children = models.IntegerField("Количество детей",
         help_text="Количество детей", default=0, max_length=255)
-    has_real_estate = models.BooleanField("Владеет недвижимостью",
-        help_text="Владеет недвижимостью", default=False)
+    has_real_estate = models.CharField("Владеет недвижимостью",
+        help_text="Владеет недвижимостью", default=False, choices=BOOLEAN_CHOICES,
+        max_length=255)
     real_estate_EGRP = models.TextField("Недвижимое имущество "
-                                        "зарегистрированное в ЕГРП",
+                                        "зарег. в ЕГРП",
         help_text="""Недвижимое имущество, право (долевой) собсвенности на
         которое зарегистрировано  в ЕГРП / адрес""", blank=True)
     real_estate_not_EGRP = models.TextField("Недвижимое имущество на "
@@ -83,10 +85,10 @@ class Passport(models.Model):
         "лишения свободы", blank=True)
     other = models.TextField("Указать иное", help_text="Указать иное",
         blank=True)
-    date_of_service_expired = models.DateField("Дата окончания учебы, службы", 
+    date_of_service_expired = models.DateField("Дата окончания учебы, службы",
             help_text="Дата окончание учебы (службы, пребывания в местах "
             "лишения свободы)", blank=True, null=True)
-    annotation = models.TextField("Примечания", help_text="Примечания", 
+    annotation = models.TextField("Примечания", help_text="Примечания",
              blank=True)
 
     # search
