@@ -8,3 +8,5 @@ django-annoying
 -e git+https://github.com/FactorAG/django-sphinx.git#egg=django-sphinx
 xlwt
 django-widget-tweaks
+eventlet
+greenlet

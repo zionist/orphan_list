@@ -89,6 +89,7 @@ class PassportCreateView(CreateView):
 class PassportListView(ListView):
     model=Passport
     template_name="list.html"
+    paginate_by = 2 
 
 
     def get_context_data(self, **kwargs):
