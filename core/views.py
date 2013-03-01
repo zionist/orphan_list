@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
 from core.forms.passport import PassportForm
+from core.forms.search import QuickSearchForm
 from core.models import Passport
 from django.conf import settings
 
@@ -89,10 +90,27 @@ class PassportCreateView(CreateView):
 class PassportListView(ListView):
     model=Passport
     template_name="list.html"
-    paginate_by = 2 
-
+    paginate_by = 20 
 
     def get_context_data(self, **kwargs):
         context = super(PassportListView, self).get_context_data(**kwargs)
         context["title"] = "List"
+        context["quick_search_form"] = QuickSearchForm(self.request.GET)
         return context
+
+    def get(self, request, **kwargs):
+        return super(PassportListView, self).get(request, **kwargs)
+
+    def get_queryset(self):
+        quick_search_form = QuickSearchForm(self.request.GET)
+        if not quick_search_form.is_valid():
+            return super(PassportListView, self).get_queryset()
+        else:
+            args = quick_search_form.cleaned_data
+            for k, v in args.items():
+                if not v:
+                    del args[k] 
+            if args:
+                return Passport.objects.filter(**args)
+            else: 
+                return super(PassportListView, self).get_queryset()

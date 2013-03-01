@@ -84,6 +84,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'coffeescript.finders.CoffeescriptFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -134,7 +135,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'south',
     'djangosphinx',
-
+    'coffeescript',
     'core',
 )
 
@@ -166,3 +167,5 @@ LOGGING = {
         },
     }
 }
+
+COFFEESCRIPT_ROOT = MEDIA_ROOT

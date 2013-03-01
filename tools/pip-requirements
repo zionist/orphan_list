@@ -10,3 +10,4 @@ xlwt
 django-widget-tweaks
 eventlet
 greenlet
+django-coffeescript

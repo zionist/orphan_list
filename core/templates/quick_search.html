@@ -1,0 +1,49 @@
+{% load widget_tweaks %}
+
+<div class = "row">
+    <div class="span4 text-error">
+        {% for error in quick_search_form.name.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error">
+        {% for error in quick_search_form.surname.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error">
+        {% for error in quick_search_form.birthday.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+</div>
+
+<p>
+    <button class="btn btn-info btn-small" data-toggle="collapse" data-target="#demo">
+        Фильтр
+    </button>
+</p>
+
+<div id="demo" class="collapse">
+    <form action="{% url list %}" method="get">
+    {% for hidden in quick_search_form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+
+    {{ quick_search_form.non_field_errors }}
+
+    <!-- row -->
+    <div class = "row">
+        <div class="span4 ">{{ quick_search_form.name.label }}</div>
+        <div class="span4 ">{{ quick_search_form.surname.label }}</div>
+        <div class="span4 ">{{ quick_search_form.birthday.label }}</div>
+    </div>
+    <div class = "controls-row">
+        {{ quick_search_form.name|attr:"class: span4" }}
+        {{ quick_search_form.surname|attr:"class: span4" }}
+        {{ quick_search_form.birthday|attr:"class: span4" }}
+    </div>
+
+    <input type="submit" value="Submit" />
+</form>
+</div>
