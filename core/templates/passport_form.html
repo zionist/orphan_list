@@ -6,7 +6,7 @@
     {% endfor %}
 
     {{ form.non_field_errors }}
-    <!-- row -->
+    <!-- row1 -->
     <div class = "row">
         <div class="span4 text-error">
             {% for error in form.name.errors %}
@@ -35,7 +35,7 @@
         {{ form.surname|attr:"class: span4" }}
     </div>
 
-    <!-- row -->
+    <!-- row2 -->
     <div class = "row">
         <div class="span4 text-error">
             {% for error in form.birthday.errors %}
@@ -59,9 +59,45 @@
         <div class="span4 ">{{ form.registration_type.label }}</div>
     </div>
     <div class = "controls-row">
-        {{ form.birthday|attr:"class: span4"|attr:"placeholder:день.месяц.год" }}
-        {{ form.date_of_list|attr:"class: span4"|attr:"placeholder:день.месяц.год" }}
-        {{ form.registration_type|attr:"class: span4" }}
+        {{ form.birthday|attr:"class:span4 date"|attr:"placeholder:день.месяц.год" }}
+        {{ form.date_of_list|attr:"class:span4 date"|attr:"placeholder:день.месяц.год" }}
+        {{ form.registration_type|attr:"class:span4" }}
+    </div>
+
+    <!-- row3 -->
+    <div class = "row">
+        <div class="span4 text-error">
+            {% for error in form.document.errors %}
+               {{ error }}
+            {% endfor %}
+        </div>
+        <div class="span4 text-error">
+            {% for error in form.document_number.errors %}
+               {{ error }}
+            {% endfor %}
+        </div>
+        <div class="span2 text-error">
+            {% for error in form.document_date.errors %}
+               {{ error }}
+            {% endfor %}
+        </div>
+        <div class="span2 text-error">
+            {% for error in form.document_issue.errors %}
+               {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class = "row">
+        <div class="span4 ">{{ form.document.label }}</div>
+        <div class="span4 ">{{ form.document_number.label }}</div>
+        <div class="span2 ">{{ form.document_date.label }}</div>
+        <div class="span2 ">{{ form.document_issue.label }}</div>
+    </div>
+    <div class = "controls-row">
+        {{ form.document|attr:"class:span4 document_type"}}
+        {{ form.document_number|attr:"class:span4 document_number"}}
+        {{ form.document_date|attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
+        {{ form.document_issue|attr:"class:span2" }}
     </div>
 
     <!-- row -->
@@ -264,7 +300,7 @@
     <div class = "controls-row">
         {{ form.jail|attr:"class: span4" }}
         {{ form.other|attr:"class: span4" }}
-        {{ form.date_of_service_expired|attr:"class: span4"|attr:"placeholder:день.месяц.год" }}
+        {{ form.date_of_service_expired|attr:"class:span4 date"|attr:"placeholder:день.месяц.год" }}
     </div>
     <!-- row -->
     <div class = "row">

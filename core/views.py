@@ -1,3 +1,6 @@
+import xlwt
+from datetime import date
+from django.http import HttpResponse
 from django.views.generic.edit import (CreateView,
         UpdateView, DeleteView)
 from django.views.generic.detail import DetailView
@@ -7,6 +10,22 @@ from core.forms.passport import PassportForm
 from core.forms.search import QuickSearchForm
 from core.models import Passport
 from django.conf import settings
+
+
+#dynamicly generate context from model fields
+# pass help text from models to context
+def get_name_value_from_object(object):
+    fields = []
+    for field in object._meta.fields:
+        if field.name == "id":
+            continue
+        help_text = \
+                object._meta.\
+                get_field_by_name(field.name)[0].help_text
+        value = field.value_from_object(object) or ""
+        fields.append(ContextField(help_text, value))
+    return fields
+
 
 # context interface classes
 class ContextField():
@@ -28,18 +47,7 @@ class PassportDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PassportDetailView, self).get_context_data(**kwargs)
-        #dynamicly generate context from model fields
-        # pass help text from models to context
-        fields = []
-        for field in self.object._meta.fields:
-            if field.name == "id":
-                continue
-            help_text = \
-                    self.object._meta.\
-                    get_field_by_name(field.name)[0].help_text
-            value = field.value_from_object(self.object) or ""
-            fields.append(ContextField(help_text, value))
-        context["passport_fields"] = fields
+        context["passport_fields"] = get_name_value_from_object(self.object)
 
         # title
         context["title"] = self.object.__unicode__
@@ -92,10 +100,53 @@ class PassportListView(ListView):
     template_name="list.html"
     paginate_by = 20 
 
+    def to_exel(context):
+        """
+        :param: args  - cleared data from quick_seach form
+        """
+        # get help_text as names from model
+        objects = []
+        for object in context.object_list:
+            fields = get_name_value_from_object(object)
+            objects.append(fields)
+
+        # create 
+        book = xlwt.Workbook(encoding='utf8')
+        sheet = book.add_sheet('untitled')
+        style_plain = xlwt.Style.default_style
+        style_bold = xlwt.easyxf("font: bold 1")
+        date_style = xlwt.easyxf(num_format_str='dd/mm/yyyy')
+
+        response = HttpResponse(mimetype='application/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachment; filename=list.xls'
+
+        # write header
+        for column_index, field in enumerate(objects[0]):
+            sheet.write(0, column_index, field.name, style_bold) 
+
+        # write values
+        for row_index, fields in enumerate(objects):
+            for column_index, field in enumerate(fields):
+                if isinstance(field.value, date):
+                    style = date_style
+
+                else:
+                    style = style_plain
+                sheet.write(row_index + 1, column_index, field.value, 
+                style) 
+            
+        book.save(response)
+        return response
+        
     def get_context_data(self, **kwargs):
         context = super(PassportListView, self).get_context_data(**kwargs)
         context["title"] = "List"
         context["quick_search_form"] = QuickSearchForm(self.request.GET)
+        url = self.request.get_full_path()
+        if self.request.GET:
+            context["xls_path"] = url + "&xls=yes"
+        else:
+            context["xls_path"] = url + "?xls=yes"
         return context
 
     def get(self, request, **kwargs):
@@ -114,3 +165,10 @@ class PassportListView(ListView):
                 return Passport.objects.filter(**args)
             else: 
                 return super(PassportListView, self).get_queryset()
+
+    def render_to_response(self, context):
+        if self.request.GET.get("xls"):
+            print "# xls"
+            return self.to_exel()
+        return super(PassportListView, self).render_to_response(context)
+        

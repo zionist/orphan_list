@@ -19,12 +19,12 @@
 </div>
 
 <p>
-    <button class="btn btn-info btn-small" data-toggle="collapse" data-target="#demo">
+    <button class="btn btn-info btn-small" data-toggle="collapse" data-target="#quick_search">
         Фильтр
     </button>
 </p>
 
-<div id="demo" class="collapse">
+<div id="quick_search" class="collapse">
     <form action="{% url list %}" method="get">
     {% for hidden in quick_search_form.hidden_fields %}
         {{ hidden }}
@@ -44,6 +44,6 @@
         {{ quick_search_form.birthday|attr:"class: span4" }}
     </div>
 
-    <input type="submit" value="Submit" />
+    <input class="btn" type="submit" value="Применить" />
 </form>
 </div>

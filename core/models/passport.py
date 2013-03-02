@@ -6,7 +6,7 @@ from django.utils.encoding import force_unicode
 
 from orphan_list.common.constants import REGISTRATION_CHOICES, \
     FAMILY_STATUSES_CHOICES, PROVISION_OF_EMPLOYMENT_CHOICES, \
-    EDUCATION_TYPE_CHOICES, BOOLEAN_CHOICES
+    EDUCATION_TYPE_CHOICES, BOOLEAN_CHOICES, DOCUMENT_CHOICES
 
 
 class Passport(models.Model):
@@ -24,6 +24,17 @@ class Passport(models.Model):
         max_length=255)
     birthday = models.DateField("Дата рождения", help_text="Дата рождения",
         blank=True, null=True)
+    document = models.CharField("Документ удостоверяющий личность", 
+        choices=DOCUMENT_CHOICES, 
+        help_text = "Документ удостоверяющий личность", max_length=255, 
+        blank=True)
+    document_number = models.CharField("Серия / номер", 
+        help_text="Серия / номер", max_length=255, 
+        blank=True)
+    document_date = models.DateField("Дата выдачи", 
+        help_text="Дата выдачи документа", blank=True, null=True)
+    document_issue = models.CharField("Кем выдан", help_text="Кем выдан",
+        blank=True, max_length=255)
     date_of_list = models.DateField("Дата включения в список",
         help_text="Дата включения в список", blank=True, null=True)
     registration_type = models.CharField("Тип регистрации",
@@ -90,6 +101,8 @@ class Passport(models.Model):
             "лишения свободы)", blank=True, null=True)
     annotation = models.TextField("Примечания", help_text="Примечания",
              blank=True)
+
+
 
     # search
     search = SphinxSearch()
