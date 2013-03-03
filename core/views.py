@@ -10,6 +10,8 @@ from core.forms.passport import PassportForm
 from core.forms.search import QuickSearchForm
 from core.models import Passport
 from django.conf import settings
+from django.contrib.auth.decorators import permission_required
+from django.utils.decorators import method_decorator
 
 
 #dynamicly generate context from model fields
@@ -40,11 +42,6 @@ class PassportDetailView(DetailView):
     model = Passport
     template_name = 'view.html'
 
-    # authication here
-    def get_object(self):
-        object = super(DetailView, self).get_object()
-        return object
-
     def get_context_data(self, **kwargs):
         context = super(PassportDetailView, self).get_context_data(**kwargs)
         context["passport_fields"] = get_name_value_from_object(self.object)
@@ -62,6 +59,10 @@ class PassportUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('update', kwargs={'pk': self.object.pk})
+    
+    @method_decorator(permission_required("core.change_passport"))
+    def dispatch(self, *args, **kwargs):
+        return super(PassportUpdateView, self).dispatch(*args, **kwargs)
 
 
 class PassportDeleteView(DeleteView):
@@ -75,6 +76,10 @@ class PassportDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('list')
+
+    @method_decorator(permission_required("core.delete_passport"))
+    def dispatch(self, *args, **kwargs):
+        return super(PassportDeleteView, self).dispatch(*args, **kwargs)
 
 
 class PassportCreateView(CreateView):
@@ -93,6 +98,10 @@ class PassportCreateView(CreateView):
         print '# invalid'
         print form.errors
         return super(PassportCreateView, self).form_invalid(form)
+
+    @method_decorator(permission_required("core.add_passport"))
+    def dispatch(self, *args, **kwargs):
+        return super(PassportCreateView, self).dispatch(*args, **kwargs)
 
 
 class PassportListView(ListView):
@@ -150,6 +159,9 @@ class PassportListView(ListView):
         return context
 
     def get(self, request, **kwargs):
+        print "#"
+        print request.user.is_authenticated()
+        print "#"
         return super(PassportListView, self).get(request, **kwargs)
 
     def get_queryset(self):

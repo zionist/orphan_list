@@ -2,23 +2,6 @@
 
 {% block title %} <title> {{ title }} </title>{% endblock %}
 
-{% block navbar %}
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="brand" href="#">Список детей сирот</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-                <li><a href="/core/list/">Главная</a></li>
-              <li><a href="{% url create %}">Создать</a></li>
-              <!--<li><a href="#contact">Логин</a></li> -->
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-{% endblock %}
-
 {% block content %}
     <ul class="breadcrumb">
       <li>
@@ -38,11 +21,13 @@
                     <button class="btn btn-info" type="button">Просмотреть</button>
                 </a>
             </div>
-            <div class="span1 offset9">
-                <a href="{% url delete pk=1 %}">
-                    <button class="btn btn-danger" type="button">Удалить</button>
-                </a>
-            </div>
+            {% if perms.core.delete_passport  %} 
+                <div class="span1 offset9">
+                    <a href="{% url delete pk=1 %}">
+                        <button class="btn btn-danger" type="button">Удалить</button>
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

@@ -23,14 +23,30 @@
         <link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
         <link href="/static/css/main.css" rel="stylesheet">
     {% endblock %}
-
-
-
-
   </head>
 
   <body class="active">
     {% block navbar %}
+        <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <a class="brand" href="#">Список детей сирот</a>
+              <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li id="list"><a href="/core/list/">Главная</a></li>
+                  {% if perms.core.add_passport  %} 
+                    <li id="create"><a href="{% url create %}">Создать</a></li>
+                  {% endif %}
+                  {% if request.user.is_authenticated %}
+                    <li id="logout"><a href="{% url  django.contrib.auth.views.logout_then_login %}">Выйти</a></li>
+                  {% else %}
+                    <li id="login"><a href="{% url django.contrib.auth.views.login %}">Логин</a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
     {% endblock %}
 
     <div class="container">

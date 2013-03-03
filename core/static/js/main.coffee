@@ -10,4 +10,21 @@ $(document).ready ->
             $(".document_number").mask("серия: *-**  номер: 999999")
         if document_type == "Другой документ"
             $(".document_number").unmask()
+    
+    # set active tab
+    for id in ["list", "create", "login"]
+        if (document.URL.match(id))
+            $("#" + id).addClass("active")
+            break
 
+
+    # ajax login form upload
+    #log = () ->
+    #    $("#test").show()
+    #    $("#myModal").modal("show")
+    #    alert("1")
+
+    #$("#login").click ->
+    #    $("#login_form").load("/core/login/")
+    #    $("#myModal").modal("show")
+        
