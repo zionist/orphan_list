@@ -60,11 +60,11 @@ class Passport(models.Model):
     family_status = models.CharField("Семейное положение",
         help_text="Семейное положение", choices=FAMILY_STATUSES_CHOICES,
         max_length=1024, blank=True)
-    children = models.IntegerField("Количество детей",
-        help_text="Количество детей", default=0, max_length=255)
+    children = models.CharField("Количество детей",
+        help_text="Количество детей", max_length=255, blank=True)
     has_real_estate = models.CharField("Владеет недвижимостью",
         help_text="Владеет недвижимостью", default=False, choices=BOOLEAN_CHOICES,
-        max_length=255)
+        max_length=255, blank=True)
     real_estate_EGRP = models.TextField("Недвижимое имущество "
                                         "зарег. в ЕГРП",
         help_text="""Недвижимое имущество, право (долевой) собсвенности на

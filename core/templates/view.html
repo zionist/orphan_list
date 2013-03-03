@@ -32,16 +32,12 @@
             <div class="row">
                 {% if perms.core.change_passport %} 
                     <div class="span1">
-                        <a href="{% url update pk=object.pk %}">
-                            <button class="btn btn-info" type="button">Редактировать</button>
-                        </a>
+                        <a href="{% url update pk=object.pk %}" class="btn btn-info">Редактировать</a>
                     </div> 
                 {% endif %}
                 {% if perms.core.delete_passport %} 
                     <div class="span1 offset9">
-                        <a href="{% url delete pk=object.pk %}">
-                            <button class="btn btn-danger" type="button">Удалить</button>
-                        </a>
+                        <a href="{% url delete pk=object.pk %}" class="btn btn-danger">Удалить</a>
                     </div>
                 {% endif %}
             </div>

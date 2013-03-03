@@ -17,15 +17,11 @@
     <div class="form-actions">
         <div class="row">
             <div class="span1">
-                <a href="{% url view pk=object.pk %}">
-                    <button class="btn btn-info" type="button">Просмотреть</button>
-                </a>
+                <a href="{% url view pk=object.pk %}" class="btn btn-info">Просмотреть</a>
             </div>
             {% if perms.core.delete_passport  %} 
                 <div class="span1 offset9">
-                    <a href="{% url delete pk=1 %}">
-                        <button class="btn btn-danger" type="button">Удалить</button>
-                    </a>
+                    <a href="{% url delete pk=object.pk %}" class="btn btn-danger">Удалить</a>
                 </div>
             {% endif %}
         </div>

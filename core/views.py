@@ -90,13 +90,13 @@ class PassportCreateView(CreateView):
         return reverse('update', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
-        print '# valid'
+        # print '# valid'
         form.save()
         return super(PassportCreateView, self).form_valid(form)
 
     def form_invalid(self, form):
-        print '# invalid'
-        print form.errors
+        # print '# invalid'
+        # print form.errors
         return super(PassportCreateView, self).form_invalid(form)
 
     @method_decorator(permission_required("core.add_passport"))
@@ -159,9 +159,6 @@ class PassportListView(ListView):
         return context
 
     def get(self, request, **kwargs):
-        print "#"
-        print request.user.is_authenticated()
-        print "#"
         return super(PassportListView, self).get(request, **kwargs)
 
     def get_queryset(self):
@@ -180,7 +177,6 @@ class PassportListView(ListView):
 
     def render_to_response(self, context):
         if self.request.GET.get("xls"):
-            print "# xls"
             return self.to_exel()
         return super(PassportListView, self).render_to_response(context)
         
