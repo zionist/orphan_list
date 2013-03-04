@@ -12,5 +12,7 @@
       </li>
     </ul>
 
+   <form action="{% url create %}" class="form-inline" method="post">{% csrf_token %}
     {% include "passport_form.html" %}
+   </form>
 {% endblock %}

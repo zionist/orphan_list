@@ -12,7 +12,9 @@
       </li>
     </ul>
 
+   <form action="{% url update pk=object.pk %}" class="form-inline" method="post">{% csrf_token %}
    {% include "passport_form.html" %}
+    </form>
 
     <div class="form-actions">
         <div class="row">
