@@ -25,7 +25,7 @@
 </p>
 
 <div id="quick_search" class="collapse">
-    <form action="{% url list %}" method="get">
+    <form action="{% url 'list' %}" method="get">
     {% for hidden in quick_search_form.hidden_fields %}
         {{ hidden }}
     {% endfor %}

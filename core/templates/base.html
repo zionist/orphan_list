@@ -35,12 +35,12 @@
                 <ul class="nav">
                     <li id="list"><a href="/core/list/">Главная</a></li>
                   {% if perms.core.add_passport  %} 
-                    <li id="create"><a href="{% url create %}">Создать</a></li>
+                    <li id="create"><a href="{% url 'create' %}">Создать</a></li>
                   {% endif %}
                   {% if request.user.is_authenticated %}
-                    <li id="logout"><a href="{% url  django.contrib.auth.views.logout_then_login %}">Выйти</a></li>
+                    <li id="logout"><a href="{% url  'django.contrib.auth.views.logout_then_login' %}">Выйти</a></li>
                   {% else %}
-                    <li id="login"><a href="{% url django.contrib.auth.views.login %}">Логин</a></li>
+                    <li id="login"><a href="{% url 'django.contrib.auth.views.login' %}">Логин</a></li>
                   {% endif %}
                 </ul>
               </div>

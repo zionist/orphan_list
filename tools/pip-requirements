@@ -4,7 +4,7 @@ django-debug-toolbar
 django-sentry
 python-memcached
 django-annoying
--e git+https://github.com/MechanisM/django-bootstrap2.git#egg=bootstrap2
+#-e git+https://github.com/MechanisM/django-bootstrap2.git#egg=bootstrap2
 -e git+https://github.com/FactorAG/django-sphinx.git#egg=django-sphinx
 xlwt
 django-widget-tweaks

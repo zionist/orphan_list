@@ -5,14 +5,16 @@
 {% block content %}
     <ul class="breadcrumb">
       <li>
-      <a href="{% url list %}">Список лиц</a> <span class="divider">/</span>
+      <a href="{% url 'list' %}">Список лиц</a> <span class="divider">/</span>
       </li>
       <li class="active">
         <a>Создание</a>
       </li>
     </ul>
 
-   <form action="{% url create %}" class="form-inline" method="post">{% csrf_token %}
-    {% include "passport_form.html" %}
+   <form action="{% url 'create' %}" class="form-inline" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    {#% include "passport_form.html" %#}
+    <input type="submit" class="btn btn-primary" value="Сохранить" />
    </form>
 {% endblock %}

@@ -11,13 +11,13 @@
         <a href="../../../">Список лиц</a> <span class="divider">/</span>
       </li>
       <li class="active">
-        <a href="#">Редактирование</a>
+        <a href="#">Удаление</a>
       </li>
     </ul>
 
     <h3> Потвердите удаление для "{{ title }}" </h3>
 
-    <form action="{% url delete pk=object.pk %}" method="post">{% csrf_token %}
+    <form action="{% url 'delete' pk=object.pk %}" method="post">{% csrf_token %}
         <input type="submit" class="btn btn-primary" value="Подтвердить" />
     </form>
 

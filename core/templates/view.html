@@ -5,7 +5,7 @@
 {% block content %}
     <ul class="breadcrumb">
       <li>
-      <a href="{% url list %}">Список лиц</a> <span class="divider">/</span>
+      <a href="{% url 'list' %}">Список лиц</a> <span class="divider">/</span>
       </li>
       <li class="active">
         <a>Просмотр</a>
@@ -32,12 +32,12 @@
             <div class="row">
                 {% if perms.core.change_passport %} 
                     <div class="span1">
-                        <a href="{% url update pk=object.pk %}" class="btn btn-info">Редактировать</a>
+                        <a href="{% url 'update' pk=object.pk %}" class="btn btn-info">Редактировать</a>
                     </div> 
                 {% endif %}
                 {% if perms.core.delete_passport %} 
                     <div class="span1 offset9">
-                        <a href="{% url delete pk=object.pk %}" class="btn btn-danger">Удалить</a>
+                        <a href="{% url 'delete' pk=object.pk %}" class="btn btn-danger">Удалить</a>
                     </div>
                 {% endif %}
             </div>

@@ -2,11 +2,9 @@
 
 import django.db.models as models
 from djangosphinx.models import SphinxSearch
-from django.utils.encoding import force_unicode
 
-from orphan_list.common.constants import REGISTRATION_CHOICES, \
-    FAMILY_STATUSES_CHOICES, PROVISION_OF_EMPLOYMENT_CHOICES, \
-    EDUCATION_TYPE_CHOICES, BOOLEAN_CHOICES, DOCUMENT_CHOICES
+from orphan_list.common.constants import REGISTRATION_CHOICES, FAMILY_STATUS_CHOICES, PROVISION_OF_EMPLOYMENT_CHOICES, \
+    JOB_TYPE_CHOICES, BOOLEAN_CHOICES, DOCUMENT_CHOICES, LOWFUL_STATUSES, EDUCATION_TYPE_CHOICES
 
 
 class Passport(models.Model):
@@ -17,6 +15,7 @@ class Passport(models.Model):
     def __unicode__(self):
         return "%s %s %s" % (self.name, self.patronymic, self.surname)
 
+    # name 
     name = models.CharField("Имя", help_text= "Имя", max_length=255)
     patronymic = models.CharField("Отчество", help_text="Отчество",
         max_length=255)
@@ -24,85 +23,108 @@ class Passport(models.Model):
         max_length=255)
     birthday = models.DateField("Дата рождения", help_text="Дата рождения",
         blank=True, null=True)
-    document = models.CharField("Документ удостоверяющий личность", 
-        choices=DOCUMENT_CHOICES, 
-        help_text = "Документ удостоверяющий личность", max_length=255, 
+
+    # orders and dates
+    allegation_date_and_time = models.DateTimeField("Дата и время подачи"
+        " заявления", help_text = "Дата и время подачи заявления",
+        blank=True, null=True)
+    UMSO_conclusion_date = models.DateField("Дата заключения УМСО",
+        help_text="Дата заключения УМСО", blank=True, null=True)
+    order_date = models.DateField("Дата внесения в список",
+        help_text="Дата внесения  в список", blank=True, null=True)
+    order_number = models.CharField("Номер приказа",
+        help_text="Номер приказа", max_length=255, blank=True)
+    order_of_hiring_date = models.DateField("Дата заключения договора найма",
+        help_text="Дата заключения договора найма", blank=True, null=True)
+    order_of_hiring_number = models.CharField("Номер договора найма",
+        help_text="Номер договора найма", max_length=255, blank=True)
+
+    # person document
+    document = models.CharField("Документ удостоверяющий личность",
+        choices=DOCUMENT_CHOICES,
+        help_text = "Документ удостоверяющий личность", max_length=255,
         blank=True)
-    document_number = models.CharField("Серия / номер", 
-        help_text="Серия / номер", max_length=255, 
+    document_number = models.CharField("Серия / номер",
+        help_text="Серия / номер", max_length=255,
         blank=True)
-    document_date = models.DateField("Дата выдачи", 
+    document_date = models.DateField("Дата выдачи",
         help_text="Дата выдачи документа", blank=True, null=True)
     document_issue = models.CharField("Кем выдан", help_text="Кем выдан",
         blank=True, max_length=255)
-    date_of_list = models.DateField("Дата включения в список",
+    document_date_of_list = models.DateField("Дата включения в список",
         help_text="Дата включения в список", blank=True, null=True)
+
+    # registration
     registration_type = models.CharField("Тип регистрации",
         choices=REGISTRATION_CHOICES,
         help_text="Тип регистрации по месту жительства", max_length=1024,
         blank=True)
-    reqistration_address = models.TextField("Адрес проживания",
-        help_text="Адрес проживания", blank=True)
-    no_reqistration_reason = models.TextField("Причина отсутсвия "
+    registration_no_reqistration_reason = models.TextField("Причина отсутсвия "
         "регистрации", help_text="Причина отсутсвия регистрации", blank=True)
-    fact_live_address_in_mo = models.TextField("Фактически проживает на "
-        "территории МО", help_text="""Фактически проживает на территории
-        МО / адрес (соц. гостиница, общежитие, муниципальный фонд,
-        у родтсвенников и прочие)""", blank=True)
-    fact_live_address_outside_mo = models.TextField("Фактически проживает "
-        "за пределами МО / адрес", help_text="Фактически проживает за "
 
-                                             "предлами МО", blank=True)
-    place_of_first_find = models.TextField("Место первичного выявления / "
-                                           "статус", help_text="""Место
-        первичного выявления / статус / правовой статус
-        (реквизиты документов)""", blank=True)
-    family_status = models.CharField("Семейное положение",
-        help_text="Семейное положение", choices=FAMILY_STATUSES_CHOICES,
-        max_length=1024, blank=True)
-    children = models.CharField("Количество детей",
-        help_text="Количество детей", max_length=255, blank=True)
-    has_real_estate = models.CharField("Владеет недвижимостью",
-        help_text="Владеет недвижимостью", default=False, choices=BOOLEAN_CHOICES,
-        max_length=255, blank=True)
-    real_estate_EGRP = models.TextField("Недвижимое имущество "
-                                        "зарег. в ЕГРП",
-        help_text="""Недвижимое имущество, право (долевой) собсвенности на
-        которое зарегистрировано  в ЕГРП / адрес""", blank=True)
-    real_estate_not_EGRP = models.TextField("Недвижимое имущество на "
-                                            "ином праве",
-        help_text="""Недвжимое имущество, принадлежащее
-        на ином праве/адрес""", blank=True)
+    # fact address
+    fact_address_region = models.TextField("Фактический адрес регион",
+        help_text="Фактический адрес регион", blank=True)
+    fact_address_mo = models.TextField("Фактический адрес МО",
+        help_text="Фактический адрес МО", blank=True)
+    fact_address_address = models.TextField("Фактический адрес улица дом",
+        help_text="Фактический адрес улица дом", blank=True)
+
+    # lowful status
+    lowful_status = models.CharField("Правовой статус",
+        help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
+        max_length=255)
+    lowful_status_date = models.DateField("Дата установления правового"
+        " статуса", help_text="Дата установления правового статуса", 
+        null=True, blank=True)
+    lowful_status_number = models.CharField("Номер документа по которому "
+        "установлен правовой статус", help_text="Номер документа по которому "
+        "установлен правовой статус", blank=True, max_length=255)
+    lowful_status_invalidity = models.NullBooleanField("Инвалидность",
+        help_text="Инвалидность", blank=True)
+
+    # form of care
     form_of_care = models.TextField("Форма устройства",
         help_text="Форма устройство(опека, патронат и пр.", blank=True)
-    spokesman_data = models.TextField("Сведения о законном представителе",
+    form_of_care_spokesman_data = models.TextField("Сведения о законном представителе",
         help_text="Сведения о законном представителе (ФИО, степен родства "
-                  "и пр.", blank=True)
-    provision_of_employment_type = models.CharField("Как трудоустроен",
-        help_text="Как трудоустроен", choices=PROVISION_OF_EMPLOYMENT_CHOICES,
+        "и пр.", blank=True)
+
+    # family status
+    family_status = models.CharField("Семейное положение",
+        help_text="Семейное положение", choices=FAMILY_STATUS_CHOICES,
         max_length=1024, blank=True)
-    employment_place = models.TextField("Место работы",
-        help_text="Место работы", blank=True)
-    education_type = models.CharField("Тип получаемого образования",
-        help_text="Тип получаемого образования",
-        choices=EDUCATION_TYPE_CHOICES, max_length=1024, blank=True)
-    name_institution_of_education = models.TextField("Наименование учебного "
-        "заведения", help_text="Наименование учебного заведения", blank=True)
-    vacation = models.TextField("В отпуске по уходу за ребенком",
-        help_text="В отпуске по уходу за ребенком / получение пособий, "
-                  "денежныъ выплат и пр", blank=True)
-    army = models.TextField("В армии", help_text="В Армии", blank=True)
-    jail = models.TextField("В местах лишения свободы", help_text="В местах "
-        "лишения свободы", blank=True)
-    other = models.TextField("Указать иное", help_text="Указать иное",
-        blank=True)
-    date_of_service_expired = models.DateField("Дата окончания учебы, службы",
-            help_text="Дата окончание учебы (службы, пребывания в местах "
-            "лишения свободы)", blank=True, null=True)
-    annotation = models.TextField("Примечания", help_text="Примечания",
-             blank=True)
+    family_status_children = models.CharField("Количество детей",
+        help_text="Количество детей", max_length=255, blank=True)
 
+    # estate
+    estate_has_estate = models.CharField("Владеет недвижимостью",
+        help_text="Владеет недвижимостью", choices=BOOLEAN_CHOICES,
+        max_length=255, blank=True)
+    estate_cant_live_date_of_order  = models.DateField("Дата правового акта о невозможности проживания",
+        help_text="Дата правового акта о невозможности проживания", null=True, blank=True)
+    estate_cant_live_order_number  = models.CharField("Номер правового акта о невозможности проживания",
+        help_text="Номер правового акта о невозможности проживания", blank=True, max_length=255)
 
+    # job and education
+    job_type_of_job = models.CharField("Трудоустройство \ обучение", help_text="Трудоустройство \ обучение",
+                                       choices=JOB_TYPE_CHOICES, max_length=255, blank=True)
+    job_has_find_job_from_CZN = models.CharField("Трудоустроен через ЦЗН", help_text="Трудоустроен через ЦЗН",
+                                             choices=BOOLEAN_CHOICES, max_length=255, blank=True)
+    job_job_place = models.TextField("Где трудоустроен", help_text="Где трудоустроен", blank=True)
+    job_eduction_type = models.CharField("Тип учебного заведения", help_text="Тип учебного заведения",
+        max_length=255,  choices=EDUCATION_TYPE_CHOICES, blank=True)
+    job_education_house = models.TextField("Учебное заведение", help_text="Учебное заведение",  max_length=255,
+                                           blank=True)
+    job_other = models.TextField("Трудоустройство \ обучение другое", help_text="Трудоустройство \ обучение другое ",
+                                  blank=True)
+    job_started = models.DateField("Дата начала",
+            help_text="Дата окончания", blank=True, null=True)
+    jov_started = models.DateField("Дата окончания", blank=True, null=True)
+
+    # lodging accordance
+    lodgin_accordance = models.CharField("Предоставлено жилье", help_text="Предоставлено жилье",
+       choices=BOOLEAN_CHOICES, max_length=255, blank=True)
 
     # search
     search = SphinxSearch()

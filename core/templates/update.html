@@ -5,25 +5,27 @@
 {% block content %}
     <ul class="breadcrumb">
       <li>
-      <a href="{% url list %}">Список лиц</a> <span class="divider">/</span>
+      <a href="{% url 'list' %}">Список лиц</a> <span class="divider">/</span>
       </li>
       <li class="active">
         <a>Редактирование</a>
       </li>
     </ul>
 
-   <form action="{% url update pk=object.pk %}" class="form-inline" method="post">{% csrf_token %}
-   {% include "passport_form.html" %}
+   <form action="{% url 'update' pk=object.pk %}" class="form-inline" method="post">{% csrf_token %}
+   {{ form.as_p }}
+   {#% include "passport_form.html" %#}
+    <input type="submit" class="btn btn-primary" value="Сохранить" />
     </form>
 
     <div class="form-actions">
         <div class="row">
             <div class="span1">
-                <a href="{% url view pk=object.pk %}" class="btn btn-info">Просмотреть</a>
+                <a href="{% url 'view' pk=object.pk %}" class="btn btn-info">Просмотреть</a>
             </div>
             {% if perms.core.delete_passport  %} 
                 <div class="span1 offset9">
-                    <a href="{% url delete pk=object.pk %}" class="btn btn-danger">Удалить</a>
+                    <a href="{% url 'delete' pk=object.pk %}" class="btn btn-danger">Удалить</a>
                 </div>
             {% endif %}
         </div>

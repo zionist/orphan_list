@@ -22,7 +22,7 @@
                 <th>Причина отсутсвия регистрации</th>
             </tr>
             {% for passport in passport_list %}
-                <tr onclick="location.href = '{% url view pk=passport.pk %}';">
+                <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
                     <td>{{ passport.name }} {{passport.surname }} {{passport.patronymic }}  </td>
                     {% if passport.birthday %}
                         <td>{{  passport.birthday }} </td>
@@ -50,13 +50,13 @@
     <div class="pagination">
         <span class="page-links">
             {% if page_obj.has_previous %}
-                <a href="{% url list %}?page={{ page_obj.previous_page_number }}">назад</a>
+                <a href="{% url 'list' %}?page={{ page_obj.previous_page_number }}">назад</a>
             {% endif %}
             <span class="page-current">
                 Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
             </span>
             {% if page_obj.has_next %}
-                <a href="{% url list %}?page={{ page_obj.next_page_number }}">вперед</a>
+                <a href="{% url 'list' %}?page={{ page_obj.next_page_number }}">вперед</a>
             {% endif %}
         </span>
     </div>

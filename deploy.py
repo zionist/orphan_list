@@ -12,4 +12,4 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 
 
-wsgi.server(eventlet.listen(('0.0.0.0', 8070)), application)
+wsgi.server(eventlet.listen(('0.0.0.0', 8080)), application)
