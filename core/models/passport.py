@@ -63,8 +63,8 @@ class Passport(models.Model):
         help_text="Фактический адрес МО", blank=True, max_length=409)
     registration_address_address = models.CharField("Фактический адрес улица дом",
         help_text="Фактический адрес улица дом", blank=True, max_length=10000)
-    registration_no_reqistration_reason = models.TextField("Причина отсутсвия "
-        "регистрации", help_text="Причина отсутсвия регистрации", blank=True)
+    registration_no_reqistration_reason = models.CharField("Причина отсутсвия "
+        "регистрации", help_text="Причина отсутсвия регистрации", blank=True, max_length=10000)
 
     # lowful status
     lowful_status = models.CharField("Правовой статус",

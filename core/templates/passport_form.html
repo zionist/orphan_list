@@ -170,64 +170,48 @@
 </div>
 
 <div class = "row">
-    <div class="span4 text-error">
+    <div class="span3 text-error">
         {% for error in form.registration_type.errors %}
            {{ error }}
         {% endfor %}
     </div>
+    <div class="span3 text-error registration_address hide">
+        {% for error in form.registration_address_region.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error registration_address hide">
+        {% for error in form.registration_address_mo.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error registration_address hide">
+        {% for error in form.registration_address_address.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span9 registration_no_reqistration_reason hide">
+        {% for error in form.registration_no_reqistration_reason.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+
 </div>
 <div class = "row">
-    <div class="span4 ">{{ form.registration_type.label }}</div>
+    <div class="span3 ">{{ form.registration_type.label }}</div>
+    <div class="span3 registration_address hide">{{ form.registration_address_region.label }}</div>
+    <div class="span3 registration_address hide">{{ form.registration_address_mo.label }}</div>
+    <div class="span3 registration_address hide">{{ form.registration_address_address.label }}</div>
+    <div class="span9 registration_no_reqistration_reason hide">{{ form.registration_no_reqistration_reason.label }}</div>
 </div>
 <div class = "controls-row">
-    {{ form.registration_type|attr:"class: span4" }}
+        {{ form.registration_type|attr:"class: span3" }}
+        {{ form.registration_address_region|attr:"class: span3 registration_address hide" }}
+        {{ form.registration_address_mo|attr:"class: span3 registration_address hide" }}
+        {{ form.registration_address_address|attr:"class: span3 registration_address hide" }}
+        {{ form.registration_no_reqistration_reason|attr:"class: span9 registration_no_reqistration_reason hide" }}
 </div>
 
-<span class="registration_address hide">
-    <div class = "row">
-        <div class="span4 text-error">
-            {% for error in form.registration_address_region.errors %}
-                {{ error }}
-            {% endfor %}
-        </div>
-        <div class="span4 text-error">
-            {% for error in form.registration_address_mo.errors %}
-                {{ error }}
-            {% endfor %}
-        </div>
-        <div class="span4 text-error">
-            {% for error in form.registration_address_address.errors %}
-                {{ error }}
-            {% endfor %}
-        </div>
-    </div>
-    <div class = "row">
-        <div class="span4 ">{{ form.registration_address_region.label }}</div>
-        <div class="span4 ">{{ form.registration_address_mo.label }}</div>
-        <div class="span4 ">{{ form.registration_address_address.label }}</div>
-    </div>
-    <div class = "controls-row">
-        {{ form.registration_address_region|attr:"class: span4" }}
-        {{ form.registration_address_mo|attr:"class: span4" }}
-        {{ form.registration_address_address|attr:"class: span4" }}
-    </div>
-</span>
-
-<span class="hide registration_no_reqistration_reason">
-    <div class = "row">
-        <div class="span12 text-error">
-            {% for error in form.registration_no_reqistration_reason.errors %}
-                {{ error }}
-            {% endfor %}
-        </div>
-    </div>
-    <div class = "row">
-        <div class="span12">{{ form.registration_no_reqistration_reason.label }}</div>
-    </div>
-    <div class = "controls-row">
-        {{ form.registration_no_reqistration_reason|attr:"class: span12" }}
-    </div>
-</span>
 
 {# lowful status #}
 <div class="row">
@@ -300,164 +284,70 @@
     </div>
 </span>
 
-<!-- row -->
+{# family status data #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
+</div>
+<div class="row">
+    <div class="span12 grey text-center">
+        <h5 class="text-info"> Семейный статус </h5>
+    </div>
+</div>
+
 <div class = "row">
-    <div class="span4 text-error">
-        {% for error in form.children.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.has_real_estate.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
     <div class="span4 text-error">
         {% for error in form.family_status.errors %}
-           {{ error }}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error">
+        {% for error in form.family_status_children.errors %}
+            {{ error }}
         {% endfor %}
     </div>
 </div>
 <div class = "row">
-    <div class="span4 ">{{ form.children.label }}</div>
-    <div class="span4 ">{{ form.has_real_estate.label }}</div>
-    <div class="span4 ">{{ form.family_status.label }}</div>
+    <div class="span4">{{ form.family_status.label }}</div>
+    <div class="span4">{{ form.family_status_children.label }}</div>
 </div>
 <div class = "controls-row">
-    {{ form.children|attr:"class: span4" }}
-    {{ form.has_real_estate|attr:"class: span4" }}
-    {{ form.family_status|attr:"class: span4" }}
+    {{ form.family_status |attr:"class: span4" }}
+    {{ form.family_status_children |attr:"class: span4" }}
 </div>
 
-<!-- row -->
-<div class = "row">
-    <div class="span4 text-error">
-        {% for error in form.real_estate_not_EGRP.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.form_of_care.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.spokesman_data.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
+{# estate #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
 </div>
-<div class = "row">
-    <div class="span4 ">{{ form.real_estate_not_EGRP.label }}</div>
-    <div class="span4 ">{{ form.form_of_care.label }}</div>
-    <div class="span4 ">{{ form.spokesman_data.label }}</div>
-</div>
-<div class = "controls-row">
-    {{ form.real_estate_not_EGRP|attr:"class: span4" }}
-    {{ form.form_of_care|attr:"class: span4" }}
-    {{ form.spokesman_data|attr:"class: span4" }}
+<div class="row">
+    <div class="span12 grey text-center">
+        <h5 class="text-info"> Владеет недвижимостью </h5>
+    </div>
 </div>
 
-<!-- row -->
 <div class = "row">
     <div class="span4 text-error">
-        {% for error in form.provision_of_employment_type.errors %}
-           {{ error }}
+        {% for error in form.estate_has_estate.errors %}
+            {{ error }}
         {% endfor %}
     </div>
     <div class="span4 text-error">
-        {% for error in form.employment_place.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.education_type.errors %}
-           {{ error }}
+        {% for error in form.estate_cant_live_date_of_order.errors %}
+            {{ error }}
         {% endfor %}
     </div>
 </div>
 <div class = "row">
-    <div class="span4 ">{{ form.provision_of_employment_type.label }}</div>
-    <div class="span4 ">{{ form.employment_place.label }}</div>
-    <div class="span4 ">{{ form.education_type.label }}</div>
+    <div class="span4">{{ form.estate_has_estate.label }}</div>
+    <div class="span4">{{ form.estate_cant_live_date_of_order.label }}</div>
 </div>
 <div class = "controls-row">
-    {{ form.provision_of_employment_type|attr:"class: span4" }}
-    {{ form.employment_place|attr:"class: span4" }}
-    {{ form.education_type|attr:"class: span4" }}
+    {{ form.estate_has_estate |attr:"class: span4" }}
+    {{ form.estate_cant_live_date_of_order |attr:"class: span4" }}
 </div>
 
-<!-- row -->
-<div class = "row">
-    <div class="span4 text-error">
-        {% for error in form.name_institution_of_education.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.vacation.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.army.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-</div>
-<div class = "row">
-    <div class="span4 ">{{ form.name_institution_of_education.label }}</div>
-    <div class="span4 ">{{ form.vacation.label }}</div>
-    <div class="span4 ">{{ form.army.label }}</div>
-</div>
-<div class = "controls-row">
-    {{ form.name_institution_of_education|attr:"class: span4" }}
-    {{ form.vacation|attr:"class: span4" }}
-    {{ form.army|attr:"class: span4" }}
-</div>
 
-<!-- row -->
-<div class = "row">
-    <div class="span4 text-error">
-        {% for error in form.jail.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.other.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.date_of_service_expired.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-</div>
-<div class = "row">
-    <div class="span4 ">{{ form.jail.label }}</div>
-    <div class="span4 ">{{ form.other.label }}</div>
-    <div class="span4 ">{{ form.date_of_service_expired.label }}</div>
-</div>
-<div class = "controls-row">
-    {{ form.jail|attr:"class: span4" }}
-    {{ form.other|attr:"class: span4" }}
-    {{ form.date_of_service_expired|attr:"class:span4 date"|attr:"placeholder:день.месяц.год" }}
-</div>
-<!-- row -->
-<div class = "row">
-    <div class="span12 text-error">
-        {% for error in form.annotation.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-</div>
-<div class = "row">
-    <div class="span12 ">{{ form.annotation.label }}</div>
-</div>
-<div class = "controls-row">
-    {{ form.annotation|attr:"class: span12" }}
-</div>
+
 <br />
 
         <input type="submit" class="btn btn-primary" value="Сохранить" />

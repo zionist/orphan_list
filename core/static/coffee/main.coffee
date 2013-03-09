@@ -28,7 +28,7 @@ $(document).ready ->
       $(".registration_address").show()
 
       # clear form values
-      $('.registration_no_reqistration_reason').find("textarea, input").each ->
+      $('input.registration_no_reqistration_reason').each ->
         $(@).val("")
 
     if reg_type == "не имеет"
@@ -36,14 +36,14 @@ $(document).ready ->
       $(".registration_no_reqistration_reason").show()
 
       # clear form values
-      $('.registration_address').find("textarea, input").each ->
+      $('input.registration_address').each ->
         $(@).val("")
 
     if reg_type == ""
         # clear form values
-        $('.registration_address').find("textarea, input").each ->
+        $('input.registration_address').each ->
           $(@).val("")
-        $('.registration_no_reqistration_reason').find("textarea, input").each ->
+        $('input.registration_no_reqistration_reason').each ->
           $(@).val("")
 
   # if age of person > 18 show spokesman data
@@ -55,6 +55,7 @@ $(document).ready ->
     birhday = new Date(year, mounth, day)
     required_age = 18
     years_lasted = new Date() - birhday
+    # get years from ms
     years_lasted = years_lasted/1000/60/60/24/360
     if years_lasted < required_age
       $("#spokesman_data").show()
@@ -68,7 +69,7 @@ $(document).ready ->
   show_hide_registration()
   show_hide_spokesman_data()
 
-  # show no_registartion_reason
+  # form show hide logic
   $("#id_registration_type").click ->
     show_hide_registration()
   $("#id_birthday").focusout ->
