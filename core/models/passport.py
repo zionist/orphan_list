@@ -70,19 +70,16 @@ class Passport(models.Model):
     lowful_status = models.CharField("Правовой статус",
         help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
         max_length=255)
-    lowful_status_date = models.DateField("Дата установления правового"
-        " статуса", help_text="Дата установления правового статуса", 
+    lowful_status_date = models.DateField("Дата установления правового статуса",
+                                          help_text="Дата установления правового статуса",
         null=True, blank=True)
-    lowful_status_number = models.CharField("Номер документа по которому "
-        "установлен правовой статус", help_text="Номер документа по которому "
-        "установлен правовой статус", blank=True, max_length=255)
+    lowful_status_number = models.CharField("Номер документа правового статуса",
+        help_text="Номер документа по которому установлен правовой статус", blank=True, max_length=255)
     lowful_status_invalidity = models.CharField("Инвалидность",
         help_text="Инвалидность", blank=True, choices=BOOLEAN_CHOICES,
         max_length=255)
 
-    # form of care
-    form_of_care = models.TextField("Форма устройства",
-        help_text="Форма устройство(опека, патронат и пр.", blank=True)
+    # spokesman data
     form_of_care_spokesman_data = models.TextField("Сведения о законном представителе",
         help_text="Сведения о законном представителе (ФИО, степен родства "
         "и пр.", blank=True)

@@ -9,7 +9,7 @@
 {# name #}
 <div class="row">
     <div class="span12 grey text-center">
-        Фамилия Имя Отчество
+        <h5 class="text-info">Фамилия Имя Отчество</h5>
     </div>
 </div>
 <div class = "row">
@@ -53,7 +53,7 @@
 </div>
 <div class="row">
     <div class="span12 grey text-center">
-        Заявления и договора
+        <h5 class="text-info"> Заявления и договора </h5>
     </div>
 </div>
 
@@ -120,7 +120,7 @@
 </div>
 <div class="row">
     <div class="span12 grey text-center">
-        Документ удостоверяющий личность
+        <h5 class="text-info"> Документ удостоверяющий личность </h5>
     </div>
 </div>
 
@@ -165,7 +165,7 @@
 </div>
 <div class="row" id="hide1">
     <div class="span12 grey text-center">
-        Регистрация
+        <h5 class="text-info"> Регистрация </h5>
     </div>
 </div>
 
@@ -229,34 +229,76 @@
     </div>
 </span>
 
-<!-- row -->
+{# lowful status #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
+</div>
+<div class="row" id="hide1">
+    <div class="span12 grey text-center">
+       <h5 class="text-info"> Правовой статус </h5>
+    </div>
+</div>
+
 <div class = "row">
-    <div class="span4 text-error">
-        {% for error in form.fact_live_address_outside_mo.errors %}
+    <div class="span3 text-error">
+        {% for error in form.lowful_status.errors %}
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span4 text-error">
-        {% for error in form.place_of_first_find.errors %}
+    <div class="span3 text-error">
+        {% for error in form.lowful_status_date.errors %}
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span4 text-error">
-        {% for error in form.real_estate_EGRP.errors %}
+    <div class="span3 text-error">
+        {% for error in form.lowful_status_number.errors %}
            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error">
+        {% for error in form.lowful_status_invalidity.errors %}
+            {{ error }}
         {% endfor %}
     </div>
 </div>
 <div class = "row">
-    <div class="span4 ">{{ form.fact_live_address_outside_mo.label }}</div>
-    <div class="span4 ">{{ form.place_of_first_find.label }}</div>
-    <div class="span4 ">{{ form.real_estate_EGRP.label }}</div>
+    <div class="span3 ">{{ form.lowful_status.label }}</div>
+    <div class="span3 ">{{ form.lowful_status_date.label }}</div>
+    <div class="span3 ">{{ form.lowful_status_number.label }}</div>
+    <div class="span3 ">{{ form.lowful_status_invalidity.label }}</div>
 </div>
 <div class = "controls-row">
-    {{ form.fact_live_address_outside_mo|attr:"class: span4" }}
-    {{ form.place_of_first_find|attr:"class: span4" }}
-    {{ form.real_estate_EGRP|attr:"class: span4" }}
+    {{ form.lowful_status|attr:"class: span3" }}
+    {{ form.lowful_status_date|attr:"class: span3 date" }}
+    {{ form.lowful_status_number|attr:"class: span3" }}
+    {{ form.lowful_status_invalidity|attr:"class: span3" }}
 </div>
+
+{#  spokesman data #}
+<span id="spokesman_data" class="hide">
+    <div class="row">
+        <div class="span12">  &nbsp;  </div>
+    </div>
+    <div class="row">
+        <div class="span12 grey text-center">
+            <h5 class="text-info"> Сведения о законном представителе </h5>
+        </div>
+    </div>
+
+    <div class = "row">
+        <div class="span12 text-error">
+            {% for error in form.form_of_care_spokesman_data.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class = "row">
+        <div class="span12">{{ form.form_of_care_spokesman_data.label }}</div>
+    </div>
+    <div class = "controls-row">
+        {{ form.form_of_care_spokesman_data|attr:"class: span12" }}
+    </div>
+</span>
 
 <!-- row -->
 <div class = "row">
