@@ -16,19 +16,19 @@ class Passport(models.Model):
         return "%s %s %s" % (self.name, self.patronymic, self.surname)
 
     # name 
+    surname = models.CharField("Фамилия", help_text="Фамилия",
+                               max_length=255)
     name = models.CharField("Имя", help_text= "Имя", max_length=255)
     patronymic = models.CharField("Отчество", help_text="Отчество",
-        max_length=255)
-    surname = models.CharField("Фамилия", help_text="Фамилия",
         max_length=255)
     birthday = models.DateField("Дата рождения", help_text="Дата рождения",
         blank=True, null=True)
 
     # orders and dates
-    allegation_date_and_time = models.DateTimeField("Дата и время подачи"
+    order_allegation_date_and_time = models.DateTimeField("Дата и время подачи"
         " заявления", help_text = "Дата и время подачи заявления",
         blank=True, null=True)
-    UMSO_conclusion_date = models.DateField("Дата заключения УМСО",
+    order_UMSO_conclusion_date = models.DateField("Дата заключения УМСО",
         help_text="Дата заключения УМСО", blank=True, null=True)
     order_date = models.DateField("Дата внесения в список",
         help_text="Дата внесения  в список", blank=True, null=True)
@@ -51,24 +51,20 @@ class Passport(models.Model):
         help_text="Дата выдачи документа", blank=True, null=True)
     document_issue = models.CharField("Кем выдан", help_text="Кем выдан",
         blank=True, max_length=255)
-    document_date_of_list = models.DateField("Дата включения в список",
-        help_text="Дата включения в список", blank=True, null=True)
 
     # registration
     registration_type = models.CharField("Тип регистрации",
         choices=REGISTRATION_CHOICES,
         help_text="Тип регистрации по месту жительства", max_length=1024,
         blank=True)
+    registration_address_region = models.CharField("Фактический адрес регион",
+        help_text="Фактический адрес регион", blank=True, max_length=2048)
+    registration_address_mo = models.CharField("Фактический адрес МО",
+        help_text="Фактический адрес МО", blank=True, max_length=409)
+    registration_address_address = models.CharField("Фактический адрес улица дом",
+        help_text="Фактический адрес улица дом", blank=True, max_length=10000)
     registration_no_reqistration_reason = models.TextField("Причина отсутсвия "
         "регистрации", help_text="Причина отсутсвия регистрации", blank=True)
-
-    # fact address
-    fact_address_region = models.TextField("Фактический адрес регион",
-        help_text="Фактический адрес регион", blank=True)
-    fact_address_mo = models.TextField("Фактический адрес МО",
-        help_text="Фактический адрес МО", blank=True)
-    fact_address_address = models.TextField("Фактический адрес улица дом",
-        help_text="Фактический адрес улица дом", blank=True)
 
     # lowful status
     lowful_status = models.CharField("Правовой статус",
@@ -80,8 +76,9 @@ class Passport(models.Model):
     lowful_status_number = models.CharField("Номер документа по которому "
         "установлен правовой статус", help_text="Номер документа по которому "
         "установлен правовой статус", blank=True, max_length=255)
-    lowful_status_invalidity = models.NullBooleanField("Инвалидность",
-        help_text="Инвалидность", blank=True)
+    lowful_status_invalidity = models.CharField("Инвалидность",
+        help_text="Инвалидность", blank=True, choices=BOOLEAN_CHOICES,
+        max_length=255)
 
     # form of care
     form_of_care = models.TextField("Форма устройства",

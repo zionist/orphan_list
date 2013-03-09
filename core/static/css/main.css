@@ -23,8 +23,8 @@ footer {
 
 .grey {
     background-color: #F5F5F5;
+    /* background-color: #eee */
 }
 
 textarea{
         resize:none;
-}
