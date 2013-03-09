@@ -290,7 +290,7 @@
 </div>
 <div class="row">
     <div class="span12 grey text-center">
-        <h5 class="text-info"> Семейный статус </h5>
+        <h5 class="text-info"> Семейное положение </h5>
     </div>
 </div>
 
@@ -331,22 +331,115 @@
             {{ error }}
         {% endfor %}
     </div>
-    <div class="span4 text-error">
+    <div class="span4 text-error has_estate">
         {% for error in form.estate_cant_live_date_of_order.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error has_estate">
+        {% for error in form.estate_cant_live_order_number.errors %}
             {{ error }}
         {% endfor %}
     </div>
 </div>
 <div class = "row">
     <div class="span4">{{ form.estate_has_estate.label }}</div>
-    <div class="span4">{{ form.estate_cant_live_date_of_order.label }}</div>
+    <div class="span4 has_estate">{{ form.estate_cant_live_date_of_order.label }}</div>
+    <div class="span4 has_estate">{{ form.estate_cant_live_order_number.label }}</div>
 </div>
 <div class = "controls-row">
     {{ form.estate_has_estate |attr:"class: span4" }}
-    {{ form.estate_cant_live_date_of_order |attr:"class: span4" }}
+    {{ form.estate_cant_live_date_of_order |attr:"class: span4 has_estate date" }}
+    {{ form.estate_cant_live_order_number |attr:"class: span4 has_estate" }}
 </div>
 
+{# job and education #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
+</div>
+<div class="row">
+    <div class="span12 grey text-center">
+        <h5 class="text-info"> Образование. Занятость. Служба </h5>
+    </div>
+</div>
 
+<div class = "row">
+    <div class="span4 text-error">
+        {% for error in form.job_type_of_job.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error job_has_job">
+        {% for error in form.job_how_hired.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error job_has_job">
+        {% for error in form.job_job_place.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+
+    <div class="span4 text-error job_has_education">
+        {% for error in form.job_eduction_type.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error job_has_education">
+        {% for error in form.job_education_house.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+
+    <div class="span8 text-error job_has_other">
+        {% for error in form.job_other.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span4">{{ form.job_type_of_job.label }}</div>
+
+    <div class="span4 job_has_job">{{ form.job_how_hired.label }}</div>
+    <div class="span4 job_has_job">{{ form.job_job_place.label }}</div>
+
+    <div class="span4 job_has_education">{{ form.job_eduction_type.label }}</div>
+    <div class="span4 job_has_education">{{ form.job_education_house.label }}</div>
+
+    <div class="span8 job_has_other">{{ form.job_other.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.job_type_of_job |attr:"class: span4" }}
+
+    {{ form.job_how_hired |attr:"class: span4 job_has_job" }}
+    {{ form.job_job_place |attr:"class: span4 job_has_job" }}
+
+    {{ form.job_eduction_type |attr:"class: span4 job_has_education" }}
+    {{ form.job_education_house |attr:"class: span4 job_has_education" }}
+
+    {{ form.job_other |attr:"class: span8 job_has_other" }}
+</div>
+
+<div class = "row">
+    <div class="span4 text-error job_period"">
+        {% for error in form.job_started.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error job_period">
+        {% for error in form.job_finished.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span4 job_period"">{{ form.job_started.label }}</div>
+    <div class="span4 job_period">{{ form.job_finished.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.job_started |attr:"class: span4 date job_period" }}
+    {{ form.job_finished |attr:"class: span4 date job_period" }}
+</div>
 
 <br />
 

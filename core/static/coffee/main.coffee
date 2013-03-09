@@ -62,17 +62,75 @@ $(document).ready ->
     else
       $("#spokesman_data").hide()
 
+  show_hide_estate = () ->
+    estate_status = $("#id_estate_has_estate :selected").val()
+    if estate_status == "Да"
+      $(".has_estate").show()
+    else
+      $(".has_estate").hide()
+      $("#id_estate_cant_live_date_of_order").val("")
+      $("#id_estate_cant_live_order_number").val("")
+
+  show_hide_job = () ->
+    type_of_job = $("#id_job_type_of_job :selected").val()
+    switch type_of_job
+      when "Работает"
+        $(".job_has_education").hide()
+        $(".job_has_other").hide()
+        $(".job_has_job").show()
+        $("#id_job_eduction_type").val("")
+        $("#id_job_education_house").val("")
+        $("#id_job_other").val("")
+      when "Обучается"
+        $("#id_job_how_hired").val("")
+        $("#id_job_job_place").val("")
+        $("#id_job_other").val("")
+        $(".job_has_other").hide()
+        $(".job_has_job").hide()
+        $(".job_has_education").show()
+      when "Иное"
+        $("#id_job_how_hired").val("")
+        $("#id_job_job_place").val("")
+        $("#id_job_how_hired").val("")
+        $("#id_job_eduction_type").val("")
+        $("#id_job_education_house").val("")
+        $(".job_has_job").hide()
+        $(".job_has_education").hide()
+        $(".job_has_other").show()
+      else
+        $("#id_job_how_hired").val("")
+        $("#id_job_job_place").val("")
+        $("#id_job_how_hired").val("")
+        $("#id_job_eduction_type").val("")
+        $("#id_job_education_house").val("")
+        $("#id_job_other").val("")
+        $(".job_has_job").hide()
+        $(".job_has_education").hide()
+        $(".job_has_other").hide()
+
+    if type_of_job == ""
+      $("#id_job_started").val("")
+      $("#id_job_finished").val("")
+      $(".job_period").hide()
+    else
+      $(".job_period").show()
 
   # calls
   set_input_masks()
   set_active_tab()
   show_hide_registration()
   show_hide_spokesman_data()
+  show_hide_estate()
+  show_hide_job()
 
   # form show hide logic
   $("#id_registration_type").click ->
     show_hide_registration()
+  $("#id_estate_has_estate").click ->
+    show_hide_estate()
   $("#id_birthday").focusout ->
     show_hide_spokesman_data()
+  $("#id_job_type_of_job").click ->
+    show_hide_job()
 
 

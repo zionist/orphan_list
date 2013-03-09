@@ -3,8 +3,8 @@
 import django.db.models as models
 from djangosphinx.models import SphinxSearch
 
-from orphan_list.common.constants import REGISTRATION_CHOICES, FAMILY_STATUS_CHOICES, PROVISION_OF_EMPLOYMENT_CHOICES, \
-    JOB_TYPE_CHOICES, BOOLEAN_CHOICES, DOCUMENT_CHOICES, LOWFUL_STATUSES, EDUCATION_TYPE_CHOICES
+from orphan_list.common.constants import REGISTRATION_CHOICES, FAMILY_STATUS_CHOICES, JOB_TYPE_CHOICES, \
+    BOOLEAN_CHOICES, DOCUMENT_CHOICES, LOWFUL_STATUSES, EDUCATION_TYPE_CHOICES, HIRING_TYPE_CHOICES
 
 
 class Passport(models.Model):
@@ -101,20 +101,20 @@ class Passport(models.Model):
         help_text="Номер правового акта о невозможности проживания", blank=True, max_length=255)
 
     # job and education
-    job_type_of_job = models.CharField("Трудоустройство \ обучение", help_text="Трудоустройство \ обучение",
+    job_type_of_job = models.CharField("Занятость. Образование. Служба", help_text="Занятость. Образование. Служба.",
                                        choices=JOB_TYPE_CHOICES, max_length=255, blank=True)
-    job_has_find_job_from_CZN = models.CharField("Трудоустроен через ЦЗН", help_text="Трудоустроен через ЦЗН",
-                                             choices=BOOLEAN_CHOICES, max_length=255, blank=True)
-    job_job_place = models.TextField("Где трудоустроен", help_text="Где трудоустроен", blank=True)
+    job_how_hired = models.CharField("Как трудоустроен", help_text="Как трудоустроен",
+                                             choices=HIRING_TYPE_CHOICES, max_length=255, blank=True)
+    job_job_place = models.CharField("Где трудоустроен", help_text="Где трудоустроен", max_length=10000, blank=True)
     job_eduction_type = models.CharField("Тип учебного заведения", help_text="Тип учебного заведения",
         max_length=255,  choices=EDUCATION_TYPE_CHOICES, blank=True)
-    job_education_house = models.TextField("Учебное заведение", help_text="Учебное заведение",  max_length=255,
+    job_education_house = models.CharField("Учебное заведение", help_text="Учебное заведение",  max_length=10000,
                                            blank=True)
-    job_other = models.TextField("Трудоустройство \ обучение другое", help_text="Трудоустройство \ обучение другое ",
-                                  blank=True)
+    job_other = models.CharField("Трудоустройство \ обучение другое", help_text="Трудоустройство \ обучение другое ",
+                                  blank=True, max_length=10000)
     job_started = models.DateField("Дата начала",
             help_text="Дата окончания", blank=True, null=True)
-    jov_started = models.DateField("Дата окончания", blank=True, null=True)
+    job_finished = models.DateField("Дата окончания", blank=True, null=True)
 
     # lodging accordance
     lodgin_accordance = models.CharField("Предоставлено жилье", help_text="Предоставлено жилье",
