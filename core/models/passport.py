@@ -4,7 +4,8 @@ import django.db.models as models
 from djangosphinx.models import SphinxSearch
 
 from orphan_list.common.constants import REGISTRATION_CHOICES, FAMILY_STATUS_CHOICES, JOB_TYPE_CHOICES, \
-    BOOLEAN_CHOICES, DOCUMENT_CHOICES, LOWFUL_STATUSES, EDUCATION_TYPE_CHOICES, HIRING_TYPE_CHOICES
+    BOOLEAN_CHOICES, DOCUMENT_CHOICES, LOWFUL_STATUSES, EDUCATION_TYPE_CHOICES, HIRING_TYPE_CHOICES, LODGING_CHOICES, \
+    LODGING_HOUSE_OR_FLAT_CHOICES
 
 
 class Passport(models.Model):
@@ -116,9 +117,13 @@ class Passport(models.Model):
             help_text="Дата окончания", blank=True, null=True)
     job_finished = models.DateField("Дата окончания", blank=True, null=True)
 
-    # lodging accordance
-    lodgin_accordance = models.CharField("Предоставлено жилье", help_text="Предоставлено жилье",
+    # lodging
+    lodging_accordance = models.CharField("Предоставлено жилье", help_text="Предоставлено жилье",
        choices=BOOLEAN_CHOICES, max_length=255, blank=True)
-
+    lodging_how_gained = models.CharField("Как предоставлено", help_text="Как предоставлено", choices=LODGING_CHOICES,
+                                       max_length=255, blank=True)
+    lodging_house_or_flat = models.CharField("Дом / квартира", help_text="Дом / квартира",
+                                            choices=LODGING_HOUSE_OR_FLAT_CHOICES, max_length=255, blank=True)
+    lodging_square = models.CharField("Общая площадь", help_text="Общая площадь", max_length=2048, blank=True)
     # search
-    search = SphinxSearch()
+    # search = SphinxSearch()

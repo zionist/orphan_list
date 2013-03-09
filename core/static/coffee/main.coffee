@@ -40,11 +40,13 @@ $(document).ready ->
         $(@).val("")
 
     if reg_type == ""
-        # clear form values
-        $('input.registration_address').each ->
-          $(@).val("")
-        $('input.registration_no_reqistration_reason').each ->
-          $(@).val("")
+      $(".registration_address").hide()
+      $(".registration_no_reqistration_reason").hide()
+      # clear form values
+      $('input.registration_address').each ->
+        $(@).val("")
+      $('input.registration_no_reqistration_reason').each ->
+        $(@).val("")
 
   # if age of person > 18 show spokesman data
   show_hide_spokesman_data = () ->
@@ -115,6 +117,15 @@ $(document).ready ->
     else
       $(".job_period").show()
 
+  show_hide_lodging = () ->
+    lodging = $("#id_lodging_accordance :selected").val()
+    if lodging == "Да"
+      $(".lodging").show()
+    else
+      $('.lodging').each ->
+        $(@).val("")
+      $(".lodging").hide()
+
   # calls
   set_input_masks()
   set_active_tab()
@@ -122,6 +133,7 @@ $(document).ready ->
   show_hide_spokesman_data()
   show_hide_estate()
   show_hide_job()
+  show_hide_lodging()
 
   # form show hide logic
   $("#id_registration_type").click ->
@@ -132,5 +144,7 @@ $(document).ready ->
     show_hide_spokesman_data()
   $("#id_job_type_of_job").click ->
     show_hide_job()
+  $("#id_lodging_accordance").click ->
+    show_hide_lodging()
 
 

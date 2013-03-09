@@ -441,6 +441,50 @@
     {{ form.job_finished |attr:"class: span4 date job_period" }}
 </div>
 
-<br />
+{# lodging #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
+</div>
+<div class="row">
+    <div class="span12 grey text-center">
+        <h5 class="text-info"> Предоставлено жилье </h5>
+    </div>
+</div>
 
+<div class = "row">
+    <div class="span3 text-error">
+        {% for error in form.lodging_accordance.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error lodging">
+        {% for error in form.lodging_how_gained.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error lodging">
+        {% for error in form.lodging_house_or_flat.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span text-error lodging">
+        {% for error in form.lodging_square.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span3"">{{ form.lodging_accordance.label }}</div>
+    <div class="span3 lodging">{{ form.lodging_how_gained.label }}</div>
+    <div class="span3 lodging">{{ form.lodging_house_or_flat.label }}</div>
+    <div class="span3 lodging">{{ form.lodging_square.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.lodging_accordance |attr:"class: span3" }}
+    {{ form.lodging_how_gained |attr:"class: span3 lodging" }}
+    {{ form.lodging_house_or_flat |attr:"class: span3 lodging" }}
+    {{ form.lodging_square |attr:"class: span3 lodging" }}
+</div>
+
+<br />
         <input type="submit" class="btn btn-primary" value="Сохранить" />
