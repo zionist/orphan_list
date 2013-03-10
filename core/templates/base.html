@@ -33,7 +33,9 @@
               <a class="brand" href="#">Список детей сирот</a>
               <div class="nav-collapse collapse">
                 <ul class="nav">
+                  {% if request.user.is_authenticated %}
                     <li id="list"><a href="/core/list/">Главная</a></li>
+                  {% endif %}
                   {% if perms.core.add_passport  %} 
                     <li id="create"><a href="{% url 'create' %}">Создать</a></li>
                   {% endif %}

@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+
+<div class = "row">
+    <div class="span4 text-error">
+        {% for error in search_form.name.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error">
+        {% for error in search_form.surname.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error">
+        {% for error in search_form.birthday.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+</div>
+
+<p>
+    <button class="btn btn-info btn-small" data-toggle="collapse" data-target="#quick_search">
+        Фильтр
+    </button>
+</p>
+
+<div id="quick_search" class="collapse">
+    <form action="{% url 'list' %}" method="get">
+    {% for hidden in search_form.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
+
+    {{ search_form.non_field_errors }}
+
+    <table class="table table-striped">
+        {% for field in form %}
+            {%  cycle "<tr>" " " " "%}
+            <td> {{ field }} </td>
+            <td> {{ field.label }} </td>
+            {%  cycle " " " " "</tr>" %}
+        {% endfor %}
+    </table>
+
+    <input class="btn" type="submit" value="Применить" />
+</form>
+</div>

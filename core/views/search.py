@@ -21,7 +21,6 @@ class SearchSelectView(FormView):
         return super(SearchSelectView, self).form_valid(form)
 
     def get(self, request, *args, **kwargs):
-        print "#get"
         return super(SearchSelectView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):

@@ -6,10 +6,11 @@ from django.views.generic.edit import (CreateView,
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
-from core.forms.search import QuickSearchForm
+from core.forms.search import SearchForm
 from core.models import Passport
-from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.decorators import method_decorator
+from common.constants import EXTRA_SEARCH_FIELDS
 
 
 #dynamicly generate context from model fields
@@ -47,6 +48,10 @@ class PassportDetailView(DetailView):
         # title
         context["title"] = self.object.__unicode__
         return context
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PassportDetailView, self).dispatch(*args, **kwargs)
 
 
 class PassportUpdateView(UpdateView):
@@ -109,7 +114,7 @@ class PassportListView(ListView):
 
     def to_exel(context):
         """
-        :param: args  - cleared data from quick_seach form
+        :param: args  - cleared data from seach form
         """
         # get help_text as names from model
         objects = []
@@ -148,7 +153,13 @@ class PassportListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(PassportListView, self).get_context_data(**kwargs)
         context["title"] = "List"
-        context["quick_search_form"] = QuickSearchForm(self.request.GET)
+        # get session select fornm and set search form accoring it
+        if self.request.session.get('form_data'):
+            form_data = self.request.session["form_date"]
+        else:
+            form_data =  None
+
+        context["search_form"] = SearchForm(self.request.GET)
         url = self.request.get_full_path()
         if self.request.GET:
             context["xls_path"] = url + "&xls=yes"
@@ -160,11 +171,11 @@ class PassportListView(ListView):
         return super(PassportListView, self).get(request, **kwargs)
 
     def get_queryset(self):
-        quick_search_form = QuickSearchForm(self.request.GET)
-        if not quick_search_form.is_valid():
+        search_form = SearchForm(self.request.GET)
+        if not search_form.is_valid():
             return super(PassportListView, self).get_queryset()
         else:
-            args = quick_search_form.cleaned_data
+            args = search_form.cleaned_data
             for k, v in args.items():
                 if not v:
                     del args[k] 
@@ -177,4 +188,8 @@ class PassportListView(ListView):
         if self.request.GET.get("xls"):
             return self.to_exel()
         return super(PassportListView, self).render_to_response(context)
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(PassportListView, self).dispatch(*args, **kwargs)
         
