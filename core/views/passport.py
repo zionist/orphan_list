@@ -122,7 +122,7 @@ class PassportListView(ListView):
             fields = get_name_value_from_object(object)
             objects.append(fields)
 
-        # create 
+        # create
         book = xlwt.Workbook(encoding='utf8')
         sheet = book.add_sheet('untitled')
         style_plain = xlwt.Style.default_style
@@ -134,7 +134,7 @@ class PassportListView(ListView):
 
         # write header
         for column_index, field in enumerate(objects[0]):
-            sheet.write(0, column_index, field.name, style_bold) 
+            sheet.write(0, column_index, field.name, style_bold)
 
         # write values
         for row_index, fields in enumerate(objects):
@@ -144,9 +144,9 @@ class PassportListView(ListView):
 
                 else:
                     style = style_plain
-                sheet.write(row_index + 1, column_index, field.value, 
-                style) 
-            
+                sheet.write(row_index + 1, column_index, field.value,
+                style)
+
         book.save(response)
         return response
         
@@ -182,11 +182,36 @@ class PassportListView(ListView):
         return super(PassportListView, self).get(request, **kwargs)
 
     def get_queryset(self):
-        search_form = SearchForm(self.request.GET)
+        # search logic here
+        data = self.request.GET.copy()
+        if self.request.session.get('form_data'):
+            form_data = self.request.session["form_data"]
+        else:
+            form_data = DEFAULT_SEARCH_TRUE_VALUES
+
+
+        # get help_text from Passport model
+        search_form_generate_from = {}
+        for name, value in form_data.items():
+            if name in Passport._meta.get_all_field_names() and value == True:
+                field = Passport._meta.get_field_by_name(name)[0]
+                search_form_generate_from[name] = field.help_text
+
+        for extra_key, extra_value in EXTRA_SEARCH_FIELDS.items():
+            if form_data.get(extra_key) == True:
+                search_form_generate_from[extra_key] = extra_value
+
+        search_form = SearchForm(data, generate_from=search_form_generate_from)
         if not search_form.is_valid():
+            print "# not valid"
+            print search_form.errors
             return super(PassportListView, self).get_queryset()
         else:
+            print "# valid"
             args = search_form.cleaned_data
+            print "#"
+            print args
+            print "#"
             for k, v in args.items():
                 if not v:
                     del args[k] 

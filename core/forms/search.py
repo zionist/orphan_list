@@ -17,13 +17,16 @@ class QuickSearchForm(forms.Form):
 
 # dynamic search forms
 class SearchForm(forms.Form):
-    def __init__(self, generate_from=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         :param form_data: dict {fields name: label} for dynamic form generation
         :return: search form with fields according input form_data dict
         """
+        generate_from = kwargs.pop("generate_from")
+        super(SearchForm, self).__init__(*args, **kwargs)
         if not generate_from:
-            generate_from = DEFAULT_SEARCH_TRUE_VALUES
+            #generate_from = DEFAULT_SEARCH_TRUE_VALUES
+            return
         super(SearchForm, self).__init__(*args, **kwargs)
         passport_field_names = [field.name for field in Passport._meta.fields if field.name != "id"]
 
