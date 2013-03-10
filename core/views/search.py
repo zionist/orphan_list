@@ -15,11 +15,15 @@ class SearchSelectView(FormView):
         return reverse('search.select')
 
     def form_valid(self, form):
+        print form.cleaned_data["job_job_place"]
         self.request.session['form_data'] = form.cleaned_data
         return super(SearchSelectView, self).form_valid(form)
 
     def get(self, request, *args, **kwargs):
         return super(SearchSelectView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return super(SearchSelectView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(SearchSelectView, self).get_context_data(**kwargs)

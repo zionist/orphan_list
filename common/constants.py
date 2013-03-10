@@ -61,13 +61,13 @@ LODGING_HOUSE_OR_FLAT_CHOICES = (
 DEFAULT_SEARCH_TRUE_VALUES = {
     'surname': u'Фамилия',
     'name': u'Имя',
-    'age': u'Возраст',
+    'year': u'Год рождения',
     }
 
 
 EXTRA_SEARCH_FIELDS = {
     'from_year': u'Начиная с года рождения',
     'to_year': u'Заканчивая годом рождения',
-    'age': u'Возраст',
+    'year': u'Год рождения',
     }
 

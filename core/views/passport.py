@@ -110,7 +110,26 @@ class PassportCreateView(CreateView):
 class PassportListView(ListView):
     model=Passport
     template_name="list.html"
-    paginate_by = 20 
+    paginate_by = 20
+
+    def create_search_form_data(self, data):
+        """
+        Create dynamic passport search form from input dict and EXTRA_SEARCH_FIELDS
+        :param data:
+        :return:
+        """
+        # get help_text from Passport model
+        search_form_generate_from = {}
+        for name, value in data.items():
+            if name in Passport._meta.get_all_field_names() and value:
+                field = Passport._meta.get_field_by_name(name)[0]
+                search_form_generate_from[name] = field.help_text
+
+        # add extra fields
+        for key, value in EXTRA_SEARCH_FIELDS.items():
+            if data.get(key):
+                search_form_generate_from[key] = value
+        return search_form_generate_from
 
     def to_exel(context):
         """
@@ -159,18 +178,9 @@ class PassportListView(ListView):
         else:
             form_data = DEFAULT_SEARCH_TRUE_VALUES
 
-        # get help_text from Passport model
-        search_form_generate_from = {}
-        for name, value in form_data.items():
-            if name in Passport._meta.get_all_field_names() and value == True:
-                field = Passport._meta.get_field_by_name(name)[0]
-                search_form_generate_from[name] = field.help_text
+        search_form_generate_from = self.create_search_form_data(form_data)
 
-        for extra_key, extra_value in EXTRA_SEARCH_FIELDS.items():
-            if form_data.get(extra_key) == True:
-                search_form_generate_from[extra_key] = extra_value
-
-        context["search_form"] = SearchForm(generate_from=search_form_generate_from)
+        context["search_form"] = SearchForm(self.request.GET.copy(), generate_from=search_form_generate_from)
         url = self.request.get_full_path()
         if self.request.GET:
             context["xls_path"] = url + "&xls=yes"
@@ -182,40 +192,45 @@ class PassportListView(ListView):
         return super(PassportListView, self).get(request, **kwargs)
 
     def get_queryset(self):
-        # search logic here
         data = self.request.GET.copy()
+
+        # search logic
+        extra_fields = {}
+        for name, value in EXTRA_SEARCH_FIELDS.items():
+            if name in data.keys():
+                extra_fields[name] = value
+                del data[name]
+
+        #__icontains
+
+        #print extra_fields
+        if extra_fields.get("birth_year"):
+            pass
+
         if self.request.session.get('form_data'):
             form_data = self.request.session["form_data"]
         else:
-            form_data = DEFAULT_SEARCH_TRUE_VALUES
+            form_data = {}
 
-
-        # get help_text from Passport model
-        search_form_generate_from = {}
-        for name, value in form_data.items():
-            if name in Passport._meta.get_all_field_names() and value == True:
-                field = Passport._meta.get_field_by_name(name)[0]
-                search_form_generate_from[name] = field.help_text
-
-        for extra_key, extra_value in EXTRA_SEARCH_FIELDS.items():
-            if form_data.get(extra_key) == True:
-                search_form_generate_from[extra_key] = extra_value
+        # create dynamic search form
+        search_form_generate_from = self.create_search_form_data(form_data)
 
         search_form = SearchForm(data, generate_from=search_form_generate_from)
         if not search_form.is_valid():
             print "# not valid"
-            print search_form.errors
             return super(PassportListView, self).get_queryset()
         else:
-            print "# valid"
             args = search_form.cleaned_data
-            print "#"
-            print args
-            print "#"
             for k, v in args.items():
                 if not v:
                     del args[k] 
             if args:
+                # all search is case insensitive
+                for key,value in args.items():
+                    args[key + "__icontains"] = value
+                    del args[key]
+                print args
+
                 return Passport.objects.filter(**args)
             else: 
                 return super(PassportListView, self).get_queryset()

@@ -20,8 +20,8 @@ $(document).ready ->
       if (document.URL.match(id))
         $("#" + id).addClass("active")
         break
-      if (document.URL.match("search/select"))
-        $("#search_select").addClass("active")
+    if (document.URL.match("search/select"))
+      $("#search_select").addClass("active")
 
   show_hide_registration = () ->
     reg_type = $("#id_registration_type :selected").val()
@@ -129,13 +129,14 @@ $(document).ready ->
       $(".lodging").hide()
 
   # calls
-  set_input_masks()
   set_active_tab()
-  show_hide_registration()
-  show_hide_spokesman_data()
-  show_hide_estate()
-  show_hide_job()
-  show_hide_lodging()
+  if (document.URL.match('create'))
+    set_input_masks()
+    show_hide_registration()
+    show_hide_spokesman_data()
+    show_hide_estate()
+    show_hide_job()
+    show_hide_lodging()
 
   # form show hide logic
   $("#id_registration_type").click ->
