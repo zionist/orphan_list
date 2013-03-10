@@ -15,9 +15,7 @@ class SearchSelectView(FormView):
         return reverse('search.select')
 
     def form_valid(self, form):
-        print "# form is valid"
         self.request.session['form_data'] = form.cleaned_data
-        print form.cleaned_data
         return super(SearchSelectView, self).form_valid(form)
 
     def get(self, request, *args, **kwargs):
@@ -27,6 +25,5 @@ class SearchSelectView(FormView):
         context = super(SearchSelectView, self).get_context_data(**kwargs)
         if self.request.session.get('form_data'):
             context['form'] = SearchSelectForm(self.request.session['form_data'])
-        print context
         return context
 

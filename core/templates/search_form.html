@@ -33,10 +33,10 @@
     {{ search_form.non_field_errors }}
 
     <table class="table table-striped">
-        {% for field in form %}
+        {% for field in search_form %}
             {%  cycle "<tr>" " " " "%}
-            <td> {{ field }} </td>
             <td> {{ field.label }} </td>
+            <td> {{ field }} </td>
             {%  cycle " " " " "</tr>" %}
         {% endfor %}
     </table>

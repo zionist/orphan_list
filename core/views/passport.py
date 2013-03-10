@@ -10,7 +10,7 @@ from core.forms.search import SearchForm
 from core.models import Passport
 from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.decorators import method_decorator
-from common.constants import EXTRA_SEARCH_FIELDS
+from common.constants import DEFAULT_SEARCH_TRUE_VALUES, EXTRA_SEARCH_FIELDS
 
 
 #dynamicly generate context from model fields
@@ -153,13 +153,24 @@ class PassportListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(PassportListView, self).get_context_data(**kwargs)
         context["title"] = "List"
-        # get session select fornm and set search form accoring it
+        # get session select form and set search form according it
         if self.request.session.get('form_data'):
-            form_data = self.request.session["form_date"]
+            form_data = self.request.session["form_data"]
         else:
-            form_data =  None
+            form_data = DEFAULT_SEARCH_TRUE_VALUES
 
-        context["search_form"] = SearchForm(self.request.GET)
+        # get help_text from Passport model
+        search_form_generate_from = {}
+        for name, value in form_data.items():
+            if name in Passport._meta.get_all_field_names() and value == True:
+                field = Passport._meta.get_field_by_name(name)[0]
+                search_form_generate_from[name] = field.help_text
+
+        for extra_key, extra_value in EXTRA_SEARCH_FIELDS.items():
+            if form_data.get(extra_key) == True:
+                search_form_generate_from[extra_key] = extra_value
+
+        context["search_form"] = SearchForm(generate_from=search_form_generate_from)
         url = self.request.get_full_path()
         if self.request.GET:
             context["xls_path"] = url + "&xls=yes"
