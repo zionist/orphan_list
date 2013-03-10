@@ -11,3 +11,4 @@ django-widget-tweaks
 eventlet
 greenlet
 django-coffeescript
+psycopg2

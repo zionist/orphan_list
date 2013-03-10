@@ -14,7 +14,7 @@ class Passport(models.Model):
         verbose_name = "Passport"
 
     def __unicode__(self):
-        return "%s %s %s" % (self.name, self.patronymic, self.surname)
+        return "%s %s %s" % (self.surname, self.surname, self.patronymic)
 
     # name 
     surname = models.CharField("Фамилия", help_text="Фамилия",

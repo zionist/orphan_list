@@ -130,7 +130,7 @@ $(document).ready ->
 
   # calls
   set_active_tab()
-  if (document.URL.match('create'))
+  if (document.URL.match('create') or document.URL.match('update'))
     set_input_masks()
     show_hide_registration()
     show_hide_spokesman_data()

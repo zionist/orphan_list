@@ -10,42 +10,46 @@
     </ul>
 
    {% include "search_form.html" %}
-    
-  <table class="table table-bordered table-condensed table-hover">
-        <tbody>
-            <tr>
-                <th>ФИО</th>
-                <th>Дата рождения</th>
-                <th>Дата включения в список</th>
-                <th>Тип регистрации</th>
-                <th>Адрес проживания</th>
-                <th>Причина отсутсвия регистрации</th>
-            </tr>
-            {% for passport in passport_list %}
-                <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
-                    <td>{{ passport.name }} {{passport.surname }} {{passport.patronymic }}  </td>
-                    {% if passport.birthday %}
-                        <td>{{  passport.birthday }} </td>
-                    {% else %}
-                        <td> </td>
-                    {% endif %}
 
-                    {% if passport.date_of_list %}
-                        <td>{{  passport.birthday }} </td>
-                    {% else %}
-                        <td> </td>
-                    {% endif %}
-
-                    <td>{{ passport.registration_type }}  </td>
-                    <td>{{ passport.reqistration_address }}  </td>
-                    <td>{{ passport.no_reqistration_reason }}  </td>
-
-
-
+  {% if passport_list %}
+      <table class="table table-bordered table-condensed table-hover">
+            <tbody>
+                <tr>
+                    <th>ФИО</th>
+                    <th>Дата рождения</th>
+                    <th>Дата включения в список</th>
+                    <th>Тип регистрации</th>
+                    <th>Адрес проживания</th>
+                    <th>Причина отсутсвия регистрации</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-  </table>
+                {% for passport in passport_list %}
+                    <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
+                        <td>{{ passport.surname }} {{passport.name }} {{passport.patronymic }}  </td>
+                        {% if passport.birthday %}
+                            <td>{{  passport.birthday }} </td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
+
+                        {% if passport.date_of_list %}
+                            <td>{{  passport.birthday }} </td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
+
+                        <td>{{ passport.registration_type }}  </td>
+                        <td>{{ passport.reqistration_address }}  </td>
+                        <td>{{ passport.no_reqistration_reason }}  </td>
+
+
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+      </table>
+  {% else %}
+      Ничего не найдено
+  {%  endif %}
 {% if is_paginated %}
     <div class="pagination">
         <span class="page-links">
@@ -62,13 +66,15 @@
     </div>
 {% endif %}
 
-<div class="form-actions">
-    <div class="row">
-        <div class="span2">
-            <a href="{{ xls_path }}" class="btn btn-success">В Excel</a>
+
+{% if passport_list %}
+    <div class="form-actions">
+        <div class="row">
+            <div class="span2">
+                <a href="{{ xls_path }}" class="btn btn-success">В Excel</a>
+            </div>
         </div>
     </div>
-</div>
-
+{% endif %}
 
 {% endblock %}

@@ -198,14 +198,8 @@ class PassportListView(ListView):
         extra_fields = {}
         for name, value in EXTRA_SEARCH_FIELDS.items():
             if name in data.keys():
-                extra_fields[name] = value
+                extra_fields[name] = data[name]
                 del data[name]
-
-        #__icontains
-
-        #print extra_fields
-        if extra_fields.get("birth_year"):
-            pass
 
         if self.request.session.get('form_data'):
             form_data = self.request.session["form_data"]
@@ -217,23 +211,35 @@ class PassportListView(ListView):
 
         search_form = SearchForm(data, generate_from=search_form_generate_from)
         if not search_form.is_valid():
-            print "# not valid"
-            return super(PassportListView, self).get_queryset()
+            return super(PassportListView, self).get_queryset().order_by("surname")
         else:
-            args = search_form.cleaned_data
-            for k, v in args.items():
-                if not v:
-                    del args[k] 
-            if args:
-                # all search is case insensitive
-                for key,value in args.items():
-                    args[key + "__icontains"] = value
+            args = search_form.cleaned_data or {}
+            # all search is case insensitive
+            for key,value in args.items():
+                if key in EXTRA_SEARCH_FIELDS:
                     del args[key]
-                print args
+                    continue
+                args[key + "__icontains"] = value
+                del args[key]
 
-                return Passport.objects.filter(**args)
-            else: 
-                return super(PassportListView, self).get_queryset()
+            #add extra_fields search
+            if extra_fields.get("year"):
+                args.update({"birthday__year": extra_fields["year"]})
+            if extra_fields.get("from_year"):
+                try:
+                    from_year = date(int(extra_fields["from_year"]), 1, 1)
+                except ValueError:
+                    pass
+                else:
+                    args.update({"birthday__gte": from_year})
+            if extra_fields.get("to_year"):
+                try:
+                    to_year = date(int(extra_fields["to_year"]), 1, 1)
+                except ValueError:
+                    pass
+                else:
+                    args.update({"birthday__lte": to_year})
+            return Passport.objects.filter(**args).order_by("surname")
 
     def render_to_response(self, context):
         if self.request.GET.get("xls"):
