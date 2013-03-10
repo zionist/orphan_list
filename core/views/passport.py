@@ -6,10 +6,8 @@ from django.views.generic.edit import (CreateView,
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
-from core.forms.passport import PassportForm
 from core.forms.search import QuickSearchForm
 from core.models import Passport
-from django.conf import settings
 from django.contrib.auth.decorators import permission_required
 from django.utils.decorators import method_decorator
 

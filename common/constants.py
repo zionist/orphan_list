@@ -58,3 +58,5 @@ LODGING_HOUSE_OR_FLAT_CHOICES = (
     (u"Квартира", u"Квартира"),
 )
 
+DEFAULT_SEARCH_TRUE_VALUES = ['surname', 'name', 'birthday']
+

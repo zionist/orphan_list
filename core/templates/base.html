@@ -38,6 +38,7 @@
                     <li id="create"><a href="{% url 'create' %}">Создать</a></li>
                   {% endif %}
                   {% if request.user.is_authenticated %}
+                    <li id="search_select"><a href="{% url 'search.select' %}">Настройки поиска</a></li>
                     <li id="logout"><a href="{% url  'django.contrib.auth.views.logout_then_login' %}">Выйти</a></li>
                   {% else %}
                     <li id="login"><a href="{% url 'django.contrib.auth.views.login' %}">Логин</a></li>

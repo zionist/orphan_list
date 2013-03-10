@@ -115,7 +115,7 @@ class Passport(models.Model):
                                   blank=True, max_length=10000)
     job_started = models.DateField("Дата начала",
             help_text="Дата окончания", blank=True, null=True)
-    job_finished = models.DateField("Дата окончания", blank=True, null=True)
+    job_finished = models.DateField("Дата окончания", help_text="Дата окончания", blank=True, null=True)
 
     # lodging
     lodging_accordance = models.CharField("Предоставлено жилье", help_text="Предоставлено жилье",

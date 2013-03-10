@@ -20,6 +20,8 @@ $(document).ready ->
       if (document.URL.match(id))
         $("#" + id).addClass("active")
         break
+      if (document.URL.match("search/select"))
+        $("#search_select").addClass("active")
 
   show_hide_registration = () ->
     reg_type = $("#id_registration_type :selected").val()
