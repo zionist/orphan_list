@@ -5,7 +5,7 @@ from djangosphinx.models import SphinxSearch
 
 from orphan_list.common.constants import REGISTRATION_CHOICES, FAMILY_STATUS_CHOICES, JOB_TYPE_CHOICES, \
     BOOLEAN_CHOICES, DOCUMENT_CHOICES, LOWFUL_STATUSES, EDUCATION_TYPE_CHOICES, HIRING_TYPE_CHOICES, LODGING_CHOICES, \
-    LODGING_HOUSE_OR_FLAT_CHOICES
+    LODGING_HOUSE_OR_FLAT_CHOICES, REGION_CHOICES, MO_CHOICES
 
 
 class Passport(models.Model):
@@ -29,11 +29,11 @@ class Passport(models.Model):
     order_allegation_date_and_time = models.DateTimeField("Дата и время подачи"
         " заявления", help_text = "Дата и время подачи заявления",
         blank=True, null=True)
-    order_UMSO_conclusion_date = models.DateField("Дата заключения УМСО",
-        help_text="Дата заключения УМСО", blank=True, null=True)
+    order_UMSO_conclusion_date = models.DateField("Дата заключения УОМС",
+        help_text="Дата заключения УОМС", blank=True, null=True)
     order_date = models.DateField("Дата внесения в список",
         help_text="Дата внесения  в список", blank=True, null=True)
-    order_number = models.CharField("Номер приказа",
+    order_number = models.CharField("Номер приказа о внесении в список",
         help_text="Номер приказа", max_length=255, blank=True)
     order_of_hiring_date = models.DateField("Дата заключения договора найма",
         help_text="Дата заключения договора найма", blank=True, null=True)
@@ -56,14 +56,14 @@ class Passport(models.Model):
     # registration
     registration_type = models.CharField("Тип регистрации",
         choices=REGISTRATION_CHOICES,
-        help_text="Тип регистрации по месту жительства", max_length=1024,
+        help_text="Тип регистрации по месту пребывания", max_length=1024,
         blank=True)
-    registration_address_region = models.CharField("Фактический адрес регион",
-        help_text="Фактический адрес регион", blank=True, max_length=2048)
-    registration_address_mo = models.CharField("Фактический адрес МО",
-        help_text="Фактический адрес МО", blank=True, max_length=409)
-    registration_address_address = models.CharField("Фактический адрес улица дом",
-        help_text="Фактический адрес улица дом", blank=True, max_length=10000)
+    registration_address_region = models.CharField("Адрес регион",
+        help_text="Адрес регион", blank=True, max_length=2048, choices=REGION_CHOICES)
+    registration_address_mo = models.CharField("МО",
+        help_text="Адрес МО", blank=True, max_length=2048, choices=MO_CHOICES)
+    registration_address_address = models.CharField("Адрес улица дом",
+        help_text="Адрес улица дом", blank=True, max_length=10000)
     registration_no_reqistration_reason = models.CharField("Причина отсутсвия "
         "регистрации", help_text="Причина отсутсвия регистрации", blank=True, max_length=10000)
 
@@ -111,7 +111,7 @@ class Passport(models.Model):
         max_length=255,  choices=EDUCATION_TYPE_CHOICES, blank=True)
     job_education_house = models.CharField("Учебное заведение", help_text="Учебное заведение",  max_length=10000,
                                            blank=True)
-    job_other = models.CharField("Трудоустройство \ обучение другое", help_text="Трудоустройство \ обучение другое ",
+    job_other = models.CharField("Трудоустройство \ Обучение \ Другое", help_text="Трудоустройство \ обучение другое ",
                                   blank=True, max_length=10000)
     job_started = models.DateField("Дата начала",
             help_text="Дата окончания", blank=True, null=True)

@@ -47,6 +47,105 @@
     {{ form.birthday|attr:"class: span3 date"|attr:"placeholder:день.месяц.год" }}
 </div>
 
+{# person document #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
+</div>
+<div class="row">
+    <div class="span12 grey text-center">
+        <h5 class="text-info"> Документ удостоверяющий личность </h5>
+    </div>
+</div>
+
+<div class = "row">
+    <div class="span4 text-error">
+        {% for error in form.document.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span2 text-error">
+        {% for error in form.document_number.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span2 text-error">
+        {% for error in form.document_date.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error">
+        {% for error in form.document_issue.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span4 ">{{ form.document.label }}</div>
+    <div class="span2 ">{{ form.document_number.label }}</div>
+    <div class="span2 ">{{ form.document_date.label }}</div>
+    <div class="span4 ">{{ form.document_issue.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.document|attr:"class:span4 document_type"}}
+    {{ form.document_number|attr:"class:span2 document_number"}}
+    {{ form.document_date|attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
+    {{ form.document_issue|attr:"class:span4" }}
+</div>
+
+{# registration #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
+</div>
+<div class="row" id="hide1">
+    <div class="span12 grey text-center">
+        <h5 class="text-info"> Регистрация и проживание </h5>
+    </div>
+</div>
+
+<div class = "row">
+    <div class="span3 text-error">
+        {% for error in form.registration_type.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error registration_address hide">
+        {% for error in form.registration_address_region.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error registration_address hide">
+        {% for error in form.registration_address_mo.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error registration_address hide">
+        {% for error in form.registration_address_address.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span9 registration_no_reqistration_reason hide">
+        {% for error in form.registration_no_reqistration_reason.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+
+</div>
+<div class = "row">
+    <div class="span3 ">{{ form.registration_type.label }}</div>
+    <div class="span3 registration_address hide">{{ form.registration_address_region.label }}</div>
+    <div class="span3 registration_address hide">{{ form.registration_address_mo.label }}</div>
+    <div class="span3 registration_address hide">{{ form.registration_address_address.label }}</div>
+    <div class="span9 registration_no_reqistration_reason hide">{{ form.registration_no_reqistration_reason.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.registration_type|attr:"class: span3" }}
+    {{ form.registration_address_region|attr:"class: span3 registration_address hide" }}
+    {{ form.registration_address_mo|attr:"class: span3 registration_address hide" }}
+    {{ form.registration_address_address|attr:"class: span3 registration_address hide" }}
+    {{ form.registration_no_reqistration_reason|attr:"class: span9 registration_no_reqistration_reason hide" }}
+</div>
+
+
 {# orders and dates #}
 <div class="row">
     <div class="span12">  &nbsp;  </div>
@@ -114,103 +213,6 @@
     {{ form.order_of_hiring_number|attr:"class:span4" }}
 </div>
 
-{# person document #}
-<div class="row">
-    <div class="span12">  &nbsp;  </div>
-</div>
-<div class="row">
-    <div class="span12 grey text-center">
-        <h5 class="text-info"> Документ удостоверяющий личность </h5>
-    </div>
-</div>
-
-<div class = "row">
-    <div class="span4 text-error">
-        {% for error in form.document.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span2 text-error">
-        {% for error in form.document_number.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span2 text-error">
-        {% for error in form.document_date.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.document_issue.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-</div>
-<div class = "row">
-    <div class="span4 ">{{ form.document.label }}</div>
-    <div class="span2 ">{{ form.document_number.label }}</div>
-    <div class="span2 ">{{ form.document_date.label }}</div>
-    <div class="span4 ">{{ form.document_issue.label }}</div>
-</div>
-<div class = "controls-row">
-    {{ form.document|attr:"class:span4 document_type"}}
-    {{ form.document_number|attr:"class:span2 document_number"}}
-    {{ form.document_date|attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
-    {{ form.document_issue|attr:"class:span4" }}
-</div>
-
-{# registration #}
-<div class="row">
-    <div class="span12">  &nbsp;  </div>
-</div>
-<div class="row" id="hide1">
-    <div class="span12 grey text-center">
-        <h5 class="text-info"> Регистрация </h5>
-    </div>
-</div>
-
-<div class = "row">
-    <div class="span3 text-error">
-        {% for error in form.registration_type.errors %}
-           {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span3 text-error registration_address hide">
-        {% for error in form.registration_address_region.errors %}
-            {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span3 text-error registration_address hide">
-        {% for error in form.registration_address_mo.errors %}
-            {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span3 text-error registration_address hide">
-        {% for error in form.registration_address_address.errors %}
-            {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span9 registration_no_reqistration_reason hide">
-        {% for error in form.registration_no_reqistration_reason.errors %}
-            {{ error }}
-        {% endfor %}
-    </div>
-
-</div>
-<div class = "row">
-    <div class="span3 ">{{ form.registration_type.label }}</div>
-    <div class="span3 registration_address hide">{{ form.registration_address_region.label }}</div>
-    <div class="span3 registration_address hide">{{ form.registration_address_mo.label }}</div>
-    <div class="span3 registration_address hide">{{ form.registration_address_address.label }}</div>
-    <div class="span9 registration_no_reqistration_reason hide">{{ form.registration_no_reqistration_reason.label }}</div>
-</div>
-<div class = "controls-row">
-        {{ form.registration_type|attr:"class: span3" }}
-        {{ form.registration_address_region|attr:"class: span3 registration_address hide" }}
-        {{ form.registration_address_mo|attr:"class: span3 registration_address hide" }}
-        {{ form.registration_address_address|attr:"class: span3 registration_address hide" }}
-        {{ form.registration_no_reqistration_reason|attr:"class: span9 registration_no_reqistration_reason hide" }}
-</div>
 
 
 {# lowful status #}
