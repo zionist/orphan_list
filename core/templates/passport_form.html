@@ -92,7 +92,7 @@
     {{ form.document_issue|attr:"class:span4" }}
 </div>
 
-{# registration #}
+{# registration and living #}
 <div class="row">
     <div class="span12">  &nbsp;  </div>
 </div>
@@ -104,47 +104,127 @@
 
 <div class = "row">
     <div class="span3 text-error">
-        {% for error in form.registration_type.errors %}
-            {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span3 text-error registration_address hide">
         {% for error in form.registration_address_region.errors %}
             {{ error }}
         {% endfor %}
     </div>
-    <div class="span3 text-error registration_address hide">
+    <div class="span3 text-error">
         {% for error in form.registration_address_mo.errors %}
             {{ error }}
         {% endfor %}
     </div>
-    <div class="span3 text-error registration_address hide">
+    <div class="span3 text-error">
         {% for error in form.registration_address_address.errors %}
             {{ error }}
         {% endfor %}
     </div>
-    <div class="span9 registration_no_reqistration_reason hide">
-        {% for error in form.registration_no_reqistration_reason.errors %}
+    <div class="span3 text-error">
+        {% for error in form.registration_address_where.errors %}
             {{ error }}
         {% endfor %}
     </div>
 
 </div>
 <div class = "row">
-    <div class="span3 ">{{ form.registration_type.label }}</div>
-    <div class="span3 registration_address hide">{{ form.registration_address_region.label }}</div>
-    <div class="span3 registration_address hide">{{ form.registration_address_mo.label }}</div>
-    <div class="span3 registration_address hide">{{ form.registration_address_address.label }}</div>
-    <div class="span9 registration_no_reqistration_reason hide">{{ form.registration_no_reqistration_reason.label }}</div>
+    <div class="span3 ">{{ form.registration_address_region.label }}</div>
+    <div class="span3 ">{{ form.registration_address_mo.label }}</div>
+    <div class="span3 ">{{ form.registration_address_address.label }}</div>
+    <div class="span3 ">{{ form.registration_address_where.label }}</div>
 </div>
 <div class = "controls-row">
-    {{ form.registration_type|attr:"class: span3" }}
-    {{ form.registration_address_region|attr:"class: span3 registration_address hide" }}
-    {{ form.registration_address_mo|attr:"class: span3 registration_address hide" }}
-    {{ form.registration_address_address|attr:"class: span3 registration_address hide" }}
-    {{ form.registration_no_reqistration_reason|attr:"class: span9 registration_no_reqistration_reason hide" }}
+    {{ form.registration_address_region |attr:"class: span3" }}
+    {{ form.registration_address_mo |attr:"class: span3" }}
+    {{ form.registration_address_address |attr:"class: span3" }}
+    {{ form.registration_address_where |attr:"class: span3" }}
 </div>
 
+<div class = "row">
+    <div class="span12 text-error registration_other">
+        {% for error in form.registration_other.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span12 registration_other">{{ form.registration_other.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.registration_other |attr:"class: span12 registration_other" }}
+</div>
+
+<div class = "row">
+    <div class="span3 text-error">
+        {% for error in form.registration_live_at_registration_address.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+
+<div class = "row">
+    <div class="span3 ">{{ form.registration_live_at_registration_address.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.registration_live_at_registration_address |attr:"class: span3" }}
+</div>
+
+<div class = "row">
+    <div class="span3 text-error living">
+        {% for error in form.living_address_region.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error living">
+        {% for error in form.living_address_mo.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error living">
+        {% for error in form.living_address_address.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error living">
+        {% for error in form.living_address_where.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class = "row">
+    <div class="span3 living">{{ form.living_address_region.label }}</div>
+    <div class="span3  living">{{ form.living_address_mo.label }}</div>
+    <div class="span3  living">{{ form.living_address_address.label }}</div>
+    <div class="span3  living">{{ form.living_address_where.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.living_address_region |attr:"class: span3 living" }}
+    {{ form.living_address_mo |attr:"class: span3 living" }}
+    {{ form.living_address_address |attr:"class: span3 living" }}
+    {{ form.living_address_where |attr:"class: span3 living" }}
+</div>
+
+<div class = "row">
+    <div class="span12 text-error living_other">
+        {% for error in form.living_other.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span12 living_other">{{ form.living_other.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.living_other |attr:"class: span12 living_other" }}
+</div>
+
+<div class = "row">
+    <div class="span3 text-error">
+        {% for error in form.living_live_at_living_address.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
 
 {# orders and dates #}
 <div class="row">
@@ -157,63 +237,39 @@
 </div>
 
 <div class = "row">
-    <div class="span4 text-error">
+    <div class="span3 text-error">
         {% for error in form.order_allegation_date_and_time.errors %}
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span4 text-error">
+    <div class="span3 text-error">
         {% for error in form.order_UMSO_conclusion_date.errors %}
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span4 text-error">
-        {% for error in form.registration_type.errors %}
+    <div class="span3 text-error">
+        {% for error in form.living_type.errors %}
            {{ error }}
         {% endfor %}
     </div>
-</div>
-<div class = "row">
-    <div class="span4 ">{{ form.order_allegation_date_and_time.label }}</div>
-    <div class="span4 ">{{ form.order_UMSO_conclusion_date.label }}</div>
-    <div class="span4 ">{{ form.order_date.label }}</div>
-</div>
-<div class = "controls-row">
-    {{ form.order_allegation_date_and_time|attr:"class:span4 date_time"|attr:"placeholder:день.месяц.год часы:минуты" }}
-    {{ form.order_UMSO_conclusion_date |attr:"class:span4 date"|attr:"placeholder:день.месяц.год" }}
-    {{ form.order_date |attr:"class:span4 date"|attr:"placeholder:день.месяц.год" }}
-</div>
-
-
-<div class = "row">
-    <div class="span4 text-error">
+    <div class="span3 text-error">
         {% for error in form.order_number.errors %}
             {{ error }}
         {% endfor %}
     </div>
-    <div class="span4 text-error">
-        {% for error in form.order_of_hiring_date.errors %}
-            {{ error }}
-        {% endfor %}
-    </div>
-    <div class="span4 text-error">
-        {% for error in form.order_of_hiring_number.errors %}
-            {{ error }}
-        {% endfor %}
-    </div>
 </div>
 <div class = "row">
-    <div class="span4 ">{{ form.order_number.label }}</div>
-    <div class="span4 ">{{ form.order_of_hiring_date.label }}</div>
-    <div class="span4 ">{{ form.order_of_hiring_number.label }}</div>
+    <div class="span3 ">{{ form.order_allegation_date_and_time.label }}</div>
+    <div class="span3 ">{{ form.order_UMSO_conclusion_date.label }}</div>
+    <div class="span3 ">{{ form.order_date.label }}</div>
+    <div class="span ">{{ form.order_number.label }}</div>
 </div>
 <div class = "controls-row">
-    {{ form.order_number|attr:"class:span4" }}
-    {{ form.order_of_hiring_date|attr:"class:span4 date"|attr:"placeholder:день.месяц.год" }}
-    {{ form.order_of_hiring_number|attr:"class:span4" }}
+    {{ form.order_allegation_date_and_time|attr:"class:span3 date_time"|attr:"placeholder:день.месяц.год часы:минуты" }}
+    {{ form.order_UMSO_conclusion_date |attr:"class:span3 date"|attr:"placeholder:день.месяц.год" }}
+    {{ form.order_date |attr:"class:span3 date"|attr:"placeholder:день.месяц.год" }}
+    {{ form.order_number|attr:"class:span3" }}
 </div>
-
-
 
 {# lowful status #}
 <div class="row">
@@ -261,28 +317,35 @@
 </div>
 
 {#  spokesman data #}
-<span id="spokesman_data" class="hide">
+<span id="spokesman_data">
     <div class="row">
-        <div class="span12">  &nbsp;  </div>
+        <div class="span12 spokesman_data">  &nbsp;  </div>
     </div>
     <div class="row">
-        <div class="span12 grey text-center">
+        <div class="span12 grey text-center spokesman_data">
             <h5 class="text-info"> Сведения о законном представителе </h5>
         </div>
     </div>
 
     <div class = "row">
-        <div class="span12 text-error">
+        <div class="span3 text-error spokesman_data">
+            {% for error in form.form_of_care_spokesman_type.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+        <div class="span8 text-error spokesman_data">
             {% for error in form.form_of_care_spokesman_data.errors %}
                 {{ error }}
             {% endfor %}
         </div>
     </div>
     <div class = "row">
-        <div class="span12">{{ form.form_of_care_spokesman_data.label }}</div>
+        <div class="span3 spokesman_data">{{ form.form_of_care_spokesman_type.label }}</div>
+        <div class="span8 spokesman_data">{{ form.form_of_care_spokesman_data.label }}</div>
     </div>
-    <div class = "controls-row">
-        {{ form.form_of_care_spokesman_data|attr:"class: span12" }}
+    <div class = "controls-row spokesman_data">
+        {{ form.form_of_care_spokesman_type|attr:"class: span3 spokesman_data" }}
+        {{ form.form_of_care_spokesman_data|attr:"class: span8 spokesman_data" }}
     </div>
 </span>
 
@@ -486,6 +549,27 @@
     {{ form.lodging_how_gained |attr:"class: span3 lodging" }}
     {{ form.lodging_house_or_flat |attr:"class: span3 lodging" }}
     {{ form.lodging_square |attr:"class: span3 lodging" }}
+</div>
+
+<div class = "row">
+    <div class="span4 text-error">
+        {% for error in form.order_of_hiring_date.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span4 text-error">
+        {% for error in form.order_of_hiring_number.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span4 lodging">{{ form.order_of_hiring_date.label }}</div>
+    <div class="span4 lodging">{{ form.order_of_hiring_number.label }}</div>
+</div>
+<div class = "controls-row">
+    {{ form.order_of_hiring_date|attr:"class:span3 lodging date"|attr:"placeholder:день.месяц.год" }}
+    {{ form.order_of_hiring_number|attr:"class:span3 lodging" }}
 </div>
 
 <br />

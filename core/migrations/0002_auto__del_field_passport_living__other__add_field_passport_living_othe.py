@@ -8,64 +8,23 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Passport'
-        db.create_table(u'core_passport', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('surname', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('patronymic', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('birthday', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('order_number', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('order_allegation_date_and_time', self.gf('django.db.models.fields.DateTimeField')(null=True, blank=True)),
-            ('order_UMSO_conclusion_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('order_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('document', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('document_number', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('document_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('document_issue', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('registration_address_region', self.gf('django.db.models.fields.CharField')(max_length=2048, blank=True)),
-            ('registration_address_mo', self.gf('django.db.models.fields.CharField')(max_length=2048, blank=True)),
-            ('registration_address_address', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('registration_address_where', self.gf('django.db.models.fields.CharField')(max_length=2048, blank=True)),
-            ('registration_other', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('registration_live_at_registration_address', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('living_address_region', self.gf('django.db.models.fields.CharField')(max_length=2048, blank=True)),
-            ('living_address_mo', self.gf('django.db.models.fields.CharField')(max_length=2048, blank=True)),
-            ('living_address_address', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('living_address_where', self.gf('django.db.models.fields.CharField')(max_length=2048, blank=True)),
-            ('living__other', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('lowful_status', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('lowful_status_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('lowful_status_number', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('lowful_status_invalidity', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('form_of_care_spokesman_data', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('form_of_care_spokesman_type', self.gf('django.db.models.fields.CharField')(max_length=1024, blank=True)),
-            ('family_status', self.gf('django.db.models.fields.CharField')(max_length=1024, blank=True)),
-            ('family_status_children', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('estate_has_estate', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('estate_cant_live_date_of_order', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('estate_cant_live_order_number', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('job_type_of_job', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('job_how_hired', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('job_job_place', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('job_eduction_type', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('job_education_house', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('job_other', self.gf('django.db.models.fields.CharField')(max_length=10000, blank=True)),
-            ('job_started', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('job_finished', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('lodging_accordance', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('lodging_how_gained', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('lodging_house_or_flat', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-            ('lodging_square', self.gf('django.db.models.fields.CharField')(max_length=2048, blank=True)),
-            ('order_of_hiring_date', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('order_of_hiring_number', self.gf('django.db.models.fields.CharField')(max_length=255, blank=True)),
-        ))
-        db.send_create_signal('core', ['Passport'])
+        # Deleting field 'Passport.living__other'
+        db.delete_column(u'core_passport', 'living__other')
+
+        # Adding field 'Passport.living_other'
+        db.add_column(u'core_passport', 'living_other',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=10000, blank=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Passport'
-        db.delete_table(u'core_passport')
+        # Adding field 'Passport.living__other'
+        db.add_column(u'core_passport', 'living__other',
+                      self.gf('django.db.models.fields.CharField')(default='', max_length=10000, blank=True),
+                      keep_default=False)
+
+        # Deleting field 'Passport.living_other'
+        db.delete_column(u'core_passport', 'living_other')
 
 
     models = {
@@ -92,11 +51,11 @@ class Migration(SchemaMigration):
             'job_other': ('django.db.models.fields.CharField', [], {'max_length': '10000', 'blank': 'True'}),
             'job_started': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'job_type_of_job': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
-            'living__other': ('django.db.models.fields.CharField', [], {'max_length': '10000', 'blank': 'True'}),
             'living_address_address': ('django.db.models.fields.CharField', [], {'max_length': '10000', 'blank': 'True'}),
             'living_address_mo': ('django.db.models.fields.CharField', [], {'max_length': '2048', 'blank': 'True'}),
             'living_address_region': ('django.db.models.fields.CharField', [], {'max_length': '2048', 'blank': 'True'}),
             'living_address_where': ('django.db.models.fields.CharField', [], {'max_length': '2048', 'blank': 'True'}),
+            'living_other': ('django.db.models.fields.CharField', [], {'max_length': '10000', 'blank': 'True'}),
             'lodging_accordance': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'lodging_house_or_flat': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),
             'lodging_how_gained': ('django.db.models.fields.CharField', [], {'max_length': '255', 'blank': 'True'}),

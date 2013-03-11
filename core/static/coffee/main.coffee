@@ -23,32 +23,40 @@ $(document).ready ->
     if (document.URL.match("search/select"))
       $("#search_select").addClass("active")
 
-  show_hide_registration = () ->
-    reg_type = $("#id_registration_type :selected").val()
-    if reg_type == "по месту проживания" or reg_type == "по месту жительства"
-      $(".registration_no_reqistration_reason").hide()
-      $(".registration_address").show()
+  show_hide_registration_other = () ->
+    where_live = $("#id_registration_address_where :selected").val()
+    if where_live == "Иное жилое помещение"
+      $(".registration_other").show()
+    else
+      $("#id_registration_other").val("")
+      $(".registration_other").hide()
 
+  show_hide_living_other = () ->
+    where_live = $("#id_living_address_where :selected").val()
+    if where_live == "Иное жилое помещение"
+      $(".living_other").show()
+    else
       # clear form values
-      $('input.registration_no_reqistration_reason').each ->
-        $(@).val("")
+      $("#id_living_other").val("")
+      $(".living_other").hide()
 
-    if reg_type == "не имеет"
-      $(".registration_address").hide()
-      $(".registration_no_reqistration_reason").show()
-
-      # clear form values
-      $('input.registration_address').each ->
-        $(@).val("")
-
-    if reg_type == ""
-      $(".registration_address").hide()
-      $(".registration_no_reqistration_reason").hide()
-      # clear form values
-      $('input.registration_address').each ->
-        $(@).val("")
-      $('input.registration_no_reqistration_reason').each ->
-        $(@).val("")
+  show_hide_registration_address = () ->
+    live_at_registration = $("#id_registration_live_at_registration_address :selected").val()
+    switch live_at_registration
+      when "Нет"
+        $(".living").show()
+      when "Да"
+        $(".living").hide()
+        $("#id_living_address_region").val($("#id_registration_address_region").val())
+        $("#id_living_address_mo").val($("#id_registration_address_mo").val())
+        $("#id_living_address_address").val($("#id_registration_address_address").val())
+        $("#id_living_address_where").val($("#id_registration_address_where").val())
+      when ""
+        $(".living").hide()
+        $("#id_living_address_region").val("")
+        $("#id_living_address_mo").val("")
+        $("#id_living_address_address").val("")
+        $("#id_living_address_where").val("")
 
   # if age of person > 18 show spokesman data
   show_hide_spokesman_data = () ->
@@ -62,9 +70,9 @@ $(document).ready ->
     # get years from ms
     years_lasted = years_lasted/1000/60/60/24/360
     if years_lasted < required_age
-      $("#spokesman_data").show()
+      $(".spokesman_data").show()
     else
-      $("#spokesman_data").hide()
+      $(".spokesman_data").hide()
 
   show_hide_estate = () ->
     estate_status = $("#id_estate_has_estate :selected").val()
@@ -131,16 +139,33 @@ $(document).ready ->
   # calls
   set_active_tab()
   if (document.URL.match('create') or document.URL.match('update'))
+    show_hide_registration_other()
+    show_hide_living_other()
+    show_hide_registration_address()
     set_input_masks()
-    show_hide_registration()
     show_hide_spokesman_data()
     show_hide_estate()
     show_hide_job()
     show_hide_lodging()
 
   # form show hide logic
-  $("#id_registration_type").click ->
-    show_hide_registration()
+  $("#id_registration_address_where").click ->
+    show_hide_registration_other()
+  $("#id_living_address_where").click ->
+    show_hide_living_other()
+  $("#id_registration_live_at_registration_address").click ->
+    show_hide_registration_address()
+
+  # registration fields
+  $("#id_registration_address_region").change ->
+    show_hide_registration_address()
+  $("#id_registration_address_mo").change ->
+    show_hide_registration_address()
+  $("#id_registration_address_address").change ->
+    show_hide_registration_address()
+  $("#id_registration_address_where").change ->
+    show_hide_registration_address()
+
   $("#id_estate_has_estate").click ->
     show_hide_estate()
   $("#id_birthday").focusout ->
