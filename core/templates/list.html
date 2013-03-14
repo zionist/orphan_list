@@ -16,30 +16,53 @@
             <tbody>
                 <tr>
                     <th>ФИО</th>
+                    <th>Серия номер документа, удостоверяющего личность</th>
                     <th>Дата рождения</th>
-                    <th>Дата включения в список</th>
-                    <th>Тип регистрации</th>
-                    <th>Адрес проживания</th>
-                    <th>Причина отсутсвия регистрации</th>
+                    <th>Регистрация по месту жительства</th>
+                    <th>Правовой статус</th>
+                    <th>Дата и время подачи заявления</th>
+                    <th>Дата внесения в список</th>
                 </tr>
                 {% for passport in passport_list %}
-                    <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
+                    <tr onclick="location.href = '{% url 'update' pk=passport.pk %}';">
                         <td>{{ passport.surname }} {{passport.name }} {{passport.patronymic }}  </td>
+                        {% if passport.document_number %}
+                            <td>{{  passport.document_number }} </td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
+
                         {% if passport.birthday %}
                             <td>{{  passport.birthday }} </td>
                         {% else %}
                             <td> </td>
                         {% endif %}
 
-                        {% if passport.date_of_list %}
-                            <td>{{  passport.birthday }} </td>
+                        {% if passport.registration_address_region %}
+                            <td>{{  passport.registration_address_region }},  {{ passport.registration_address_mo}}, {{ passport.registration_address_address }}</td>
                         {% else %}
                             <td> </td>
                         {% endif %}
 
-                        <td>{{ passport.registration_type }}  </td>
-                        <td>{{ passport.reqistration_address }}  </td>
-                        <td>{{ passport.no_reqistration_reason }}  </td>
+                        {% if passport.lowful_status %}
+                            <td>{{  passport.lowful_status }} </td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
+
+                        {% if passport.order_allegation_date_and_time %}
+                            <td>{{  passport.order_allegation_date_and_time }} </td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
+
+                        {% if passport.order_date %}
+                            <td>{{  passport.order_date }} </td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
+                    </tr>
+
 
 
 

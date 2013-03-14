@@ -242,12 +242,17 @@
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span3 text-error">
+    <div class="span2 text-error">
+        {% for error in form.order_number_of_queue.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span2 text-error">
         {% for error in form.order_UMSO_conclusion_date.errors %}
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span3 text-error">
+    <div class="span2 text-error">
         {% for error in form.living_type.errors %}
            {{ error }}
         {% endfor %}
@@ -260,14 +265,16 @@
 </div>
 <div class = "row">
     <div class="span3 ">{{ form.order_allegation_date_and_time.label }}</div>
-    <div class="span3 ">{{ form.order_UMSO_conclusion_date.label }}</div>
-    <div class="span3 ">{{ form.order_date.label }}</div>
-    <div class="span ">{{ form.order_number.label }}</div>
+    <div class="span2 ">{{ form.order_number_of_queue.label }}</div>
+    <div class="span2 ">{{ form.order_UMSO_conclusion_date.label }}</div>
+    <div class="span2 ">{{ form.order_date.label }}</div>
+    <div class="span3 ">{{ form.order_number.label }}</div>
 </div>
 <div class = "controls-row">
     {{ form.order_allegation_date_and_time|attr:"class:span3 date_time"|attr:"placeholder:день.месяц.год часы:минуты" }}
-    {{ form.order_UMSO_conclusion_date |attr:"class:span3 date"|attr:"placeholder:день.месяц.год" }}
-    {{ form.order_date |attr:"class:span3 date"|attr:"placeholder:день.месяц.год" }}
+    {{ form.order_number_of_queue |attr:"class:span2" }}
+    {{ form.order_UMSO_conclusion_date |attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
+    {{ form.order_date |attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
     {{ form.order_number|attr:"class:span3" }}
 </div>
 
@@ -386,7 +393,7 @@
 </div>
 <div class="row">
     <div class="span12 grey text-center">
-        <h5 class="text-info"> Владеет недвижимостью </h5>
+        <h5 class="text-info"> Обстоятельства, препятствующие проживанию в ранее занимаемых помещениях </h5>
     </div>
 </div>
 
@@ -424,7 +431,7 @@
 </div>
 <div class="row">
     <div class="span12 grey text-center">
-        <h5 class="text-info"> Образование. Занятость. Служба </h5>
+        <h5 class="text-info"> Форма занятости </h5>
     </div>
 </div>
 
@@ -486,7 +493,7 @@
 </div>
 
 <div class = "row">
-    <div class="span4 text-error job_period"">
+    <div class="span4 text-error job_period">
         {% for error in form.job_started.errors %}
             {{ error }}
         {% endfor %}
@@ -498,7 +505,7 @@
     </div>
 </div>
 <div class = "row">
-    <div class="span4 job_period"">{{ form.job_started.label }}</div>
+    <div class="span4 job_period">{{ form.job_started.label }}</div>
     <div class="span4 job_period">{{ form.job_finished.label }}</div>
 </div>
 <div class = "controls-row">

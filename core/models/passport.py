@@ -32,6 +32,8 @@ class Passport(models.Model):
     order_allegation_date_and_time = models.DateTimeField("Дата и время подачи"
         " заявления", help_text = "Дата и время подачи заявления",
         blank=True, null=True)
+    order_number_of_queue = models.CharField("Номер очередности",
+         help_text = "Номер очередности", blank=True, max_length=1024)
     order_UMSO_conclusion_date = models.DateField("Дата заключения УОМС",
         help_text="Дата заключения УОМС", blank=True, null=True)
     order_date = models.DateField("Дата внесения в список",
@@ -51,37 +53,37 @@ class Passport(models.Model):
         blank=True, max_length=255)
 
     # registration
-    registration_address_region = models.CharField("Регион регистрации",
-        help_text="Регион регистрации", blank=True, max_length=2048,
+    registration_address_region = models.CharField("Адрес регистрации (регион)",
+        help_text="Адрес регистрации (регион)", blank=True, max_length=2048,
         choices=REGION_CHOICES)
-    registration_address_mo = models.CharField("МО регистрации",
-        help_text="МО регистрации", blank=True, max_length=2048,
+    registration_address_mo = models.CharField("Адрес регистрации (МО)",
+        help_text="Адрес регистрации (МО)", blank=True, max_length=2048,
         choices=MO_CHOICES)
-    registration_address_address = models.CharField("Адрес регистрации",
-        help_text="Адрес регистрации", blank=True, max_length=10000)
-    registration_address_where = models.CharField("Где зарегистрирован",
-        help_text="Где зарегистрирован", blank=True, max_length=2048,
+    registration_address_address = models.CharField("Арес регистрации (ул, № дома)",
+        help_text="Арес регистрации (Ул, № дома)", blank=True, max_length=10000)
+    registration_address_where = models.CharField("Вид жилого помещения по адресу регистрации",
+        help_text="Вид жилого помещения по адресу регистрации", blank=True, max_length=2048,
         choices=REGISTRAION_WHERE_CHOICES)
-    registration_other = models.CharField("Регистрация иное помещение",
-        help_text="Регистрация иное помещение", blank=True, max_length=10000)
+    registration_other = models.CharField("Вид жилого помещения иной",
+        help_text="Вид жилого помещения иной", blank=True, max_length=10000)
 
     registration_live_at_registration_address = \
-        models.CharField("Живет где зарегистрирован",
-        help_text="Живет где зарегистрирован", blank=True, max_length=10000,
+        models.CharField("Сведения о совпадении регистрации и фактического проживания",
+        help_text="Сведения о совпадении регистрации и фактического проживания", blank=True, max_length=10000,
             choices=BOOLEAN_CHOICES)
 
-    living_address_region = models.CharField("Регион проживания",
-        help_text="Адрес проживания", blank=True, max_length=2048,
+    living_address_region = models.CharField("Фактический адрес проживания (регион)",
+        help_text="Фактический адрес проживания (регион)", blank=True, max_length=2048,
         choices=REGION_CHOICES)
-    living_address_mo = models.CharField("МО проживания",
-        help_text="МО проживания", blank=True, max_length=2048, choices=MO_CHOICES)
-    living_address_address = models.CharField("Адрес проживания",
-        help_text="Адрес поживания", blank=True, max_length=10000)
-    living_address_where = models.CharField("Где проживает",
-        help_text="Где проживает", blank=True, max_length=2048,
+    living_address_mo = models.CharField("Фактический адрес проживания (МО)",
+        help_text="Фактический адрес проживания (МО)", blank=True, max_length=2048, choices=MO_CHOICES)
+    living_address_address = models.CharField("Фактический адрес проживания (ул. № дома)",
+        help_text="Фактический адрес проживания (ул. № дома)", blank=True, max_length=10000)
+    living_address_where = models.CharField("Вид жилого помещения по адресу фактического проживания",
+        help_text="Вид жилого помещения по адресу фактического проживания", blank=True, max_length=2048,
         choices=REGISTRAION_WHERE_CHOICES)
-    living_other = models.CharField("Проживание иное помещение",
-        help_text="Проживание иное жилое помещение", blank=True,
+    living_other = models.CharField("Вид жилого помещения по адресу фактического проживания иной",
+        help_text="Вид жилого помещения по адресу фактического проживания иной", blank=True,
         max_length=10000)
 
     # lowful status
@@ -115,8 +117,9 @@ class Passport(models.Model):
         help_text="Количество детей", max_length=255, blank=True)
 
     # estate
-    estate_has_estate = models.CharField("Владеет недвижимостью",
-        help_text="Владеет недвижимостью", choices=BOOLEAN_CHOICES,
+    estate_has_estate = models.CharField("Обстоятельства, препятствующие"
+        " проживанию в ранее занимаемых помещениях",
+        help_text="Обстоятельства, препятствующие проживанию в ранее занимаемых помещениях", choices=BOOLEAN_CHOICES,
         max_length=255, blank=True)
     estate_cant_live_date_of_order  = models.DateField("Дата правового акта "
         "о невозможности проживания",
@@ -128,8 +131,8 @@ class Passport(models.Model):
         max_length=255)
 
     # job and education
-    job_type_of_job = models.CharField("Занятость. Образование. Служба",
-        help_text="Занятость. Образование. Служба.",
+    job_type_of_job = models.CharField("Форма занятости",
+        help_text="Форма занятости",
         choices=JOB_TYPE_CHOICES, max_length=255, blank=True)
     job_how_hired = models.CharField("Как трудоустроен",
         help_text="Как трудоустроен", choices=HIRING_TYPE_CHOICES,
@@ -141,13 +144,13 @@ class Passport(models.Model):
         max_length=255,  choices=EDUCATION_TYPE_CHOICES, blank=True)
     job_education_house = models.CharField("Учебное заведение",
         help_text="Учебное заведение",  max_length=10000, blank=True)
-    job_other = models.CharField("Трудоустройство \ Обучение \ Другое",
-        help_text="Трудоустройство \ обучение другое ", blank=True,
+    job_other = models.CharField("Форма занятости иное",
+        help_text="Форма занятости иное", blank=True,
         max_length=10000)
     job_started = models.DateField("Дата начала",
-        help_text="Дата окончания", blank=True, null=True)
+        help_text="Дата начала формы занятости", blank=True, null=True)
     job_finished = models.DateField("Дата окончания",
-        help_text="Дата окончания", blank=True, null=True)
+        help_text="Дата окончания формы занятости", blank=True, null=True)
 
     # lodging
     lodging_accordance = models.CharField("Предоставлено жилье",
