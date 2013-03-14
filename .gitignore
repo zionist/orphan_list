@@ -12,3 +12,6 @@ env/*
 static/*
 # django media
 media/*
+
+# passwords
+settings_local.py
