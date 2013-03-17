@@ -4,11 +4,11 @@ foo = 1
 from django.views.generic.edit import FormView
 from django.core.urlresolvers import reverse
 
-from core.forms.select import SelectForm
+from core.forms.select import SearchSelectForm, XlsSelectForm
 
 class SearchSelectView(FormView):
     template_name = 'search_select_form.html'
-    form_class = SelectForm
+    form_class = SearchSelectForm
     success_url = "/core/select/select"
 
     def get_success_url(self):
@@ -27,13 +27,13 @@ class SearchSelectView(FormView):
     def get_context_data(self, **kwargs):
         context = super(SearchSelectView, self).get_context_data(**kwargs)
         if self.request.session.get('select.search'):
-            context['form'] = SelectForm(self.request.session['select.search'])
+            context['form'] = SearchSelectForm(self.request.session['select.search'])
         return context
 
 
 class XlsSelectView(FormView):
     template_name = 'xls_select_form.html'
-    form_class = SelectForm
+    form_class = XlsSelectForm
     success_url = "/core/select/xls"
 
     def get_success_url(self):
@@ -52,5 +52,5 @@ class XlsSelectView(FormView):
     def get_context_data(self, **kwargs):
         context = super(XlsSelectView, self).get_context_data(**kwargs)
         if self.request.session.get('select.xls'):
-            context['form'] = SelectForm(self.request.session['select.xls'])
+            context['form'] = XlsSelectForm(self.request.session['select.xls'])
         return context

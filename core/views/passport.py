@@ -15,7 +15,13 @@ from common.constants import DEFAULT_SEARCH_TRUE_VALUES, EXTRA_SEARCH_FIELDS
 
 #dynamicly generate context from model fields
 # pass help text from models to context
-def get_name_value_from_object(object):
+def get_name_value_from_object(object, xls=False, request=None):
+    """
+    :param object: QuerySet
+    :param xls: if True filter by XlsSelectForm stored in session
+    :param request: django request object
+    :return: list of ContestField
+    """
     fields = []
     for field in object._meta.fields:
         if field.name == "id":
@@ -24,7 +30,19 @@ def get_name_value_from_object(object):
                 object._meta.\
                 get_field_by_name(field.name)[0].help_text
         value = field.value_from_object(object) or ""
-        fields.append(ContextField(help_text, value))
+        if not xls:
+            fields.append(ContextField(help_text, value))
+        else:
+            # filter according XlsSelectForms
+            if request.session.get('select.xls'):
+                for k, v in request.session['select.xls'].items():
+                    if k == field.name and v is True:
+                        fields.append(ContextField(help_text, value))
+            # default xls select settings
+            # show all columns
+            else:
+                fields.append(ContextField(help_text, value))
+
     return fields
 
 
@@ -131,15 +149,18 @@ class PassportListView(ListView):
                 search_form_generate_from[key] = value
         return search_form_generate_from
 
-    def to_exel(context):
+    def to_exel(self):
         """
         :param: args  - cleared data from seach form
         """
         # get help_text as names from model
         objects = []
-        for object in context.object_list:
-            fields = get_name_value_from_object(object)
+        for object in self.object_list:
+            fields = get_name_value_from_object(object, xls=True,
+                                                request=self.request)
+            # filter results according XlsSelectForm in session
             objects.append(fields)
+
 
         # create
         book = xlwt.Workbook(encoding='utf8')
@@ -150,6 +171,7 @@ class PassportListView(ListView):
 
         response = HttpResponse(mimetype='application/vnd.ms-excel')
         response['Content-Disposition'] = 'attachment; filename=list.xls'
+
 
         # write header
         for column_index, field in enumerate(objects[0]):
@@ -173,8 +195,8 @@ class PassportListView(ListView):
         context = super(PassportListView, self).get_context_data(**kwargs)
         context["title"] = "List"
         # get session select form and set search form according it
-        if self.request.session.get('form_data'):
-            form_data = self.request.session["form_data"]
+        if self.request.session.get("select.search"):
+            form_data = self.request.session["select.search"]
         else:
             form_data = DEFAULT_SEARCH_TRUE_VALUES
 

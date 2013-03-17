@@ -70,6 +70,11 @@ DEFAULT_SEARCH_TRUE_VALUES = {
     u'year': u'Год рождения',
     }
 
+DEFAULT_XLS_TRUE_VALUES = {
+    u'surname': u'Фамилия',
+    u'name': u'Имя',
+    u'birthday': u'Дата рождения',
+    }
 
 EXTRA_SEARCH_FIELDS = {
     u'from_year': u'С года рождения',
