@@ -26,14 +26,14 @@ class Passport(models.Model):
         blank=True, null=True)
 
     # orders and dates
-    order_number = models.CharField("Номер приказа о внесении в список",
+    order_number = models.CharField("Номер приказа",
                                     help_text="Номер приказа", max_length=255,
                                     blank=True)
     order_allegation_date_and_time = models.DateTimeField("Дата и время подачи"
         " заявления", help_text = "Дата и время подачи заявления",
         blank=True, null=True)
-    order_number_of_queue = models.CharField("Номер очередности",
-         help_text = "Номер очередности", blank=True, max_length=1024)
+    order_number_of_queue = models.CharField("Номер очередности в МО",
+         help_text = "Номер очередности в МО", blank=True, max_length=1024)
     order_UMSO_conclusion_date = models.DateField("Дата заключения УОМС",
         help_text="Дата заключения УОМС", blank=True, null=True)
     order_date = models.DateField("Дата внесения в список",
@@ -47,7 +47,7 @@ class Passport(models.Model):
     document_number = models.CharField("Серия / номер",
         help_text="Серия / номер", max_length=255,
         blank=True)
-    document_date = models.DateField("Дата выдачи",
+    document_date = models.DateField("Дата выдачи документа",
         help_text="Дата выдачи документа", blank=True, null=True)
     document_issue = models.CharField("Кем выдан", help_text="Кем выдан",
         blank=True, max_length=255)
@@ -90,11 +90,14 @@ class Passport(models.Model):
     lowful_status = models.CharField("Правовой статус",
         help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
         max_length=255)
-    lowful_status_date = models.DateField("Дата установления правового статуса",
-        help_text="Дата установления правового статуса",
+    lowful_document_name = models.CharField("Наименование документа установливающего правовой статус",
+        help_text="Наименование документа установливающего правовой статус",
+        max_length=255, blank=True)
+    lowful_status_date = models.DateField("Дата документа, установливающего правовой статус",
+        help_text="Дата документа установливающего правовой статус",
         null=True, blank=True)
-    lowful_status_number = models.CharField("Номер документа правового статуса",
-        help_text="Номер документа по которому установлен правовой статус",
+    lowful_status_number = models.CharField("Номер документа, устанавливающего правовой статус",
+        help_text="ННомер документа, устанавливающего правовой статус",
         blank=True, max_length=255)
     lowful_status_invalidity = models.CharField("Инвалидность",
         help_text="Инвалидность", blank=True, choices=BOOLEAN_CHOICES,
@@ -102,9 +105,9 @@ class Passport(models.Model):
 
     # spokesman data
     form_of_care_spokesman_data = models.CharField("Сведения о "
-        "законном представителе",
-        help_text="Сведения о законном представителе (ФИО, степен родства "
-        "и пр.", blank=True, max_length=10000)
+        "законном представителе (ФИО, степень родства)",
+        help_text="Сведения о законном представителе (ФИО, степен родства) "
+        "и пр.)", blank=True, max_length=10000)
     form_of_care_spokesman_type = models.CharField("Кто представляет",
         help_text="Кто представляет", blank=True, max_length=1024,
         choices=SPOKESNAM_TYPE_CHOICES)
@@ -118,7 +121,7 @@ class Passport(models.Model):
 
     # estate
     estate_has_estate = models.CharField("Обстоятельства, препятствующие"
-        " проживанию в ранее занимаемых помещениях",
+        " проживанию в ранее занимаемом помещении",
         help_text="Обстоятельства, препятствующие проживанию в ранее занимаемых помещениях", choices=BOOLEAN_CHOICES,
         max_length=255, blank=True)
     estate_cant_live_date_of_order  = models.DateField("Дата правового акта "
@@ -134,30 +137,30 @@ class Passport(models.Model):
     job_type_of_job = models.CharField("Форма занятости",
         help_text="Форма занятости",
         choices=JOB_TYPE_CHOICES, max_length=255, blank=True)
-    job_how_hired = models.CharField("Как трудоустроен",
-        help_text="Как трудоустроен", choices=HIRING_TYPE_CHOICES,
+    job_how_hired = models.CharField("Способ трудоустройства",
+        help_text="Способ трудоустройства", choices=HIRING_TYPE_CHOICES,
         max_length=255, blank=True)
-    job_job_place = models.CharField("Где трудоустроен",
-        help_text="Где трудоустроен", max_length=10000, blank=True)
+    job_job_place = models.CharField("Место трудоустройства",
+        help_text="Место трудоустройства", max_length=10000, blank=True)
     job_eduction_type = models.CharField("Тип учебного заведения",
                                          help_text="Тип учебного заведения",
         max_length=255,  choices=EDUCATION_TYPE_CHOICES, blank=True)
-    job_education_house = models.CharField("Учебное заведение",
-        help_text="Учебное заведение",  max_length=10000, blank=True)
+    job_education_house = models.CharField("Наименование учебного заведения",
+        help_text="Наименование учебного заведения",  max_length=10000, blank=True)
     job_other = models.CharField("Форма занятости иное",
         help_text="Форма занятости иное", blank=True,
         max_length=10000)
-    job_started = models.DateField("Дата начала",
-        help_text="Дата начала формы занятости", blank=True, null=True)
-    job_finished = models.DateField("Дата окончания",
-        help_text="Дата окончания формы занятости", blank=True, null=True)
+    job_started = models.DateField("Дата начала занятости",
+        help_text="Дата начала занятости", blank=True, null=True)
+    job_finished = models.DateField("Дата окончания занятости",
+        help_text="Дата окончания занятости", blank=True, null=True)
 
     # lodging
-    lodging_accordance = models.CharField("Предоставлено жилье",
-        help_text="Предоставлено жилье", choices=BOOLEAN_CHOICES,
+    lodging_accordance = models.CharField("Факт предоставления жилья",
+        help_text="Факт предоставления жилья", choices=BOOLEAN_CHOICES,
         max_length=255, blank=True)
-    lodging_how_gained = models.CharField("Как предоставлено",
-        help_text="Как предоставлено", choices=LODGING_CHOICES, max_length=255,
+    lodging_how_gained = models.CharField("Способ предоставления",
+        help_text="Способ предоставления", choices=LODGING_CHOICES, max_length=255,
         blank=True)
     lodging_house_or_flat = models.CharField("Дом / квартира",
         help_text="Дом / квартира", choices=LODGING_HOUSE_OR_FLAT_CHOICES,
@@ -168,5 +171,5 @@ class Passport(models.Model):
     # order_of hiring_date order_of_hiring_number movied to lodging
     order_of_hiring_date = models.DateField("Дата заключения договора найма",
         help_text="Дата заключения договора найма", blank=True, null=True)
-    order_of_hiring_number = models.CharField("Номер договора найма",
-        help_text="Номер договора найма", max_length=255, blank=True)
+    order_of_hiring_number = models.CharField("Номер заключения договора найма",
+        help_text="Номер заключения договора найма", max_length=255, blank=True)
