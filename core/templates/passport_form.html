@@ -289,9 +289,14 @@
 </div>
 
 <div class = "row">
-    <div class="span3 text-error">
+    <div class="span2 text-error">
         {% for error in form.lowful_status.errors %}
            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span3 text-error">
+        {% for error in form.lowful_document_name.errors %}
+            {{ error }}
         {% endfor %}
     </div>
     <div class="span3 text-error">
@@ -299,28 +304,30 @@
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span3 text-error">
+    <div class="span2 text-error">
         {% for error in form.lowful_status_number.errors %}
            {{ error }}
         {% endfor %}
     </div>
-    <div class="span3 text-error">
+    <div class="span2 text-error">
         {% for error in form.lowful_status_invalidity.errors %}
             {{ error }}
         {% endfor %}
     </div>
 </div>
 <div class = "row">
-    <div class="span3 ">{{ form.lowful_status.label }}</div>
+    <div class="span2 ">{{ form.lowful_status.label }}</div>
+    <div class="span3 ">{{ form.lowful_document_name.label }}</div>
     <div class="span3 ">{{ form.lowful_status_date.label }}</div>
-    <div class="span3 ">{{ form.lowful_status_number.label }}</div>
-    <div class="span3 ">{{ form.lowful_status_invalidity.label }}</div>
+    <div class="span2 ">{{ form.lowful_status_number.label }}</div>
+    <div class="span2 ">{{ form.lowful_status_invalidity.label }}</div>
 </div>
 <div class = "controls-row">
-    {{ form.lowful_status|attr:"class: span3" }}
+    {{ form.lowful_status|attr:"class: span2" }}
+    {{ form.lowful_document_name |attr:"class: span3" }}
     {{ form.lowful_status_date|attr:"class: span3 date" }}
-    {{ form.lowful_status_number|attr:"class: span3" }}
-    {{ form.lowful_status_invalidity|attr:"class: span3" }}
+    {{ form.lowful_status_number|attr:"class: span2" }}
+    {{ form.lowful_status_invalidity|attr:"class: span2" }}
 </div>
 
 {#  spokesman data #}
