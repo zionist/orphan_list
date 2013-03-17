@@ -40,12 +40,12 @@ class SearchForm(forms.Form):
             if k in passport_field_names or k in EXTRA_SEARCH_FIELDS:
                 self.fields[k] = forms.CharField(required=False, label=v)
 
-class SearchSelectForm(forms.Form):
+class SelectForm(forms.Form):
     def __init__(self, *args, **kwargs):
         """
         :return: form for select search fields
         """
-        super(SearchSelectForm, self).__init__(*args, **kwargs)
+        super(SelectForm, self).__init__(*args, **kwargs)
         form_fields = {}
         [form_fields.update({field.name: field.help_text}) for field in Passport._meta.fields if field.name != "id"]
         # add extra fields

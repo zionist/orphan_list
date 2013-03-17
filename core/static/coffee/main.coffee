@@ -20,8 +20,10 @@ $(document).ready ->
       if (document.URL.match(id))
         $("#" + id).addClass("active")
         break
-    if (document.URL.match("search/select"))
-      $("#search_select").addClass("active")
+    if (document.URL.match("select/search"))
+      $("#select_search").addClass("active")
+    if (document.URL.match("select/xls"))
+      $("#select_xls").addClass("active")
 
   show_hide_registration_other = () ->
     where_live = $("#id_registration_address_where :selected").val()

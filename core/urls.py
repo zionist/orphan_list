@@ -1,6 +1,6 @@
 from core.views.passport import PassportDetailView, PassportUpdateView, \
         PassportDeleteView, PassportListView, PassportCreateView
-from core.views.search import SearchSelectView
+from core.views.select import SearchSelectView, XlsSelectView
 from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
@@ -11,7 +11,8 @@ urlpatterns = patterns('',
     url(r'^delete/(?P<pk>\d+)$', PassportDeleteView.as_view(), name="delete"),
     url(r'^create$', PassportCreateView.as_view(), name="create"),
     url(r'^list/$', PassportListView.as_view(), name="list"),
-    url(r'^search/select/$', SearchSelectView.as_view(), name="search.select"),
+    url(r'^select/search/$', SearchSelectView.as_view(), name="select.search"),
+    url(r'^select/xls/$', XlsSelectView.as_view(), name="select.xls"),
     url(r"^login/$", "django.contrib.auth.views.login",
         {"template_name": "login.html"}),
     url(r"^logout/$", "django.contrib.auth.views.logout_then_login",
