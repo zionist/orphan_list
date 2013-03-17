@@ -111,13 +111,10 @@ class PassportCreateView(CreateView):
         return reverse('update', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
-        # print '# valid'
         form.save()
         return super(PassportCreateView, self).form_valid(form)
 
     def form_invalid(self, form):
-        # print '# invalid'
-        # print form.errors
         return super(PassportCreateView, self).form_invalid(form)
 
     @method_decorator(permission_required("core.add_passport"))
@@ -142,6 +139,7 @@ class PassportListView(ListView):
             if name in Passport._meta.get_all_field_names() and value:
                 field = Passport._meta.get_field_by_name(name)[0]
                 search_form_generate_from[name] = field.help_text
+
 
         # add extra fields
         for key, value in EXTRA_SEARCH_FIELDS.items():
@@ -223,10 +221,13 @@ class PassportListView(ListView):
                 extra_fields[name] = data[name]
                 del data[name]
 
-        if self.request.session.get('form_data'):
-            form_data = self.request.session["form_data"]
+        if self.request.session.get('select.search'):
+            form_data = self.request.session["select.search"]
         else:
             form_data = {}
+            # set default values if select.search form not set
+            for k,v in DEFAULT_SEARCH_TRUE_VALUES.items():
+                form_data.update({k: True})
 
         # create dynamic search form
         search_form_generate_from = self.create_search_form_data(form_data)
