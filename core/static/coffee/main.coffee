@@ -47,6 +47,10 @@ $(document).ready ->
     switch live_at_registration
       when "Нет"
         $(".living").show()
+        $("#id_living_address_region").val("")
+        $("#id_living_address_mo").val("")
+        $("#id_living_address_address").val("")
+        $("#id_living_address_where").val("")
       when "Да"
         $(".living").hide()
         $("#id_living_address_region").val($("#id_registration_address_region").val())

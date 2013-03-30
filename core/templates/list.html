@@ -24,7 +24,7 @@
                     <th>Дата внесения в список</th>
                 </tr>
                 {% for passport in passport_list %}
-                    <tr onclick="location.href = '{% url 'update' pk=passport.pk %}';">
+                    <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
                         <td>{{ passport.surname }} {{passport.name }} {{passport.patronymic }}  </td>
                         {% if passport.document_number %}
                             <td>{{  passport.document_number }} </td>

@@ -14,7 +14,7 @@ class Passport(models.Model):
         verbose_name = "Passport"
 
     def __unicode__(self):
-        return "%s %s %s" % (self.surname, self.surname, self.patronymic)
+        return "%s %s %s" % (self.surname, self.name, self.patronymic)
 
     # name 
     surname = models.CharField("Фамилия", help_text="Фамилия",
@@ -36,8 +36,10 @@ class Passport(models.Model):
          help_text = "Номер очередности в МО", blank=True, max_length=1024)
     order_UMSO_conclusion_date = models.DateField("Дата заключения УОМС",
         help_text="Дата заключения УОМС", blank=True, null=True)
-    order_date = models.DateField("Дата внесения в список",
-        help_text="Дата внесения  в список", blank=True, null=True)
+    order_date = models.DateField("Дата приказа о включении",
+        help_text="Дата приказа о включении", blank=True, null=True)
+    order_date_negative = models.DateField("Дата отказа о включении",
+        help_text="Дата отказа о внесении", blank=True, null=True)
 
     # person document
     document = models.CharField("Документ удостоверяющий личность",
@@ -51,6 +53,15 @@ class Passport(models.Model):
         help_text="Дата выдачи документа", blank=True, null=True)
     document_issue = models.CharField("Кем выдан", help_text="Кем выдан",
         blank=True, max_length=255)
+
+    # persons set on account before 1 january 2013 year 
+    person_before_2013_document_name = models.CharField("Наименование документа поставленных на учет до 01.01.2013",
+        help_text="Наименование документа поставленных на учет до 01.01.2013", blank=True, max_length=2048)
+    person_before_2013_document_date = models.DateField("Дата документа поставленных на учет до 01.01.2013",
+        help_text="Дата документа поставленных на учет до 01.01.2013",
+        null=True, blank=True)
+    person_before_2013_document_number = models.CharField("Номер документа поставленных на учет до 01.01.2013",
+        help_text="Номер документа поставленных на учет до 01.01.2013", blank=True, max_length=2048)
 
     # registration
     registration_address_region = models.CharField("Адрес регистрации (регион)",
@@ -76,7 +87,7 @@ class Passport(models.Model):
         help_text="Фактический адрес проживания (регион)", blank=True, max_length=2048,
         choices=REGION_CHOICES)
     living_address_mo = models.CharField("Фактический адрес проживания (МО)",
-        help_text="Фактический адрес проживания (МО)", blank=True, max_length=2048, choices=MO_CHOICES)
+        help_text="Фактический адрес проживания (МО)", blank=True, max_length=2048)
     living_address_address = models.CharField("Фактический адрес проживания (ул. № дома)",
         help_text="Фактический адрес проживания (ул. № дома)", blank=True, max_length=10000)
     living_address_where = models.CharField("Вид жилого помещения по адресу фактического проживания",
@@ -90,6 +101,7 @@ class Passport(models.Model):
     lowful_status = models.CharField("Правовой статус",
         help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
         max_length=255)
+
     lowful_document_name = models.CharField("Наименование документа установливающего правовой статус",
         help_text="Наименование документа установливающего правовой статус",
         max_length=255, blank=True)
@@ -99,6 +111,17 @@ class Passport(models.Model):
     lowful_status_number = models.CharField("Номер документа, устанавливающего правовой статус",
         help_text="ННомер документа, устанавливающего правовой статус",
         blank=True, max_length=255)
+
+    lowful_document_name2 = models.CharField("Наименование второго документа установливающего правовой статус",
+        help_text="Наименование документа установливающего правовой статус",
+        max_length=255, blank=True)
+    lowful_status_date2 = models.DateField("Дата второго документа, установливающего правовой статус",
+        help_text="Дата документа установливающего правовой статус",
+        null=True, blank=True)
+    lowful_status_number2 = models.CharField("Номер второго документа, устанавливающего правовой статус",
+        help_text="Номер документа, устанавливающего правовой статус",
+        blank=True, max_length=255)
+
     lowful_status_invalidity = models.CharField("Инвалидность",
         help_text="Инвалидность", blank=True, choices=BOOLEAN_CHOICES,
         max_length=255)
@@ -108,8 +131,8 @@ class Passport(models.Model):
         "законном представителе (ФИО, степень родства)",
         help_text="Сведения о законном представителе (ФИО, степен родства) "
         "и пр.)", blank=True, max_length=10000)
-    form_of_care_spokesman_type = models.CharField("Кто представляет",
-        help_text="Кто представляет", blank=True, max_length=1024,
+    form_of_care_spokesman_type = models.CharField("Законный представитель",
+        help_text="Законный представитель", blank=True, max_length=1024,
         choices=SPOKESNAM_TYPE_CHOICES)
 
     # family status
@@ -134,6 +157,8 @@ class Passport(models.Model):
         max_length=255)
 
     # job and education
+    job_social_status = models.CharField("Социальный статус",
+        help_text="Социальный статус", blank=True, max_length=2048)
     job_type_of_job = models.CharField("Форма занятости",
         help_text="Форма занятости",
         choices=JOB_TYPE_CHOICES, max_length=255, blank=True)
@@ -155,12 +180,13 @@ class Passport(models.Model):
     job_finished = models.DateField("Дата окончания занятости",
         help_text="Дата окончания занятости", blank=True, null=True)
 
+
     # lodging
     lodging_accordance = models.CharField("Факт предоставления жилья",
         help_text="Факт предоставления жилья", choices=BOOLEAN_CHOICES,
         max_length=255, blank=True)
-    lodging_how_gained = models.CharField("Способ предоставления",
-        help_text="Способ предоставления", choices=LODGING_CHOICES, max_length=255,
+    lodging_how_gained = models.CharField("Способ предоставления жилья",
+        help_text="Способ предоставления жилья", choices=LODGING_CHOICES, max_length=255,
         blank=True)
     lodging_house_or_flat = models.CharField("Дом / квартира",
         help_text="Дом / квартира", choices=LODGING_HOUSE_OR_FLAT_CHOICES,
