@@ -70,8 +70,8 @@ class Passport(models.Model):
     registration_address_mo = models.CharField("Адрес регистрации (МО)",
         help_text="Адрес регистрации (МО)", blank=True, max_length=2048,
         choices=MO_CHOICES)
-    registration_address_address = models.CharField("Арес регистрации (ул, № дома)",
-        help_text="Арес регистрации (Ул, № дома)", blank=True, max_length=10000)
+    registration_address_address = models.CharField("Адрес регистрации (Населенный пункт, Ул, № дома (квартиры))",
+        help_text="Адрес регистрации (Населенный пункт, Ул, № дома (квартиры))", blank=True, max_length=10000)
     registration_address_where = models.CharField("Вид жилого помещения по адресу регистрации",
         help_text="Вид жилого помещения по адресу регистрации", blank=True, max_length=2048,
         choices=REGISTRAION_WHERE_CHOICES)
