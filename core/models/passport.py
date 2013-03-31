@@ -109,7 +109,7 @@ class Passport(models.Model):
         help_text="Дата документа установливающего правовой статус",
         null=True, blank=True)
     lowful_status_number = models.CharField("Номер документа, устанавливающего правовой статус",
-        help_text="ННомер документа, устанавливающего правовой статус",
+        help_text="Номер документа, устанавливающего правовой статус",
         blank=True, max_length=255)
 
     lowful_document_name2 = models.CharField("Наименование второго документа установливающего правовой статус",
