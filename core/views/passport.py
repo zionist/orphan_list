@@ -80,7 +80,13 @@ class PassportUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('update', kwargs={'pk': self.object.pk})
-    
+
+    def post(self, request, *args, **kwargs):
+        post = request.POST.copy()
+        post.update({"owner": request.user.username})
+        request.POST = post
+        return super(PassportUpdateView, self).post(request, *args, **kwargs)
+
     @method_decorator(permission_required("core.change_passport"))
     def dispatch(self, *args, **kwargs):
         return super(PassportUpdateView, self).dispatch(*args, **kwargs)
@@ -116,6 +122,12 @@ class PassportCreateView(CreateView):
 
     def form_invalid(self, form):
         return super(PassportCreateView, self).form_invalid(form)
+
+    def post(self, request, *args, **kwargs):
+        post = request.POST.copy()
+        post.update({"owner": request.user.username})
+        request.POST = post
+        return super(PassportCreateView, self).post(request, *args, **kwargs)
 
     @method_decorator(permission_required("core.add_passport"))
     def dispatch(self, *args, **kwargs):
@@ -234,6 +246,7 @@ class PassportListView(ListView):
 
         search_form = SearchForm(data, generate_from=search_form_generate_from)
         if not search_form.is_valid():
+            print "# search not valid"
             return super(PassportListView, self).get_queryset().order_by("surname")
         else:
             args = search_form.cleaned_data or {}
@@ -262,7 +275,11 @@ class PassportListView(ListView):
                     pass
                 else:
                     args.update({"birthday__lte": to_year})
-            return Passport.objects.filter(**args).order_by("surname")
+            if self.request.user.is_staff:
+                return Passport.objects.filter(**args).order_by("surname")
+            else:
+                return Passport.objects.filter(**args).filter(owner=self.request.user.username).order_by("surname")
+
 
     def render_to_response(self, context):
         if self.request.GET.get("xls"):

@@ -199,3 +199,6 @@ class Passport(models.Model):
         help_text="Дата заключения договора найма", blank=True, null=True)
     order_of_hiring_number = models.CharField("Номер заключения договора найма",
         help_text="Номер заключения договора найма", max_length=255, blank=True)
+
+    # document owner 
+    owner = models.CharField("Владелец документа", help_text="Владелец документа", max_length=2048, blank=True)
