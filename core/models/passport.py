@@ -202,3 +202,5 @@ class Passport(models.Model):
 
     # document owner 
     owner = models.CharField("Владелец документа", help_text="Владелец документа", max_length=2048, blank=True)
+    # publicate = models.CharField("Публиковать", help_text="Публиковать", max_length=2048, blank=True, 
+    #        choices=BOOLEAN_CHOICES)

@@ -1,3 +1,5 @@
+# -*- coding:utf-8 -*-
+
 import xlwt
 from datetime import date
 from django.http import HttpResponse
@@ -10,6 +12,7 @@ from core.forms.select import SearchForm
 from core.models import Passport
 from django.contrib.auth.decorators import permission_required, login_required
 from django.utils.decorators import method_decorator
+from django.http import HttpResponseForbidden
 from common.constants import DEFAULT_SEARCH_TRUE_VALUES, EXTRA_SEARCH_FIELDS
 
 
@@ -67,9 +70,24 @@ class PassportDetailView(DetailView):
         context["title"] = self.object.__unicode__
         return context
 
+    # check access for owner. Only owner can modify own data.
+    def get(self, request, *args, **kwargs):
+        pk = request.resolver_match.kwargs.get('pk')
+        obj = Passport.objects.get(pk=pk)
+        if not request.user.is_staff:
+            if obj.owner != request.user.username:
+                return HttpResponseForbidden()
+        return super(PassportDetailView, self).get(request, *args, **kwargs)
+        
     @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(PassportDetailView, self).dispatch(*args, **kwargs)
+    # check access for owner. Only owner can modify own data.
+    def dispatch(self,request, *args, **kwargs):
+        pk = request.resolver_match.kwargs.get('pk')
+        obj = Passport.objects.get(pk=pk)
+        if not request.user.is_staff:
+            if obj.owner != request.user.username:
+                return HttpResponseForbidden()
+        return super(PassportDetailView, self).dispatch(request, *args, **kwargs)
 
 
 class PassportUpdateView(UpdateView):
@@ -87,9 +105,16 @@ class PassportUpdateView(UpdateView):
         request.POST = post
         return super(PassportUpdateView, self).post(request, *args, **kwargs)
 
+
+    # check access for owner. Only owner can modify own data.
     @method_decorator(permission_required("core.change_passport"))
-    def dispatch(self, *args, **kwargs):
-        return super(PassportUpdateView, self).dispatch(*args, **kwargs)
+    def dispatch(self,request, *args, **kwargs):
+        pk = request.resolver_match.kwargs.get('pk')
+        obj = Passport.objects.get(pk=pk)
+        if not request.user.is_staff:
+            if obj.owner != request.user.username:
+                return HttpResponseForbidden()
+        return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
 
 
 class PassportDeleteView(DeleteView):
@@ -105,8 +130,13 @@ class PassportDeleteView(DeleteView):
         return reverse('list')
 
     @method_decorator(permission_required("core.delete_passport"))
-    def dispatch(self, *args, **kwargs):
-        return super(PassportDeleteView, self).dispatch(*args, **kwargs)
+    def dispatch(self,request, *args, **kwargs):
+        pk = request.resolver_match.kwargs.get('pk')
+        obj = Passport.objects.get(pk=pk)
+        if not request.user.is_staff:
+            if obj.owner != request.user.username:
+                return HttpResponseForbidden()
+        return super(PassportDeleteView, self).dispatch(request, *args, **kwargs)
 
 
 class PassportCreateView(CreateView):
