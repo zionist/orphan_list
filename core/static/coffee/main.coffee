@@ -7,11 +7,13 @@ $(document).ready ->
 
     # set mask on serial number according type of document
     $("#id_document").click ->
+      #$.mask.definitions['~']='.'
       document_type = $("#id_document :selected").val()
       if document_type == "Паспорт"
         $(".document_number").mask("99-99 999999")
       if document_type == "Свидетельство о рождении"
-        $(".document_number").mask("*-** 999999")
+        #$(".document_number").mask("~-~~ 999999")
+        $(".document_number").unmask()
       if document_type == "Другой документ"
         $(".document_number").unmask()
 

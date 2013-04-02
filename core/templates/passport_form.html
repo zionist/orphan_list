@@ -291,13 +291,18 @@
         {% endfor %}
     </div>
     <div class="span2 text-error">
-        {% for error in form.living_type.errors %}
+        {% for error in form.order_number.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span2 text-error">
+        {% for error in form.order_date.errors %}
            {{ error }}
         {% endfor %}
     </div>
     <div class="span2 text-error">
-        {% for error in form.order_number.errors %}
-            {{ error }}
+        {% for error in form.order_date_negative.errors %}
+           {{ error }}
         {% endfor %}
     </div>
 </div>
@@ -305,17 +310,17 @@
     <div class="span2 ">{{ form.order_allegation_date_and_time.label }}</div>
     <div class="span2 ">{{ form.order_number_of_queue.label }}</div>
     <div class="span2 ">{{ form.order_UMSO_conclusion_date.label }}</div>
+    <div class="span2 ">{{ form.order_number.label }}</div>
     <div class="span2 ">{{ form.order_date.label }}</div>
     <div class="span2 ">{{ form.order_date_negative.label }}</div>
-    <div class="span2 ">{{ form.order_number.label }}</div>
 </div>
 <div class = "controls-row">
     {{ form.order_allegation_date_and_time|attr:"class:span2 date_time"|attr:"placeholder:день.месяц.год часы:минуты" }}
     {{ form.order_number_of_queue |attr:"class:span2" }}
     {{ form.order_UMSO_conclusion_date |attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
+    {{ form.order_number|attr:"class:span2" }}
     {{ form.order_date |attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
     {{ form.order_date_negative |attr:"class:span2 date"|attr:"placeholder:день.месяц.год" }}
-    {{ form.order_number|attr:"class:span2" }}
 </div>
 
 {# lowful status #}

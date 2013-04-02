@@ -26,8 +26,8 @@ class Passport(models.Model):
         blank=True, null=True)
 
     # orders and dates
-    order_number = models.CharField("Номер приказа",
-                                    help_text="Номер приказа", max_length=255,
+    order_number = models.CharField("Номер приказа о включении",
+                                    help_text="Номер приказа о включении", max_length=255,
                                     blank=True)
     order_allegation_date_and_time = models.DateTimeField("Дата и время подачи"
         " заявления", help_text = "Дата и время подачи заявления",
@@ -38,8 +38,8 @@ class Passport(models.Model):
         help_text="Дата заключения УОМС", blank=True, null=True)
     order_date = models.DateField("Дата приказа о включении",
         help_text="Дата приказа о включении", blank=True, null=True)
-    order_date_negative = models.DateField("Дата отказа о включении",
-        help_text="Дата отказа о внесении", blank=True, null=True)
+    order_date_negative = models.DateField("Дата приказа об отказе о включении",
+        help_text="Дата приказа об отказе о внесении", blank=True, null=True)
 
     # person document
     document = models.CharField("Документ удостоверяющий личность",
@@ -102,21 +102,21 @@ class Passport(models.Model):
         help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
         max_length=255)
 
-    lowful_document_name = models.CharField("Наименование документа установливающего правовой статус",
-        help_text="Наименование документа установливающего правовой статус",
+    lowful_document_name = models.CharField("Наименование документа устанавливающего правовой статус",
+        help_text="Наименование документа устанавливающего правовой статус",
         max_length=255, blank=True)
-    lowful_status_date = models.DateField("Дата документа, установливающего правовой статус",
-        help_text="Дата документа установливающего правовой статус",
+    lowful_status_date = models.DateField("Дата документа, устанавливающего правовой статус",
+        help_text="Дата документа устанавливающего правовой статус",
         null=True, blank=True)
     lowful_status_number = models.CharField("Номер документа, устанавливающего правовой статус",
         help_text="Номер документа, устанавливающего правовой статус",
         blank=True, max_length=255)
 
-    lowful_document_name2 = models.CharField("Наименование второго документа установливающего правовой статус",
-        help_text="Наименование документа установливающего правовой статус",
+    lowful_document_name2 = models.CharField("Наименование второго документа устанавливающего правовой статус",
+        help_text="Наименование документа устанавливающего правовой статус",
         max_length=255, blank=True)
-    lowful_status_date2 = models.DateField("Дата второго документа, установливающего правовой статус",
-        help_text="Дата документа установливающего правовой статус",
+    lowful_status_date2 = models.DateField("Дата второго документа, устанавливающего правовой статус",
+        help_text="Дата документа устанавливающего правовой статус",
         null=True, blank=True)
     lowful_status_number2 = models.CharField("Номер второго документа, устанавливающего правовой статус",
         help_text="Номер документа, устанавливающего правовой статус",
