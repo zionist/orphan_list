@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import xlwt
+import urllib
 from datetime import date
 from django.http import HttpResponse
 from django.views.generic.edit import (CreateView,
@@ -99,14 +100,18 @@ class PassportUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('update', kwargs={'pk': self.object.pk})
 
+    # get owner from object and set it
     def post(self, request, *args, **kwargs):
         post = request.POST.copy()
-        post.update({"owner": request.user.username})
+        pk = request.resolver_match.kwargs.get('pk')
+        obj = Passport.objects.get(pk=pk)
+        post.update({"owner": obj.owner})
         request.POST = post
         return super(PassportUpdateView, self).post(request, *args, **kwargs)
 
 
     # check access for owner. Only owner can modify own data.
+    # if may_edit not set then deny access
     @method_decorator(permission_required("core.change_passport"))
     def dispatch(self,request, *args, **kwargs):
         pk = request.resolver_match.kwargs.get('pk')
@@ -114,6 +119,8 @@ class PassportUpdateView(UpdateView):
         if not request.user.is_staff:
             if obj.owner != request.user.username:
                 return HttpResponseForbidden()
+        if not obj.may_edit:
+            return HttpResponseForbidden()
         return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
 
 
@@ -129,6 +136,7 @@ class PassportDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('list')
 
+    # if may_edit not set then deny access
     @method_decorator(permission_required("core.delete_passport"))
     def dispatch(self,request, *args, **kwargs):
         pk = request.resolver_match.kwargs.get('pk')
@@ -136,6 +144,8 @@ class PassportDeleteView(DeleteView):
         if not request.user.is_staff:
             if obj.owner != request.user.username:
                 return HttpResponseForbidden()
+        if not obj.may_edit:
+            return HttpResponseForbidden()
         return super(PassportDeleteView, self).dispatch(request, *args, **kwargs)
 
 
@@ -155,7 +165,8 @@ class PassportCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         post = request.POST.copy()
-        post.update({"owner": request.user.username})
+        # set default value to may_edit
+        post.update({"owner": request.user.username, "may_edit": True})
         request.POST = post
         return super(PassportCreateView, self).post(request, *args, **kwargs)
 
@@ -248,6 +259,17 @@ class PassportListView(ListView):
             context["xls_path"] = url + "&xls=yes"
         else:
             context["xls_path"] = url + "?xls=yes"
+
+        # get url of request and pass it to template for correct list pagination
+        get = self.request.GET.copy()
+        if get:
+            if get.get("page"):
+                get.pop("page")
+            get_utf_8 = {}
+            for k, v in get.items():
+                get_utf_8[k] = v.encode("utf-8")
+            url = urllib.urlencode(get_utf_8)
+            context["paginate_url"] = url
         return context
 
     def get(self, request, **kwargs):
@@ -276,7 +298,6 @@ class PassportListView(ListView):
 
         search_form = SearchForm(data, generate_from=search_form_generate_from)
         if not search_form.is_valid():
-            print "# search not valid"
             return super(PassportListView, self).get_queryset().order_by("surname")
         else:
             args = search_form.cleaned_data or {}
@@ -309,7 +330,6 @@ class PassportListView(ListView):
                 return Passport.objects.filter(**args).order_by("surname")
             else:
                 return Passport.objects.filter(**args).filter(owner=self.request.user.username).order_by("surname")
-
 
     def render_to_response(self, context):
         if self.request.GET.get("xls"):

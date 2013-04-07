@@ -24,7 +24,12 @@
                     <th>Дата внесения в список</th>
                 </tr>
                 {% for passport in passport_list %}
-                    <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
+                    {% if passport.may_edit %}
+                        <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
+                    {% else %}
+                        <tr class = "warning" onclick="location.href = '{% url 'view' pk=passport.pk %}';">
+                    {% endif %}
+
                         <td>{{ passport.surname }} {{passport.name }} {{passport.patronymic }}  </td>
                         {% if passport.document_number %}
                             <td>{{  passport.document_number }} </td>
@@ -77,13 +82,13 @@
     <div class="pagination">
         <span class="page-links">
             {% if page_obj.has_previous %}
-                <a href="{% url 'list' %}?page={{ page_obj.previous_page_number }}">назад</a>
+            <a href="{% url 'list' %}?{{paginate_url}}&page={{ page_obj.previous_page_number }}">назад</a>
             {% endif %}
             <span class="page-current">
                 Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
             </span>
             {% if page_obj.has_next %}
-                <a href="{% url 'list' %}?page={{ page_obj.next_page_number }}">вперед</a>
+            <a href="{% url 'list' %}?{{paginate_url}}&page={{ page_obj.next_page_number }}">вперед</a>
             {% endif %}
         </span>
     </div>

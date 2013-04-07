@@ -144,6 +144,14 @@ $(document).ready ->
         $(@).val("")
       $(".lodging").hide()
 
+  # set unset all flags on search and search_select pages
+  $("a.checkbox-hide-all").click ->
+      $('form input[type="checkbox"]').each ->
+        $(@).attr('checked', false)
+  $("a.checkbox-show-all").click ->
+      $('form input[type="checkbox"]').each ->
+        $(@).prop("checked", true)
+
   # calls
   set_active_tab()
   if (document.URL.match('create') or document.URL.match('update'))

@@ -8,6 +8,16 @@
 {{ form.non_field_errors }}
 
 {% block content %}
+    <div class="row">
+        <div class="span2">  
+            <a class="btn checkbox-show-all">Выделить все</a>
+        </div>
+        <div class="span2 offset8 text-right">
+            <a class="btn checkbox-hide-all">Убрать выделение</a>
+        </div>
+    </div>
+    <br />
+
     <form action="{% url 'select.xls' %}" class="form-inline" method="post">{% csrf_token %}
 
     <table class="table">

@@ -10,12 +10,6 @@ class SearchForm(forms.ModelForm):
     class Meta:
        model = Passport
 
-class QuickSearchForm(forms.Form):
-    name = forms.CharField(label="Имя", max_length=255, required=False)
-    surname = forms.CharField(label="Фамилия", max_length=255, 
-        required=False)
-    birthday = forms.DateField(label="Дата рождения", required=False)
-
 # dynamic search forms
 class SearchForm(forms.Form):
     def __init__(self, *args, **kwargs):

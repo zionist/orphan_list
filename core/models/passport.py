@@ -157,8 +157,8 @@ class Passport(models.Model):
         max_length=255)
 
     # job and education
-    job_social_status = models.CharField("Социальный статус",
-        help_text="Социальный статус", blank=True, max_length=2048)
+    # job_social_status = models.CharField("Социальный статус",
+    #    help_text="Социальный статус", blank=True, max_length=2048)
     job_type_of_job = models.CharField("Форма занятости",
         help_text="Форма занятости",
         choices=JOB_TYPE_CHOICES, max_length=255, blank=True)
@@ -202,5 +202,4 @@ class Passport(models.Model):
 
     # document owner 
     owner = models.CharField("Владелец документа", help_text="Владелец документа", max_length=2048, blank=True)
-    # publicate = models.CharField("Публиковать", help_text="Публиковать", max_length=2048, blank=True, 
-    #        choices=BOOLEAN_CHOICES)
+    may_edit = models.BooleanField("Можно редактировать", help_text="Можно редактировать", default=True)

@@ -23,7 +23,10 @@ footer {
 
 .grey {
     background-color: #F5F5F5;
-    /* background-color: #eee */
+}
+
+.pretty-red {
+    background-color: #ffe8e8;
 }
 
 textarea{

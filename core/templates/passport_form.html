@@ -6,6 +6,28 @@
 
 {{ form.non_field_errors }}
 
+
+{% if request.user.is_staff %}
+    {# admin fields #}
+    <div class="row">
+        <div class="span12 pretty-red text-center">
+            <h5 class="text-info">Администрирование</h5>
+        </div>
+    </div>
+    <div class = "row">
+        <div class="span3 text-error">
+            {% for error in form.may_edit.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class = "row">
+        <div class="span3 ">{{ form.may_edit.label }} {{ form.may_edit }}
+    </div>
+    </div>
+    <br />
+{% endif %}
+
 {# name #}
 <div class="row">
     <div class="span12 grey text-center">

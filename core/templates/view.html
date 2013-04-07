@@ -30,12 +30,12 @@
     {% if request.user.is_authenticated %}
         <div class="form-actions">
             <div class="row">
-                {% if perms.core.change_passport %} 
+                {% if perms.core.change_passport and object.may_edit %} 
                     <div class="span1">
                         <a href="{% url 'update' pk=object.pk %}" class="btn btn-info">Редактировать</a>
                     </div> 
                 {% endif %}
-                {% if perms.core.delete_passport %} 
+                {% if perms.core.delete_passport and object.may_edit %} 
                     <div class="span1 offset9">
                         <a href="{% url 'delete' pk=object.pk %}" class="btn btn-danger">Удалить</a>
                     </div>
