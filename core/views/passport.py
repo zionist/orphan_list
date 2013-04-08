@@ -119,8 +119,8 @@ class PassportUpdateView(UpdateView):
         if not request.user.is_staff:
             if obj.owner != request.user.username:
                 return HttpResponseForbidden()
-        if not obj.may_edit:
-            return HttpResponseForbidden()
+            if not obj.may_edit:
+                return HttpResponseForbidden()
         return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
 
 
@@ -144,8 +144,8 @@ class PassportDeleteView(DeleteView):
         if not request.user.is_staff:
             if obj.owner != request.user.username:
                 return HttpResponseForbidden()
-        if not obj.may_edit:
-            return HttpResponseForbidden()
+            if not obj.may_edit:
+                return HttpResponseForbidden()
         return super(PassportDeleteView, self).dispatch(request, *args, **kwargs)
 
 
