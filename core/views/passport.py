@@ -105,7 +105,7 @@ class PassportUpdateView(UpdateView):
         post = request.POST.copy()
         pk = request.resolver_match.kwargs.get('pk')
         obj = Passport.objects.get(pk=pk)
-        post.update({"owner": obj.owner})
+        post.update({"owner": obj.owner, "may_edit": obj.may_edit})
         request.POST = post
         return super(PassportUpdateView, self).post(request, *args, **kwargs)
 
