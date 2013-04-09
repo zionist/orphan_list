@@ -105,10 +105,13 @@ class PassportUpdateView(UpdateView):
         post = request.POST.copy()
         pk = request.resolver_match.kwargs.get('pk')
         obj = Passport.objects.get(pk=pk)
-        post.update({"owner": obj.owner, "may_edit": obj.may_edit})
+        post.update({"owner": obj.owner})
+
+        # we should take old may_edit permission because non staff user can't edit it
+        if not request.user.is_staff:
+            post.update({"may_edit": obj.may_edit})
         request.POST = post
         return super(PassportUpdateView, self).post(request, *args, **kwargs)
-
 
     # check access for owner. Only owner can modify own data.
     # if may_edit not set then deny access
