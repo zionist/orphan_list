@@ -49,10 +49,6 @@ $(document).ready ->
     switch live_at_registration
       when "Нет"
         $(".living").show()
-        $("#id_living_address_region").val("")
-        $("#id_living_address_mo").val("")
-        $("#id_living_address_address").val("")
-        $("#id_living_address_where").val("")
       when "Да"
         $(".living").hide()
         $("#id_living_address_region").val($("#id_registration_address_region").val())
@@ -169,17 +165,7 @@ $(document).ready ->
     show_hide_registration_other()
   $("#id_living_address_where").click ->
     show_hide_living_other()
-  $("#id_registration_live_at_registration_address").click ->
-    show_hide_registration_address()
-
-  # registration fields
-  $("#id_registration_address_region").change ->
-    show_hide_registration_address()
-  $("#id_registration_address_mo").change ->
-    show_hide_registration_address()
-  $("#id_registration_address_address").change ->
-    show_hide_registration_address()
-  $("#id_registration_address_where").change ->
+  $("#id_registration_live_at_registration_address").change ->
     show_hide_registration_address()
 
   $("#id_estate_has_estate").click ->
