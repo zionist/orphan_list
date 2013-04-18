@@ -305,14 +305,22 @@ class PassportListView(ListView):
         else:
             args = search_form.cleaned_data or {}
             # all search is case insensitive
+            exact_search = False
+            if args["exact"] == True:
+                exact_search = True
+            del args["exact"]
+            
             for key,value in args.items():
                 if key in EXTRA_SEARCH_FIELDS:
                     del args[key]
                     continue
-                args[key + "__icontains"] = value
+                # exact search logic
+                if value:
+                    if exact_search:
+                        args[key + "__exact"] = value
+                    else:
+                        args[key + "__icontains"] = value
                 del args[key]
-
-            #add extra_fields search
             if extra_fields.get("year"):
                 args.update({"birthday__year": extra_fields["year"]})
             if extra_fields.get("from_year"):
@@ -329,6 +337,8 @@ class PassportListView(ListView):
                     pass
                 else:
                     args.update({"birthday__lte": to_year})
+
+            # we need to search 
             if self.request.user.is_staff:
                 return Passport.objects.filter(**args).order_by("surname")
             else:

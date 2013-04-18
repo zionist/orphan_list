@@ -12,6 +12,9 @@ class SearchForm(forms.ModelForm):
 
 # dynamic search forms
 class SearchForm(forms.Form):
+
+    exact = forms.BooleanField(label="Точное совпадение", required=False)
+
     def __init__(self, *args, **kwargs):
         """
         :param form_data: dict {fields name: label} for dynamic form generation
