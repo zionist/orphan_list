@@ -101,7 +101,6 @@ class Passport(models.Model):
     lowful_status = models.CharField("Правовой статус",
         help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
         max_length=255)
-
     lowful_document_name = models.CharField("Наименование документа устанавливающего правовой статус",
         help_text="Наименование документа устанавливающего правовой статус",
         max_length=255, blank=True)
@@ -125,6 +124,22 @@ class Passport(models.Model):
     lowful_status_invalidity = models.CharField("Инвалидность",
         help_text="Инвалидность", blank=True, choices=BOOLEAN_CHOICES,
         max_length=255)
+
+    # place of detect
+    place_of_detect = models.CharField("Место первичного выявления",
+        help_text="Мечто первичного выявления",
+        max_length=2048, blank=True)
+    place_of_detect_mo = models.CharField("Место первичного выявления (МО)",
+        help_text="Место первичного выявления (МО)", blank=True, max_length=2048,
+        choices=MO_CHOICES)
+    place_of_detect_document_name = models.CharField("Место первичного выявления наименование документа",
+        help_text="Мечто первичного выявления наименование документа",
+        max_length=2048, blank=True)
+    place_of_detect_document_date  = models.DateField("Место первичного выявления дата документа",
+        help_text="Место первичного выявления дата документа", null=True,
+        blank=True)
+    place_of_detect_document_number = models.CharField("Место первичного выявления номер документа",
+        help_text="Место первичного выявления номер документа", blank=True, max_length=255)
 
     # spokesman data
     form_of_care_spokesman_data = models.CharField("Сведения о "
