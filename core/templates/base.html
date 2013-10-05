@@ -4,7 +4,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    {% block title %} <title>Список детей сирот (тестовый режим)</title> {% endblock %}
+    {% block title %} <title>Список детей сирот</title> {% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -30,7 +30,7 @@
         <div class="navbar navbar-fixed-top">
           <div class="navbar-inner">
             <div class="container">
-              <a class="brand" href="#">Список детей сирот (тестовый режим)</a>
+              <a class="brand" href="#">Список детей сирот</a>
               <div class="nav-collapse collapse">
                 <ul class="nav">
                   {% if request.user.is_authenticated %}
@@ -67,7 +67,6 @@
     <script src="/static/js/jquery.maskedinput.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.js"></script>
     <script type="text/javascript" src='{{MEDIA_URL}}{% coffeescript "coffee/main.coffee" %}'> </script>
-    <script type="text/javascript" src='{{MEDIA_URL}}{% coffeescript "coffee/tabs.coffee" %}'> </script>
     <!-- <script src="/static/bootstrap/js/bootstrap-transition.js"></script>
     <script src="/static/bootstrap/js/bootstrap-alert.js"></script>
     <script src="/static/bootstrap/js/bootstrap-modal.js"></script>

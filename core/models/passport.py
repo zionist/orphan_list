@@ -127,7 +127,7 @@ class Passport(models.Model):
 
     # place of detect
     place_of_detect = models.CharField("Место первичного выявления",
-        help_text="Мечто первичного выявления",
+        help_text="Меcто первичного выявления",
         max_length=2048, blank=True)
     place_of_detect_mo = models.CharField("Место первичного выявления (МО)",
         help_text="Место первичного выявления (МО)", blank=True, max_length=2048,
