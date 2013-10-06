@@ -12,3 +12,4 @@ eventlet
 greenlet
 django-coffeescript
 psycopg2
+django-reversion

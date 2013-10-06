@@ -3,7 +3,10 @@
 import xlwt
 import urllib
 from datetime import date
+
+import reversion
 from django.http import HttpResponse
+from django.utils.translation import ugettext as _
 from django.views.generic.edit import (CreateView,
         UpdateView, DeleteView)
 from django.views.generic.detail import DetailView
@@ -125,6 +128,21 @@ class PassportUpdateView(UpdateView):
             if not obj.may_edit:
                 return HttpResponseForbidden()
         return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        version_list = reversion.get_unique_for_object(self.object)
+        version = version_list[0]
+        # get difference between last version and new version
+        diff = {}
+        for k,v in version.field_dict.iteritems():
+            if v not in form.cleaned_data.values():
+                diff[k] = v
+        del diff["id"]
+        print diff
+        with reversion.create_revision():
+            form.save()
+            reversion.set_comment(_("Changed %s." % diff))
+        return super(PassportUpdateView, self).form_valid(form)
 
 
 class PassportDeleteView(DeleteView):
