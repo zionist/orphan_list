@@ -16,27 +16,18 @@
             <tbody>
                 <tr>
                     <th>ФИО</th>
-                    <th>Серия номер документа, удостоверяющего личность</th>
                     <th>Дата рождения</th>
                     <th>Регистрация по месту жительства</th>
                     <th>Правовой статус</th>
                     <th>Дата и время подачи заявления</th>
                     <th>Дата внесения в список</th>
+                    <th>Очередность МО</th>
+                    <th>Владелец</th>
                 </tr>
                 {% for passport in passport_list %}
-                    {% if passport.may_edit %}
                         <tr onclick="location.href = '{% url 'view' pk=passport.pk %}';">
-                    {% else %}
-                        <tr class = "warning" onclick="location.href = '{% url 'view' pk=passport.pk %}';">
-                    {% endif %}
 
                         <td>{{ passport.surname }} {{passport.name }} {{passport.patronymic }}  </td>
-                        {% if passport.document_number %}
-                            <td>{{  passport.document_number }} </td>
-                        {% else %}
-                            <td> </td>
-                        {% endif %}
-
                         {% if passport.birthday %}
                             <td>{{  passport.birthday }} </td>
                         {% else %}
@@ -66,6 +57,17 @@
                         {% else %}
                             <td> </td>
                         {% endif %}
+
+                        {% if passport.id_order_number_of_queue %}
+                            <td>{{  passport.id_order_number_of_queue }} </td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
+                        {% if passport.owner %}
+                            <td><a href="/core/list/?owner={{ passport.owner }}">{{ passport.owner }}</a></td>
+                        {% else %}
+                            <td> </td>
+                        {% endif %}
                     </tr>
 
 
@@ -82,6 +84,7 @@
     <div class="pagination">
         <span class="page-links">
             {% if page_obj.has_previous %}
+            <a href="{% url 'list' %}?{{paginate_url}}&page=1">первая</a>
             <a href="{% url 'list' %}?{{paginate_url}}&page={{ page_obj.previous_page_number }}">назад</a>
             {% endif %}
             <span class="page-current">
@@ -89,7 +92,10 @@
             </span>
             {% if page_obj.has_next %}
             <a href="{% url 'list' %}?{{paginate_url}}&page={{ page_obj.next_page_number }}">вперед</a>
+
+            <a href="{% url 'list' %}?{{paginate_url}}&page={{ page_obj.paginator.num_pages }}">последняя</a>
             {% endif %}
+            <span class="right"> Количество анкет в выборке  {{count}} </span>
         </span>
     </div>
 {% endif %}

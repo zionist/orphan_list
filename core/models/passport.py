@@ -29,6 +29,10 @@ class Passport(models.Model):
     order_number = models.CharField("Номер приказа о включении",
                                     help_text="Номер приказа о включении", max_length=255,
                                     blank=True)
+    order_date = models.DateField("Дата приказа о включении",
+        help_text="Дата приказа о включении", blank=True, null=True)
+    order_date_negative = models.DateField("Дата приказа об отказе о включении",
+        help_text="Дата приказа об отказе о внесении", blank=True, null=True)
     order_allegation_date_and_time = models.DateTimeField("Дата и время подачи"
         " заявления", help_text = "Дата и время подачи заявления",
         blank=True, null=True)
@@ -36,10 +40,6 @@ class Passport(models.Model):
          help_text = "Номер очередности в МО", blank=True, max_length=1024)
     order_UMSO_conclusion_date = models.DateField("Дата заключения УОМС",
         help_text="Дата заключения УОМС", blank=True, null=True)
-    order_date = models.DateField("Дата приказа о включении",
-        help_text="Дата приказа о включении", blank=True, null=True)
-    order_date_negative = models.DateField("Дата приказа об отказе о включении",
-        help_text="Дата приказа об отказе о внесении", blank=True, null=True)
 
     # person document
     document = models.CharField("Документ удостоверяющий личность",
@@ -126,14 +126,13 @@ class Passport(models.Model):
         max_length=255)
 
     # place of detect
-    place_of_detect = models.CharField("Место первичного выявления",
-        help_text="Меcто первичного выявления",
+    place_of_detect = models.CharField("Место первичного выявления (регион)",
+        help_text="Меcто первичного выявления (регион)",
         max_length=2048, blank=True)
     place_of_detect_mo = models.CharField("Место первичного выявления (МО)",
-        help_text="Место первичного выявления (МО)", blank=True, max_length=2048,
-        choices=MO_CHOICES)
+        help_text="Место первичного выявления (МО)", blank=True, max_length=2048)
     place_of_detect_document_name = models.CharField("Место первичного выявления наименование документа",
-        help_text="Мечто первичного выявления наименование документа",
+        help_text="Меcто первичного выявления наименование документа",
         max_length=2048, blank=True)
     place_of_detect_document_date  = models.DateField("Место первичного выявления дата документа",
         help_text="Место первичного выявления дата документа", null=True,
@@ -217,4 +216,3 @@ class Passport(models.Model):
 
     # document owner 
     owner = models.CharField("Владелец документа", help_text="Владелец документа", max_length=2048, blank=True)
-    may_edit = models.BooleanField("Можно редактировать", help_text="Можно редактировать", default=True)

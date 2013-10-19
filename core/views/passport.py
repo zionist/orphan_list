@@ -111,22 +111,16 @@ class PassportUpdateView(UpdateView):
         obj = Passport.objects.get(pk=pk)
         post.update({"owner": obj.owner})
 
-        # we should take old may_edit permission because non staff user can't edit it
-        if not request.user.is_staff:
-            post.update({"may_edit": obj.may_edit})
         request.POST = post
         return super(PassportUpdateView, self).post(request, *args, **kwargs)
 
     # check access for owner. Only owner can modify own data.
-    # if may_edit not set then deny access
     @method_decorator(permission_required("core.change_passport"))
     def dispatch(self,request, *args, **kwargs):
         pk = request.resolver_match.kwargs.get('pk')
         obj = Passport.objects.get(pk=pk)
         if not request.user.is_staff:
             if obj.owner != request.user.username:
-                return HttpResponseForbidden()
-            if not obj.may_edit:
                 return HttpResponseForbidden()
         return super(PassportUpdateView, self).dispatch(request, *args, **kwargs)
 
@@ -138,8 +132,8 @@ class PassportUpdateView(UpdateView):
             diff = {}
             for k,v in version.field_dict.iteritems():
                 if v not in form.cleaned_data.values():
-                    diff[k] = v
-            del diff["id"]
+                    if k != u"id":
+                        diff[k] = form.cleaned_data[k]
             # get the help_text of the field using name
             for k,v in diff.items():
                 for field in Passport._meta.fields:
@@ -151,7 +145,6 @@ class PassportUpdateView(UpdateView):
                 changed = u"Изменено: "
                 for k, v in diff.items():
                     changed += u" %s -> %s | " % (k, v)
-                print changed
                 reversion.set_comment(changed)
         else:
             with reversion.create_revision():
@@ -172,15 +165,12 @@ class PassportDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('list')
 
-    # if may_edit not set then deny access
     @method_decorator(permission_required("core.delete_passport"))
     def dispatch(self,request, *args, **kwargs):
         pk = request.resolver_match.kwargs.get('pk')
         obj = Passport.objects.get(pk=pk)
         if not request.user.is_staff:
             if obj.owner != request.user.username:
-                return HttpResponseForbidden()
-            if not obj.may_edit:
                 return HttpResponseForbidden()
         return super(PassportDeleteView, self).dispatch(request, *args, **kwargs)
 
@@ -201,8 +191,8 @@ class PassportCreateView(CreateView):
 
     def post(self, request, *args, **kwargs):
         post = request.POST.copy()
-        # set default value to may_edit
-        post.update({"owner": request.user.username, "may_edit": True})
+        # set default value
+        post.update({"owner": request.user.username})
         request.POST = post
         return super(PassportCreateView, self).post(request, *args, **kwargs)
 
@@ -306,6 +296,8 @@ class PassportListView(ListView):
                 get_utf_8[k] = v.encode("utf-8")
             url = urllib.urlencode(get_utf_8)
             context["paginate_url"] = url
+        # get count of all Passports
+        context["count"] = self.object_list.count()
         return context
 
     def get(self, request, **kwargs):
