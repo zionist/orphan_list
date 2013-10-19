@@ -5,6 +5,7 @@ import urllib
 from datetime import date
 
 import reversion
+from django.utils.encoding import smart_text
 from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 from django.views.generic.edit import (CreateView,
@@ -131,17 +132,31 @@ class PassportUpdateView(UpdateView):
 
     def form_valid(self, form):
         version_list = reversion.get_unique_for_object(self.object)
-        version = version_list[0]
-        # get difference between last version and new version
-        diff = {}
-        for k,v in version.field_dict.iteritems():
-            if v not in form.cleaned_data.values():
-                diff[k] = v
-        del diff["id"]
-        print diff
-        with reversion.create_revision():
-            form.save()
-            reversion.set_comment(_("Changed %s." % diff))
+        if version_list:
+            version = version_list[0]
+            # get difference between last version and new version
+            diff = {}
+            for k,v in version.field_dict.iteritems():
+                if v not in form.cleaned_data.values():
+                    diff[k] = v
+            del diff["id"]
+            # get the help_text of the field using name
+            for k,v in diff.items():
+                for field in Passport._meta.fields:
+                    if field.name == k:
+                        diff[smart_text(field.help_text)] = v
+                        del diff[k]
+            with reversion.create_revision():
+                form.save()
+                changed = u"Изменено: "
+                for k, v in diff.items():
+                    changed += u" %s -> %s | " % (k, v)
+                print changed
+                reversion.set_comment(changed)
+        else:
+            with reversion.create_revision():
+                form.save()
+            
         return super(PassportUpdateView, self).form_valid(form)
 
 
