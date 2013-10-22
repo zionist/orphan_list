@@ -5,7 +5,8 @@ from djangosphinx.models import SphinxSearch
 
 from orphan_list.common.constants import REGISTRAION_WHERE_CHOICES, FAMILY_STATUS_CHOICES, JOB_TYPE_CHOICES, \
     BOOLEAN_CHOICES, DOCUMENT_CHOICES, LOWFUL_STATUSES, EDUCATION_TYPE_CHOICES, HIRING_TYPE_CHOICES, LODGING_CHOICES, \
-    LODGING_HOUSE_OR_FLAT_CHOICES, REGION_CHOICES, MO_CHOICES, SPOKESNAM_TYPE_CHOICES
+    LODGING_HOUSE_OR_FLAT_CHOICES, REGION_CHOICES, MO_CHOICES, SPOKESNAM_TYPE_CHOICES, \
+    LOWFUL_STATUS_DOCUMENS_CHOICES
 
 
 class Passport(models.Model):
@@ -101,7 +102,7 @@ class Passport(models.Model):
     lowful_status = models.CharField("Правовой статус",
         help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
         max_length=255)
-    lowful_document_name = models.CharField("Наименование документа устанавливающего правовой статус",
+    lowful_document_name = models.CharField("Наименование документа устанавливающего правовой статус", choices=LOWFUL_STATUS_DOCUMENS_CHOICES,
         help_text="Наименование документа устанавливающего правовой статус",
         max_length=255, blank=True)
     lowful_status_date = models.DateField("Дата документа, устанавливающего правовой статус",
@@ -111,7 +112,7 @@ class Passport(models.Model):
         help_text="Номер документа, устанавливающего правовой статус",
         blank=True, max_length=255)
 
-    lowful_document_name2 = models.CharField("Наименование второго документа устанавливающего правовой статус",
+    lowful_document_name2 = models.CharField("Наименование второго документа устанавливающего правовой статус", choices=LOWFUL_STATUS_DOCUMENS_CHOICES,
         help_text="Наименование документа устанавливающего правовой статус",
         max_length=255, blank=True)
     lowful_status_date2 = models.DateField("Дата второго документа, устанавливающего правовой статус",
@@ -124,6 +125,19 @@ class Passport(models.Model):
     lowful_status_invalidity = models.CharField("Инвалидность",
         help_text="Инвалидность", blank=True, choices=BOOLEAN_CHOICES,
         max_length=255)
+
+    lowful_status_other_document = models.CharField("Иной документ устанавливающий правовой статус", 
+        help_text="Иной документ устанавливающий правовой статус", blank=True, 
+        max_length=2048)
+    lowful_status_date_of_death = models.DateField("Документ устанавливающий статус дата смерти",
+        help_text="Дата смерти", blank=True, null=True,
+        max_length=2048)
+    lowful_status_other_document2 = models.CharField("Иной второй документ устанавливающий правовой статус", 
+        help_text="Иной документ устанавливающий правовой статус", blank=True, 
+        max_length=2048)
+    lowful_status_date_of_death2 = models.DateField("Второй документ устанавливающий правовой статус дата смерти",
+        help_text="Дата смерти", blank=True, null=True,
+        max_length=2048)
 
     # place of detect
     place_of_detect = models.CharField("Место первичного выявления (регион)",

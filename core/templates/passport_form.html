@@ -384,6 +384,30 @@
 </div>
 
 <div class = "row">
+    <div class="span6 text-error lowful_status_other">
+        {% for error in form.lowful_status_other_document.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span6 text-error lowful_status_death">
+        {% for error in form.lowful_status_date_of_death.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span6 lowful_status_other">{{ form.lowful_status_other_document.label }}</div>
+    <div class="span6 lowful_status_death">{{ form.lowful_status_date_of_death.label }}</div>
+</div>
+<div class = "controls-row lowful_status_other">
+    {{ form.lowful_status_other_document|attr:"class: span6" }}
+</div>
+
+<div class = "controls-row lowful_status_death">
+    {{ form.lowful_status_date_of_death|attr:"class: span6 date" }}
+</div>
+
+<div class = "row">
     <div class="span6 text-error">
         {% for error in form.lowful_document_name2.errors %}
             {{ error }}
@@ -410,6 +434,31 @@
     {{ form.lowful_status_date2|attr:"class: span3 date" }}
     {{ form.lowful_status_number2|attr:"class: span3" }}
 </div>
+
+<div class = "row">
+    <div class="span6 text-error lowful_status_other2">
+        {% for error in form.lowful_status_other_document2.errors %}
+           {{ error }}
+        {% endfor %}
+    </div>
+    <div class="span6 text-error lowful_status_death2">
+        {% for error in form.lowful_status_date_of_death2.errors %}
+            {{ error }}
+        {% endfor %}
+    </div>
+</div>
+<div class = "row">
+    <div class="span6 lowful_status_other2">{{ form.lowful_status_other_document2.label }}</div>
+    <div class="span6 lowful_status_death2">{{ form.lowful_status_date_of_death2.label }}</div>
+</div>
+<div class = "controls-row lowful_status_other2">
+    {{ form.lowful_status_other_document2|attr:"class: span6" }}
+</div>
+
+<div class = "controls-row lowful_status_death2">
+    {{ form.lowful_status_date_of_death2|attr:"class: span6 date" }}
+</div>
+
 {#  spokesman data #}
 <span id="spokesman_data">
     <div class="row">
@@ -646,20 +695,20 @@
 </div>
 
 <div class = "row">
-    <div class="span4 text-error">
+    <div class="span3 text-error">
         {% for error in form.order_of_hiring_date.errors %}
             {{ error }}
         {% endfor %}
     </div>
-    <div class="span4 text-error">
+    <div class="span3 text-error">
         {% for error in form.order_of_hiring_number.errors %}
             {{ error }}
         {% endfor %}
     </div>
 </div>
 <div class = "row">
-    <div class="span4 lodging">{{ form.order_of_hiring_date.label }}</div>
-    <div class="span4 lodging">{{ form.order_of_hiring_number.label }}</div>
+    <div class="span3 lodging">{{ form.order_of_hiring_date.label }}</div>
+    <div class="span3 lodging">{{ form.order_of_hiring_number.label }}</div>
 </div>
 <div class = "controls-row">
     {{ form.order_of_hiring_date|attr:"class:span3 lodging date"|attr:"placeholder:день.месяц.год" }}

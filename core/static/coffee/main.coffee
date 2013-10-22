@@ -35,6 +35,40 @@ $(document).ready ->
       $("#id_registration_other").val("")
       $(".registration_other").hide()
 
+  show_hide_lowful_status = () ->
+    document = $("#id_lowful_document_name :selected").val()
+    switch document
+      when "Иной документ"
+        $(".lowful_status_other").show()
+        $("#id_lowful_status_date_of_death").val("")
+        $(".lowful_status_death").hide()
+      when "Свидетельство о смерти"
+        $(".lowful_status_death").show()
+        $("#id_lowful_status_other_document").val("")
+        $(".lowful_status_other").hide()
+      else
+        $("#id_lowful_status_other_document").val("")
+        $(".lowful_status_other").hide()
+        $("#id_lowful_status_date_of_death").val("")
+        $(".lowful_status_death").hide()
+
+  show_hide_lowful_status2 = () ->
+    document = $("#id_lowful_document_name2 :selected").val()
+    switch document
+      when "Иной документ"
+        $(".lowful_status_other2").show()
+        $("#id_lowful_status_date_of_death2").val("")
+        $(".lowful_status_death2").hide()
+      when "Свидетельство о смерти"
+        $(".lowful_status_death2").show()
+        $("#id_lowful_status_other_document2").val("")
+        $(".lowful_status_other2").hide()
+      else
+        $("#id_lowful_status_other_document2").val("")
+        $("#id_lowful_status_date_of_death2").val("")
+        $(".lowful_status_other2").hide()
+        $(".lowful_status_death2").hide()
+
   show_hide_living_other = () ->
     where_live = $("#id_living_address_where :selected").val()
     if where_live == "Иное жилое помещение"
@@ -159,6 +193,8 @@ $(document).ready ->
     show_hide_estate()
     show_hide_job()
     show_hide_lodging()
+    show_hide_lowful_status()
+    show_hide_lowful_status2()
 
   # form show hide logic
   $("#id_registration_address_where").click ->
@@ -176,5 +212,10 @@ $(document).ready ->
     show_hide_job()
   $("#id_lodging_accordance").click ->
     show_hide_lodging()
+  $("#id_lowful_document_name").click ->
+    show_hide_lowful_status()
+  $("#id_lowful_document_name2").click ->
+    show_hide_lowful_status2()
+
 
 
