@@ -43,9 +43,9 @@ class Passport(models.Model):
         help_text="Дата заключения УОМС", blank=True, null=True)
 
     # person document
-    document = models.CharField("Документ удостоверяющий личность",
+    document = models.CharField("Документ, удостоверяющий личность",
         choices=DOCUMENT_CHOICES,
-        help_text = "Документ удостоверяющий личность", max_length=255,
+        help_text = "Документ, удостоверяющий личность", max_length=255,
         blank=True)
     document_number = models.CharField("Серия / номер",
         help_text="Серия / номер", max_length=255,
@@ -145,14 +145,14 @@ class Passport(models.Model):
         max_length=2048, blank=True)
     place_of_detect_mo = models.CharField("Место первичного выявления (МО)",
         help_text="Место первичного выявления (МО)", blank=True, max_length=2048)
-    place_of_detect_document_name = models.CharField("Место первичного выявления наименование документа",
-        help_text="Меcто первичного выявления наименование документа",
+    place_of_detect_document_name = models.CharField("Место первичного выявления, наименование документа",
+        help_text="Меcто первичного выявления, наименование документа",
         max_length=2048, blank=True)
-    place_of_detect_document_date  = models.DateField("Место первичного выявления дата документа",
-        help_text="Место первичного выявления дата документа", null=True,
+    place_of_detect_document_date  = models.DateField("Место первичного выявления, дата документа",
+        help_text="Место первичного выявления, дата документа", null=True,
         blank=True)
-    place_of_detect_document_number = models.CharField("Место первичного выявления номер документа",
-        help_text="Место первичного выявления номер документа", blank=True, max_length=255)
+    place_of_detect_document_number = models.CharField("Место первичного выявления, номер документа",
+        help_text="Место первичного выявления, номер документа", blank=True, max_length=255)
 
     # spokesman data
     form_of_care_spokesman_data = models.CharField("Сведения о "
