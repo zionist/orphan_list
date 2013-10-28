@@ -219,7 +219,6 @@ class PassportListView(ListView):
                 field = Passport._meta.get_field_by_name(name)[0]
                 search_form_generate_from[name] = field.help_text
 
-
         # add extra fields
         for key, value in EXTRA_SEARCH_FIELDS.items():
             if data.get(key):
@@ -238,7 +237,6 @@ class PassportListView(ListView):
             # filter results according XlsSelectForm in session
             objects.append(fields)
 
-
         # create
         book = xlwt.Workbook(encoding='utf8')
         sheet = book.add_sheet('untitled')
@@ -248,7 +246,6 @@ class PassportListView(ListView):
 
         response = HttpResponse(mimetype='application/vnd.ms-excel')
         response['Content-Disposition'] = 'attachment; filename=list.xls'
-
 
         # write header
         for column_index, field in enumerate(objects[0]):

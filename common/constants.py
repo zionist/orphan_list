@@ -66,9 +66,11 @@ LODGING_HOUSE_OR_FLAT_CHOICES = (
 )
 
 DEFAULT_SEARCH_TRUE_VALUES = {
-    u'surname': u'Фамилия',
-    u'name': u'Имя',
+    u'owner': u'Владелец',
     u'year': u'Год рождения',
+    u'patronymic': u'Отчество',
+    u'name': u'Имя',
+    u'surname': u'Фамилия',
     }
 
 DEFAULT_XLS_TRUE_VALUES = {
