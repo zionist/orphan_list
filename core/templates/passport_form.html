@@ -459,6 +459,65 @@
     {{ form.lowful_status_date_of_death2|attr:"class: span6 date" }}
 </div>
 
+{# place #}
+<div class="row">
+    <div class="span12">  &nbsp;  </div>
+</div>
+<div class="row">
+    <div class="span12 grey text-center">
+        <h5 class="text-info"> Место первичного выявления </h5>
+    </div>
+</div>
+
+<div class = "row">
+  <div class="span4 text-error">
+      {% for error in form.place_of_detect.errors %}
+          {{ error }}
+      {% endfor %}
+  </div>
+  <div class="span4 text-error">
+      {% for error in form.place_of_detect_mo.errors %}
+          {{ error }}
+      {% endfor %}
+  </div>
+  <div class="span4 text-error">
+      {% for error in form.place_of_detect_document_name.errors %}
+          {{ error }}
+      {% endfor %}
+  </div>
+</div>
+<div class = "row">
+  <div class="span4">{{ form.place_of_detect.label }}</div>
+  <div class="span4">{{ form.place_of_detect_mo.label }}</div>
+  <div class="span4">{{ form.place_of_detect_document_name.label }}</div>
+</div>
+<div class = "controls-row">
+  {{ form.place_of_detect |attr:"class: span4" }}
+  {{ form.place_of_detect_mo |attr:"class: span4" }}
+  {{ form.place_of_detect_document_name |attr:"class: span4" }}
+</div>
+
+<div class = "row">
+  <div class="span4 text-error">
+      {% for error in form.place_of_detect_document_date.errors %}
+          {{ error }}
+      {% endfor %}
+  </div>
+  <div class="span4 text-error">
+      {% for error in form.place_of_detect_document_number.errors %}
+          {{ error }}
+      {% endfor %}
+  </div>
+</div>
+<div class = "row">
+  <div class="span4">{{ form.place_of_detect_document_date.label }}</div>
+  <div class="span4">{{ form.place_of_detect_document_number.label }}</div>
+</div>
+<div class = "controls-row">
+  {{ form.place_of_detect_document_date |attr:"class: span4 date" }}
+  {{ form.place_of_detect_document_number |attr:"class: span4" }}
+</div>
+
 {#  spokesman data #}
 <span id="spokesman_data">
     <div class="row">
@@ -715,64 +774,6 @@
     {{ form.order_of_hiring_number|attr:"class:span3 lodging" }}
 </div>
 
-{# place #}
-<div class="row">
-    <div class="span12">  &nbsp;  </div>
-</div>
-<div class="row">
-    <div class="span12 grey text-center">
-        <h5 class="text-info"> Место первичного выявления </h5>
-    </div>
-</div>
-
-<div class = "row">
-  <div class="span4 text-error">
-      {% for error in form.place_of_detect.errors %}
-          {{ error }}
-      {% endfor %}
-  </div>
-  <div class="span4 text-error">
-      {% for error in form.place_of_detect_mo.errors %}
-          {{ error }}
-      {% endfor %}
-  </div>
-  <div class="span4 text-error">
-      {% for error in form.place_of_detect_document_name.errors %}
-          {{ error }}
-      {% endfor %}
-  </div>
-</div>
-<div class = "row">
-  <div class="span4">{{ form.place_of_detect.label }}</div>
-  <div class="span4">{{ form.place_of_detect_mo.label }}</div>
-  <div class="span4">{{ form.place_of_detect_document_name.label }}</div>
-</div>
-<div class = "controls-row">
-  {{ form.place_of_detect |attr:"class: span4" }}
-  {{ form.place_of_detect_mo |attr:"class: span4" }}
-  {{ form.place_of_detect_document_name |attr:"class: span4" }}
-</div>
-
-<div class = "row">
-  <div class="span4 text-error">
-      {% for error in form.place_of_detect_document_date.errors %}
-          {{ error }}
-      {% endfor %}
-  </div>
-  <div class="span4 text-error">
-      {% for error in form.place_of_detect_document_number.errors %}
-          {{ error }}
-      {% endfor %}
-  </div>
-</div>
-<div class = "row">
-  <div class="span4">{{ form.place_of_detect_document_date.label }}</div>
-  <div class="span4">{{ form.place_of_detect_document_number.label }}</div>
-</div>
-<div class = "controls-row">
-  {{ form.place_of_detect_document_date |attr:"class: span4 date" }}
-  {{ form.place_of_detect_document_number |attr:"class: span4" }}
-</div>
 
 <br />
         <input type="submit" class="btn btn-primary" value="Сохранить" />

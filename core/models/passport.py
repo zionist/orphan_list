@@ -102,7 +102,7 @@ class Passport(models.Model):
     lowful_status = models.CharField("Правовой статус",
         help_text="Правовой статус", choices=LOWFUL_STATUSES, blank=True,
         max_length=255)
-    lowful_document_name = models.CharField("Наименование документа устанавливающего правовой статус", choices=LOWFUL_STATUS_DOCUMENS_CHOICES,
+    lowful_document_name = models.CharField("Наименование документа, устанавливающего правовой статус", choices=LOWFUL_STATUS_DOCUMENS_CHOICES,
         help_text="Наименование документа устанавливающего правовой статус",
         max_length=255, blank=True)
     lowful_status_date = models.DateField("Дата документа, устанавливающего правовой статус",
@@ -112,7 +112,7 @@ class Passport(models.Model):
         help_text="Номер документа, устанавливающего правовой статус",
         blank=True, max_length=255)
 
-    lowful_document_name2 = models.CharField("Наименование второго документа устанавливающего правовой статус", choices=LOWFUL_STATUS_DOCUMENS_CHOICES,
+    lowful_document_name2 = models.CharField("Наименование второго документа, устанавливающего правовой статус", choices=LOWFUL_STATUS_DOCUMENS_CHOICES,
         help_text="Наименование документа устанавливающего правовой статус",
         max_length=255, blank=True)
     lowful_status_date2 = models.DateField("Дата второго документа, устанавливающего правовой статус",

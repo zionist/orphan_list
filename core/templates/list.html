@@ -64,7 +64,7 @@
                             <td> </td>
                         {% endif %}
                         {% if passport.owner %}
-                            <td><a href="/core/list/?owner={{ passport.owner }}">{{ passport.owner }}</a></td>
+                            <td><a href="/core/list/?exact=on&owner={{passport.owner}}">{{ passport.owner }}</a></td>
                         {% else %}
                             <td> </td>
                         {% endif %}
