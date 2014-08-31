@@ -21,7 +21,7 @@ from django.http import HttpResponseForbidden
 from common.constants import DEFAULT_SEARCH_TRUE_VALUES, EXTRA_SEARCH_FIELDS
 
 
-#dynamicly generate context from model fields
+# dynamicly generate context from model fields
 # pass help text from models to context
 def get_name_value_from_object(object, xls=False, request=None):
     """

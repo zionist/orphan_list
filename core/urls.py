@@ -16,5 +16,5 @@ urlpatterns = patterns('',
     url(r"^login/$", "django.contrib.auth.views.login",
         {"template_name": "login.html"}),
     url(r"^logout/$", "django.contrib.auth.views.logout_then_login",
-        {"login_url": "/core/login", "extra_context": {"title": "true"}})
+        {"login_url": "/login", "extra_context": {"title": "true"}})
 )
