@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  </head>
+  <body>
+
+  <div class="container">
+      <h1> Шаблон формы поиска связей базы мониторинга с базой списка </h1>
+      <div class="row">
+           <div class="col-md-3"> </div>
+      </div>
+
+      <form class="form" role="form">
+          <div class="row">
+              <div class="col-xs-3">
+                  <label for="name">Имя</label>
+                  <input type="text" id="name" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                  <label for="surname">Фамилия</label>
+                  <input type="text" id="surname" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                  <label for="middlename">Отчество</label>
+                  <input type="text" id="middlename" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                  <label for="order_allegation_date">Дата подачи заявления</label>
+                  <input type="text" id="order_allegation_date" class="form-control" placeholder="__.__.__">
+              </div>
+          </div>
+          <br />
+          <div class="row">
+              <div class="col-xs-3">
+                  <label for="mo">Наименование МО</label>
+                  <select id="mo" class="form-control">
+                      <option>г. Анапа</option>
+                  </select>
+              </div>
+              <div class="col-xs-3">
+                  <label for="city">Населенный пункт</label>
+                  <select id="city" class="form-control">
+                      <option>х. Ленина</option>
+                  </select>
+              </div>
+              <div class="col-xs-3">
+                  <label for="street">Улица</label>
+                  <input type="text" id="street" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                  <label for="house">Дом</label>
+                  <input type="text" id="house" class="form-control">
+              </div>
+          </div>
+          <br />
+          <div class="row">
+              <div class="col-xs-12">
+                  <label for="address">Поиск по полному адресу</label>
+                  <input type="text" id="address" class="form-control">
+              </div>
+          </div>
+          <br />
+          <div class="row">
+              <div class="col-xs-3">
+                  <label for="start_year">Срок начала учета</label>
+                  <input type="text" id="start_year" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                  <label for="finish_year">Срок окончания учета</label>
+                  <input type="text" id="finish_year" class="form-control">
+              </div>
+              <div class="col-xs-3">
+                  <label for="owner">Владелец</label>
+                  <select id="owner" class="form-control">
+                      <option>Н. Мокринская</option>
+                  </select>
+              </div>
+          </div>
+          <br />
+          <button type="submit" class="btn btn-primary">Искать</button>
+      </form>
+  </div>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>
